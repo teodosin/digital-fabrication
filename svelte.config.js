@@ -14,7 +14,13 @@ const config = {
 		adapter: adapter(),
 		paths: {
             base: process.env.NODE_ENV === 'production' ? '/digital-fabrication' : '',
-        }
+        },
+		prerender: {
+			entries: [
+				"/blog",
+				"/blog/about",
+				"/blog/something"]
+	}
 	},
 
 	extensions: ['.svelte', '.md'],

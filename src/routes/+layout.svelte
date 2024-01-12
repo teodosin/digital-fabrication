@@ -1,11 +1,29 @@
 <script lang="ts">
-    import { base } from '$app/paths';
+	import { base } from "$app/paths";
 </script>
 
-<nav>
+<nav class="nav">
 	<a href="{base}/">Home</a>
-	<a href="{base}/blog/about">About</a>
 </nav>
 
-<slot></slot>
+<slot />
 
+
+<style>
+    :global(body) {
+        background-color: #121212;
+        color: #f5f5f5;
+    }
+
+    :global(a) {
+        color: #bb86fc;
+    }
+
+	.nav {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 40rem;
+		display: flex;
+		justify-content: left;
+	}
+</style>

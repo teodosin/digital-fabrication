@@ -1,9 +1,9 @@
 ---
 title: "About"
 date: "2024-01-11"
+description: "An introduction to my work"
+tags: ["about"]
 ---
-
-# Hello. 
 
 My name is Viktor. I am almost done with studying Visual Communication Design. Trying to make the most of my last semester by learning Digital Fabrication. 
 
