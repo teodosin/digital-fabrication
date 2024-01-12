@@ -1,6 +1,6 @@
 <script>
   // @ts-nocheck
-
+	import { base } from "$app/paths";
   import { onMount } from "svelte";
   import { fetchMarkdownPosts } from "$lib/utils";
   import TagFilter from "$lib/tag-filter.svelte";
@@ -36,14 +36,18 @@
   <TagFilter {tags} on:tagselected={handleTagSelected} />
 
   {#each filteredPosts as post}
-    <article>
-      <h3><a href={`${post.path}`}>{post.meta.title}</a></h3>
+    <article class="post">
+      <h3><a href={`${base}${post.path}`}>{post.meta.title}</a></h3>
       <p>{post.meta.description}</p>
     </article>
   {/each}
 </div>
 
 <style>
+  .post {
+    margin-bottom: 3rem;
+  }
+
   .container {
     max-width: 40rem;
     margin: 0 auto;

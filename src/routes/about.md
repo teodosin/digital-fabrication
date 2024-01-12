@@ -1,7 +1,7 @@
 ---
 title: "About"
 date: "2024-01-11"
-description: "An introduction to my work"
+description: "An introduction to me and my work"
 tags: ["about"]
 ---
 
