@@ -36,21 +36,27 @@
   
   <style>
     .tag_button {
-      background-color: #f5f5f5;
-      border: none;
-      color: black;
+      background-color: #007bff11;
+      border: 1px solid white;
+      color: white;
       padding: 0.5rem 1rem;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 1rem;
+      font-weight: 100;
       margin: 0.25rem 0.25rem;
       cursor: pointer;
-      border-radius: 0.25rem;
+      border-radius: 1rem;
+    }
+    .tag_button:hover {
+      border: 1px solid #007bff;
     }
     .active {
-      background-color: #007BFF;
-      color: white;
+      font-weight: 800;
+      border: 1px solid #790127;
+      background-color: #ffef15;
+      color: black;
     }
 
     .tags-body {

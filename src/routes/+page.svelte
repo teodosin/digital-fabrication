@@ -46,6 +46,12 @@
 <style>
   .post {
     margin-bottom: 3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 1rem;
+    border-left: 1px solid #af1ccc;
+  }
+  .post:hover {
+    border-left: 2px solid #930aa5;
   }
 
   .container {

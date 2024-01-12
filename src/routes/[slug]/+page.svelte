@@ -8,7 +8,7 @@
 <div class="centered-container">
     <article>
         <h1>{data.title}</h1>
-        <p>Published: {data.date}</p>
+        <p class="date">Published: {data.date}</p>
         <svelte:component this={data.content} />
     </article>
 </div>
@@ -19,5 +19,12 @@
 		margin-right: auto;
         justify-content: center;
 		max-width: 40rem;
+    }
+
+    .date {
+        margin-top: -2rem;
+        margin-bottom: 3rem;
+        font-size: 0.8rem;
+        font-style: italic;
     }
 </style>
