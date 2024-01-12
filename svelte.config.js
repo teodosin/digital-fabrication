@@ -18,7 +18,8 @@ const config = {
 		prerender: {
 			entries: [
 				"/blog",
-				"/blog/about",]
+				"/blog/about",
+				"/blog/something"]
 	}
 	},
 
