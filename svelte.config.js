@@ -3,6 +3,10 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
 import { mdsvex } from 'mdsvex';
 
+import remarkUnwrapImages from 'remark-unwrap-images';
+import remarkAttr from 'remark-attr';
+
+
 /** @type {import('@sveltejs/kit').Config} */
 
 const basePath = process.env.NODE_ENV === 'production' ? '/digital-fabrication' : '';
@@ -32,6 +36,10 @@ const config = {
 		sveltePreprocess(),
 		mdsvex({
 			extensions: ['.md'],
+			remarkPlugins: [
+				remarkUnwrapImages,
+				remarkAttr,
+			],
 		})
 	]
 };
