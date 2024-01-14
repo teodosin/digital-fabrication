@@ -20,7 +20,7 @@ if (!tenantId || !clientId || !clientSecret) {
 const config = {
     auth: {
         clientId: clientId,
-        authority: `https://login.microsoftonline.com/${tenantId}`,
+        authority: `https://login.microsoftonline.com/consumers`,
         clientSecret: clientSecret
     }
 };
