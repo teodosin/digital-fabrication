@@ -3,8 +3,8 @@
 // @ts-ignore
 export async function load({ params }) {
     try {
-        const posts = import.meta.glob('/src/routes/*.md');
-        const post = await posts[`/src/routes/${params.slug}.md`]();
+        const posts = import.meta.glob('/src/posts/*.md');
+        const post = await posts[`/src/posts/${params.slug}.md`]();
         // @ts-ignore
         const { title, date } = post.metadata;
         // @ts-ignore

@@ -6,10 +6,20 @@ import { mdsvex } from 'mdsvex';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkAttr from 'remark-attr';
 
+import fs from 'fs';
+import path from 'path';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /** @type {import('@sveltejs/kit').Config} */
 
 const basePath = process.env.NODE_ENV === 'production' ? '/digital-fabrication' : '';
+
+const entries = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'src/lib/utils/prerender-entries.json'), 'utf-8'));
 
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
@@ -23,10 +33,11 @@ const config = {
             base: basePath,
         },
         prerender: {
-            entries: [
-                "/about",
-                "/something"
-            ]//.map(path => `${basePath}${path}`)
+			entries: entries,
+            // entries: [
+            //     "/about",
+            //     "/something"
+            // ]
         }
 	},
 
