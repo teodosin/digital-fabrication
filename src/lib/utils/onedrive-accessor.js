@@ -1,10 +1,5 @@
 import { Client } from "@microsoft/microsoft-graph-client";
-// import { TokenCredentialAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials";
-let TokenCredentialAuthenticationProvider;
-import("@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials").then((module) => {
-    TokenCredentialAuthenticationProvider = module.TokenCredentialAuthenticationProvider;
-});
-import { ClientSecretCredential } from "@azure/identity";
+import { ConfidentialClientApplication } from "@azure/msal-node";
 import fs from 'fs';
 import path from 'path';
 
@@ -22,15 +17,31 @@ if (!tenantId || !clientId || !clientSecret) {
     throw new Error('Environment variables AZURE_TENANT_ID, AZURE_CLIENT_ID, or AZURE_CLIENT_SECRET are not set');
 }
 
-const tokenCredential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+const config = {
+    auth: {
+        clientId: clientId,
+        authority: `https://login.microsoftonline.com/${tenantId}`,
+        clientSecret: clientSecret
+    }
+};
 
-// Create an authentication provider
-const authProvider = new TokenCredentialAuthenticationProvider(tokenCredential, {
-  scopes: ["https://graph.microsoft.com/.default"],
+const pca = new ConfidentialClientApplication(config);
+
+// Authenticate to get the access token
+const authResult = await pca.acquireTokenByClientCredential({
+    scopes: ["https://graph.microsoft.com/.default"]
 });
 
+if (!authResult || !authResult.accessToken) {
+    throw new Error('Could not authenticate');
+}
+
 // Create a Graph client
-const client = Client.initWithMiddleware({ authProvider });
+const client = Client.init({
+    authProvider: (done) => {
+        done(null, authResult.accessToken);
+    }
+});
 
 async function syncFiles() {
     // Get the files in the OneDrive folder
