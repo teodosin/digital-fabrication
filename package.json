@@ -12,6 +12,8 @@
 		"deploy": "npm run build && npx gh-pages -d build -t true"
 	},
 	"devDependencies": {
+		"@azure/identity": "^4.0.0",
+		"@microsoft/microsoft-graph-client": "^3.0.7",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-static": "^3.0.1",
 		"@sveltejs/kit": "^2.0.0",
