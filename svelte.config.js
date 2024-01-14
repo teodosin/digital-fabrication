@@ -15,6 +15,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+
 /** @type {import('@sveltejs/kit').Config} */
 
 const basePath = process.env.NODE_ENV === 'production' ? '/digital-fabrication' : '';
