@@ -1,6 +1,9 @@
 import { Client } from "@microsoft/microsoft-graph-client";
 // import { TokenCredentialAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials";
-const { TokenCredentialAuthenticationProvider } = require("@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials");
+let TokenCredentialAuthenticationProvider;
+import("@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials").then((module) => {
+    TokenCredentialAuthenticationProvider = module.TokenCredentialAuthenticationProvider;
+});
 import { ClientSecretCredential } from "@azure/identity";
 import fs from 'fs';
 import path from 'path';
