@@ -43,14 +43,16 @@ const client = Client.init({
     }
 });
 
+const userId = 'teodosin@protonmail.com';
+
 async function syncFiles() {
     // Get the files in the OneDrive folder
     const folderPath = encodeURIComponent('PROJECTS/--OBSIDIAN--/Obsidian Vault/WebsitePosts');
-    const driveItems = await client.api(`/me/drive/root:/${folderPath}:/children`).get();
+    const driveItems = await client.api(`/users/${userId}/drive/root:/${folderPath}:/children`).get();
   
     // Download each file and save it to the src/posts directory
     for (const driveItem of driveItems.value) {
-      const fileContent = await client.api(`/me/drive/items/${driveItem.id}/content`).get();
+      const fileContent = await client.api(`/${userId}/drive/items/${driveItem.id}/content`).get();
       fs.writeFileSync(path.join(__dirname, 'src/posts', driveItem.name), fileContent);
     }
 }
