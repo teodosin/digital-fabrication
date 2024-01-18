@@ -4,8 +4,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "node src/lib/utils/generate-entries.js && vite dev",
+		"resize-images": "node src/lib/utils/resize-images.js",
 		"prebuild": "node src/lib/utils/generate-entries.js",
-		"build": "vite build",
+		"build": "npm run resize-images && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -31,5 +32,8 @@
 		"typescript": "^5.0.0",
 		"vite": "^5.0.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"sharp": "^0.33.2"
+	}
 }

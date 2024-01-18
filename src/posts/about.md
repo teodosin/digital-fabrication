@@ -2,11 +2,12 @@
 title: "About"
 date: "2024-01-11"
 description: "Introducing myself"
-tags: ["about"]
+categories: ["about"]
+cover: "profile-cover.jpg"
 ---
 
-![A picture of the author](my-face.jpeg){.tiny .round}
+![A picture of the author](my-face.jpeg "hi"){.tiny .round .no-caption}
 
-My name is Viktor. I am almost done with studying Visual Communication Design. Trying to make the most of my last semester by learning Digital Fabrication. 
+I'm Viktor. Almost done with my master's in Visual Communication Design. Trying to make the most of my last semester by learning Digital Fabrication. 
 
-I briefly studied programming before my current studies. I enjoy making tools, either by code for digital art or by woodworking for traditional art. I'd love to be able to make electronic devices and merge digital and physical workflows in more interesting ways. 
+I briefly studied programming before my current studies and have since been self-taught. I enjoy making tools, either by code for digital art or by woodworking for traditional art. I'd love to be able to make electronic devices and merge digital and physical workflows in more interesting ways. 

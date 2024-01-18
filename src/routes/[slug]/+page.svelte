@@ -1,23 +1,34 @@
 <!-- src/routes/[slug]/+page.svelte -->
 <script lang="ts">
-	import type { PageData } from './$types';
+    type PageData = {
+        content: string;
+        title: string;
+        date: string;
+        tags: string[];
+    };
+    import TableOfContents from "$lib/table-of-contents.svelte";
 
-	export let data: PageData;
+    export let data: PageData;
 </script>
 
 <div class="centered-container">
     <article class="post">
         <h1>{data.title}</h1>
         <p class="date">Published: {data.date}</p>
+<!-- 
+        {#if data.tags.includes("long-form")}
+            <TableOfContents content={data.content} />
+        {/if} -->
+
         <svelte:component this={data.content} />
     </article>
 </div>
 
 <style>
     .centered-container {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: 40rem;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 40rem;
     }
 
     .post {
@@ -25,18 +36,17 @@
         flex-direction: column;
     }
 
-    .centered-container :global(img){
+    .centered-container :global(img) {
         width: 100%;
         align-self: center;
         margin-top: 2rem;
-        margin-bottom: 2rem;    
-        
+        margin-bottom: 2rem;
     }
 
-    .centered-container :global(.tiny){
+    .centered-container :global(.tiny) {
         width: 6rem;
     }
-    .centered-container :global(.round){
+    .centered-container :global(.round) {
         border-radius: 5rem;
     }
 
