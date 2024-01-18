@@ -13,8 +13,8 @@
   let categories = [];
 
   onMount(async () => {
-    posts = await fetchMarkdownPosts();
-    // posts = await fetchMarkdownPosts("about", "digital-fabrication");
+    // posts = await fetchMarkdownPosts();
+    posts = await fetchMarkdownPosts("about", "digital-fabrication");
     filteredPosts = posts;
     categories = Array.from(
       new Set(posts.flatMap((post) => post.meta.categories)),
@@ -72,6 +72,7 @@
 
   .grid-container {
     display: grid;
+    margin-top: 2rem;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }

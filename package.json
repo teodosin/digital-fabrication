@@ -34,6 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"remark-toc": "^9.0.0",
 		"sharp": "^0.33.2"
 	}
 }

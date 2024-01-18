@@ -5,6 +5,7 @@ import { mdsvex } from 'mdsvex';
 
 import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkAttr from 'remark-attr';
+import remarkToc from 'remark-toc';
 
 import fs from 'fs';
 import path from 'path';
@@ -30,16 +31,16 @@ const config = {
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
-        paths: {
-            base: basePath,
-        },
-        prerender: {
+		paths: {
+			base: basePath,
+		},
+		prerender: {
 			entries: entries,
-            // entries: [
-            //     "/about",
-            //     "/something"
-            // ]
-        }
+			// entries: [
+			//     "/about",
+			//     "/something"
+			// ]
+		}
 	},
 
 	extensions: ['.svelte', '.md'],
@@ -51,9 +52,11 @@ const config = {
 			remarkPlugins: [
 				remarkUnwrapImages,
 				remarkAttr,
+				remarkToc,
 			],
 		})
 	]
 };
 
 export default config;
+

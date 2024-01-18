@@ -6,13 +6,15 @@ export async function load({ params }) {
         const posts = import.meta.glob('/src/posts/*.md');
         const post = await posts[`/src/posts/${params.slug}.md`]();
         // @ts-ignore
-        const { title, date } = post.metadata;
+        const { title, date, categories, tags } = post.metadata;
         // @ts-ignore
         const content = post.default;
         return {
             content,
             title,
-            date
+            date,
+            categories,
+            tags
         };
     } catch (error) {
         console.error(`Error loading post ${params.slug}:`, error);
