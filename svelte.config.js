@@ -21,7 +21,7 @@ const __dirname = dirname(__filename);
 
 const basePath = process.env.NODE_ENV === 'production' ? '/digital-fabrication' : '';
 
-const entries = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'src/lib/utils/prerender-entries.json'), 'utf-8'));
+let entries = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'src/lib/utils/prerender-entries.json'), 'utf-8'));
 
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors

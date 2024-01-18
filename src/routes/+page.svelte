@@ -40,7 +40,7 @@
 
   <div class="grid-container">
     {#each filteredPosts as post}
-      <a href={`${base}${post.path}`}>
+      <a href={`${base}/${post.path}`}>
         <article
           class="post"
           style="background-image: url({post.meta.cover
