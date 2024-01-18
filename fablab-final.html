@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/0.xSeT64UB.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.MXUoGcHT.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.rQCCT7Nu.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.1jZTXM6L.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.Wc8xxT43.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.BDgB7Cjy.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.t1mJLdY7.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.qJ-hRxAe.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.1liHvTbB.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3._UDWf1hA.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">  <nav class="nav svelte-g9bplv" data-svelte-h="svelte-fiaftt"><a href="./">Home</a></nav>   <div class="post-header svelte-9850ab"><h1>Glove Controllers</h1> <p class="date svelte-9850ab">Published: 2024-01-18</p></div> <div class="centered-container svelte-9850ab"><div class="toc svelte-9850ab"></div> <article class="post svelte-9850ab"><p data-svelte-h="svelte-1z0jnix">A pair of glove controllers for VR and non-VR use.</p> <h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1sjfl64"><li><a href="#introduction">Introduction</a></li> <li><a href="#motivation">Motivation</a></li></ul> <h2 data-svelte-h="svelte-1ukekoe">Introduction</h2> <p data-svelte-h="svelte-1e4sat8">I am an absolute beginner with electronics. So I can’t really tell <em>exactly</em> how ambitious this project really is for the time that we are given and my skill level. So the scope of it is variable. I will try to keep the minimum level for the project small enough that it is somewhat realistic for me to achieve. If it turns out that there’s time to do a little more, it should be straightforward to spend that time adding a feature or two.</p> <p data-svelte-h="svelte-iwd1nw">At a minimum:</p> <ul data-svelte-h="svelte-1q6kn2j"><li>A controller for each hand, with flex sensors (or a functional equivalent) on each finger and the ability to send this data to a nearby computer with low latency.</li></ul> <p data-svelte-h="svelte-7o8o98">Additionally:</p> <ul data-svelte-h="svelte-1g1i763"><li>Ability to detect the independend bends of the knuckles the fingers</li> <li>Positional tracking</li> <li>Ability to detect splay of the fingers</li></ul> <h2 data-svelte-h="svelte-19l56be">Motivation</h2> <p data-svelte-h="svelte-fn95sw">For quite a few years I’ve dreamed of being able to interact with digital creative tools as naturally and gesturally as I can with something like clay. I want to be able to push and pull and grab and throw particles and vertices, and I want the experience of building muscle memory with gestures, so that with enough practice I can work as fast as I can think.</p> <p data-svelte-h="svelte-10gtzb9">I thought for quite a while that this wasn’t currently attainable for me, so it remained a dream. Then I came across <a href="https://github.com/LucidVR/lucidgloves" rel="nofollow">LucidVR</a>, an open-source do-it-yourself VR glove project. It showed me that it was possible, and I soon saw quite a few other DIY gloves online. I considered following the tutorial for the LucidGloves but wanted to wait until the tutorial for the next prototype was released.</p> <p data-svelte-h="svelte-f2uox">It’s been over year, and we’re all still waiting for the official tutorial. The parts list and bare-bones instructions have been released, but I don’t trust my technical skills in following them.</p> <p data-svelte-h="svelte-ud8xqf">The Digital Fabrication minor presents the perfect opportunity to finally attempt to make these controller gloves. It does not necessarily mean following the aforementioned instructions. Haptics aren’t that important to me, for example. And it may be the wrong direction for me in other ways, though I don’t know what those ways are. I am reliant on my teachers and classmates to point me in the right direction.</p></article> </div> 
+			
+			<script>
+				{
+					__sveltekit_pxgbcn = {
+						assets: "/digital-fabrication",
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: null
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.rQCCT7Nu.js"),
+						import("./_app/immutable/entry/app.t1mJLdY7.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
