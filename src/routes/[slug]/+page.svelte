@@ -1,9 +1,19 @@
 <!-- src/routes/[slug]/+page.svelte -->
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { afterUpdate } from "svelte";
+    import { afterUpdate, onMount } from "svelte";
 
     export let data: PageData;
+
+    onMount(() => {
+        const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        headers.forEach((header, index) => {
+            if (header.textContent !== null){
+                const ref = header.textContent.toLowerCase().replace(/ /g, "-");
+                header.id = ref;
+            }
+        });
+    });
 
     afterUpdate(() => {
         const tocHeader = document.querySelector("h3");
@@ -11,16 +21,26 @@
             const tocList = tocHeader.nextElementSibling;
             if (tocList && tocList.tagName === "UL") {
                 let toc = document.querySelector(".toc");
-                if(toc !== null){
+                if (toc !== null) {
                     toc.innerHTML = "";
                     toc.appendChild(tocHeader);
                     toc.appendChild(tocList);
                 }
+
+                const listItems = tocList.querySelectorAll("li");
+                listItems.forEach((item) => {
+                    const correspondingHeader = Array.from(
+                        document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
+                    ).find((header) => header.textContent === item.textContent);
+                    if (correspondingHeader) {
+                        const originalContent = item.innerHTML;
+                        item.innerHTML = `<a href="#${correspondingHeader.id}">${originalContent}</a>`;
+                    }
+                });
             }
         }
     });
 </script>
-
 
 <div class="post-header">
     <h1>{data.title}</h1>
@@ -29,7 +49,6 @@
 <div class="centered-container">
     <div class="toc"></div>
     <article class="post">
-
         <svelte:component this={data.content} />
     </article>
 </div>
@@ -48,7 +67,7 @@
     }
 
     .toc {
-        position: sticky; 
+        position: sticky;
         top: 0;
         max-width: 10rem;
         padding-top: 2rem;
@@ -75,9 +94,9 @@
         margin-left: 0.5rem;
     }
 
-    .toc :global(ul){
+    .toc :global(ul) {
         border-left: 1px solid #333;
-    } 
+    }
 
     .centered-container {
         display: flex;
