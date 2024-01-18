@@ -73,8 +73,8 @@
   .grid-container {
     display: grid;
     margin-top: 2rem;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .post {
@@ -94,7 +94,9 @@
   .post:hover {
     box-shadow: 0px 4px 58px 2px rgba(156, 15, 102, 0.425);
     transition: box-shadow 0.3s ease;
-    transform: scale(1.02); /* On hover, enlarge the background image slightly */
+    transform: scale(
+      1.02
+    ); /* On hover, enlarge the background image slightly */
   }
 
   .text-cont {
@@ -114,10 +116,13 @@
 
   .post-title {
     position: relative;
-
+    color: #f2f2f2aa;
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: -1.0rem;
+    margin-bottom: -1rem;
+  }
+  .post:hover .post-title {
+    color: #f5f5f5;
   }
   .post-desc {
     word-wrap: break-word;
@@ -126,10 +131,35 @@
     margin-top: 1.5rem;
     transform: scaleY(0); /* Initially scale the description's height to 0 */
     transform-origin: top; /* Set the origin of the transform to the top of the element */
-    transition: max-height 0.2s ease, transform 0.2s ease; /* Add transition for max-height and transform */
+    transition:
+      max-height 0.2s ease,
+      transform 0.2s ease; /* Add transition for max-height and transform */
   }
   .post:hover .post-desc {
     max-height: 100px; /* On hover, increase the maximum height */
-    transform: scaleY(1); /* On hover, scale the description's height back to its original size */
+    transform: scaleY(
+      1
+    ); /* On hover, scale the description's height back to its original size */
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      padding: 4px;
+    }
+    .post-title {
+      font-size: 1.2rem;
+    }
+
+    .post-desc {
+      font-size: 0.8rem;
+    }
+  }
+  @media (min-width: 900px){
+    .container {
+      max-width: 80rem;
+    }
+    .grid-container {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 </style>
