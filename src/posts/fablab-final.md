@@ -4,6 +4,7 @@ date: "2024-01-18"
 description: "The final project for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication", "long-form"]
+cover: ["gloves_sketch.jpg"]
 ---
 
 A pair of glove controllers for VR and non-VR use. 

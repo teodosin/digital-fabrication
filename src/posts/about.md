@@ -3,6 +3,7 @@ title: "About"
 date: "2024-01-11"
 description: "Introducing myself"
 categories: ["about"]
+tags: ["no-banner"]
 cover: "profile-cover.jpg"
 ---
 

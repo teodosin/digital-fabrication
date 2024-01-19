@@ -40,12 +40,19 @@
             }
         }
     });
+
+    const hasNoBannerTag = data.tags && data.tags.includes("no-banner");
 </script>
 
-<div class="post-header">
+<div class="post-header {hasNoBannerTag ? 'no-banner' : ''}">
+    {#if !hasNoBannerTag}
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <img class="cover-banner" src={data.cover} />
+    {/if}
     <h1>{data.title}</h1>
     <p class="date">Published: {data.date}</p>
 </div>
+
 <div class="centered-container">
     <div class="toc"></div>
     <article class="post">
@@ -55,22 +62,36 @@
 
 <style>
     .post-header {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: end;
         max-width: 50rem;
         border-bottom: 1px solid #333;
-        margin-top: 2rem;
+        height: 25rem;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 2rem;
+    }
+    .post-header.no-banner {
+        height: 15rem;
+    }
+    .cover-banner {
+        position: absolute;
+        height: 100%;
+        width: 100vw;
+        object-fit: cover;
+        z-index: -1;
+        bottom: 0;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* Standard property */
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* Apply a mask to the image */
     }
 
     .toc {
         position: sticky;
         top: 0;
         max-width: 10rem;
-        padding-top: 2rem;
         height: 100%;
     }
     .toc:not(:empty) {
@@ -79,7 +100,7 @@
 
     .toc :global(h3) {
         /* styles for h3 elements inside .toc */
-        color: #333;
+        color: #c0c0c0;
     }
 
     .toc :global(ul) {
@@ -134,7 +155,7 @@
         width: 100%;
         align-self: center;
         margin-top: 2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2rem; 
     }
 
     .centered-container :global(.tiny) {

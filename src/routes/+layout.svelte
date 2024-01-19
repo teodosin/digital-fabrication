@@ -4,7 +4,7 @@
 </script>
 
 <nav class="nav">
-	<a href="{base}/">Home</a>
+	<a class="nav-button" href="{base}/">Home</a>
 </nav>
 
 <slot />
@@ -15,6 +15,7 @@
 
 	:global(body) {
 		font-family: "Nunito", sans-serif;
+		margin: 0;
 		font-weight: 300;
 		font-size: 18px;
 		background-color: #121212;
@@ -47,11 +48,20 @@
 	}
 
 	.nav {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: 40rem;
+		position: absolute;
+		left: 50%; /* Move the left edge of the element to the center of the container */
+        transform: translateX(-50%);
+		margin-top: 1rem;
+		width: 95vw;
 		display: flex;
 		justify-content: left;
+		z-index: 1;
+		padding: 0.5rem;
+	}
+	.nav-button {
+		padding: 0.7rem;
+		border-radius: 2.5rem;
+		background-color: #12121279;
 	}
 
 	/* width */
