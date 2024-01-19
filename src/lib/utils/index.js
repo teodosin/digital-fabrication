@@ -2,7 +2,7 @@ export const fetchMarkdownPosts = async (category = null, tag = null) => {
     const allPostFiles = import.meta.glob('/src/posts/*.md');
     const iterablePostFiles = Object.entries(allPostFiles);
 
-    const allPosts = await Promise.all(
+    let allPosts = await Promise.all(
         iterablePostFiles.map(async ([path, resolver]) => {
             // @ts-ignore
             const { metadata } = await resolver();
@@ -14,6 +14,10 @@ export const fetchMarkdownPosts = async (category = null, tag = null) => {
             };
         })
     );
+
+    // Filter out posts with the "draft" tag
+    allPosts = allPosts.filter(post => !post.meta.tags.includes('draft'));
+
 
     // Filter posts by category or tag if they are provided
     const filteredPosts = category || tag
