@@ -8,7 +8,7 @@
     onMount(() => {
         const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
         headers.forEach((header, index) => {
-            if (header.textContent !== null){
+            if (header.textContent !== null) {
                 const ref = header.textContent.toLowerCase().replace(/ /g, "-");
                 header.id = ref;
             }
@@ -42,13 +42,31 @@
     });
 
     const hasNoBannerTag = data.tags && data.tags.includes("no-banner");
+
+    let scroll = 0;
+    let maskImageValue = "";
+    $: {
+        maskImageValue = `linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) ${
+            100 - scroll / 6
+        }%)`;
+        document.documentElement.style.setProperty(
+            "--mask-image-value",
+            maskImageValue,
+        );
+    }
 </script>
 
+<svelte:window bind:scrollY={scroll} />
+
+{#if !hasNoBannerTag}
+    <!-- svelte-ignore a11y-missing-attribute -->
+    <img
+        class="cover-banner"
+        src={data.cover}
+        style:transform={`translate3d(0, ${scroll / 2}px, 0)`}
+    />
+{/if}
 <div class="post-header {hasNoBannerTag ? 'no-banner' : ''}">
-    {#if !hasNoBannerTag}
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <img class="cover-banner" src={data.cover} />
-    {/if}
     <h1>{data.title}</h1>
     <p class="date">Published: {data.date}</p>
 </div>
@@ -79,13 +97,13 @@
     }
     .cover-banner {
         position: absolute;
-        height: 100%;
-        width: 100vw;
+        width: 100%;
+        height: 25rem;
         object-fit: cover;
         z-index: -1;
-        bottom: 0;
-        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* Standard property */
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* Apply a mask to the image */
+        top: 0;
+        mask-image: var(--mask-image-value); /* Standard property */
+        -webkit-mask-image: var(--mask-image-value);
     }
 
     .toc {
@@ -155,7 +173,7 @@
         width: 100%;
         align-self: center;
         margin-top: 2rem;
-        margin-bottom: 2rem; 
+        margin-bottom: 2rem;
     }
 
     .centered-container :global(.tiny) {
