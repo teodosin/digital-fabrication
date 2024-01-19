@@ -44,16 +44,7 @@
     const hasNoBannerTag = data.tags && data.tags.includes("no-banner");
 
     let scroll = 0;
-    let maskImageValue = "";
-    $: {
-        maskImageValue = `linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) ${
-            100 - scroll / 6
-        }%)`;
-        document.documentElement.style.setProperty(
-            "--mask-image-value",
-            maskImageValue,
-        );
-    }
+
 </script>
 
 <svelte:window bind:scrollY={scroll} />
@@ -102,8 +93,8 @@
         object-fit: cover;
         z-index: -1;
         top: 0;
-        mask-image: var(--mask-image-value); /* Standard property */
-        -webkit-mask-image: var(--mask-image-value);
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* Standard property */
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
     }
 
     .toc {
