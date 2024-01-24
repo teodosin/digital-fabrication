@@ -33,4 +33,17 @@ It's been over year, and we're all still waiting for the official tutorial. The 
 
 The Digital Fabrication minor presents the perfect opportunity to finally attempt to make these controller gloves. It does not necessarily mean following the aforementioned instructions. Haptics aren't that important to me, for example. And it may be the wrong direction for me in other ways, though I don't know what those ways are. I am reliant on my teachers and classmates to point me in the right direction. 
 
+## The Sketch
 
+![An artistic sketch of the gloves](gloves_sketch.jpg)
+
+The sketch is not meant to be realistic. I expect the real thing to be much bulkier and complex in many ways. The sketch is an abstraction of the parts I imagine the project will consist of:
+* I am assuming the most natural place for the circuit board would be the back of the hand. 
+* I'd like the circuit board to be enclosed in a casing and not exposed.
+* Finger and knuckle bends would be measured with flex sensors.
+* Splay would be measured with some sort of angular sensors on the knuckles.
+* There doesn't necessarily have to be a glove covering the entire hand, unless it turns out it is better for there to be fabric between the hand and the electronics.
+* Finger caps would help the flex sensors to stay in place and also bring the parts together aesthetically. 
+* The goal is for the gloves to allow the tactile and gesture-driven manipulation of digital material. 
+
+Give or take whatever turns out to be feasible or not. 

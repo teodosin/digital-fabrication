@@ -143,6 +143,7 @@
         display: flex;
         flex-direction: column;
         max-width: 50rem;
+        padding-bottom: 20rem;
     }
 
     @media (max-width: 600px) {
