@@ -19,7 +19,7 @@ At a minimum:
 * A controller for each hand, with flex sensors (or a functional equivalent) on each finger and the ability to send this data to a nearby computer with low latency. 
 
 Additionally:
-* Ability to detect the independend bends of the knuckles the fingers
+* Ability to detect the independent bends of the knuckles the fingers
 * Positional tracking
 * Ability to detect splay of the fingers
 
