@@ -31,6 +31,8 @@
       filteredPosts = posts;
     }
   }
+
+  let selectedPost = null;
 </script>
 
 <div class="container">
@@ -43,9 +45,14 @@
       <a href={`${base}/${post.path}`}>
         <article
           class="post"
+          on:mouseover={() => (selectedPost = post.path)}
+          on:mouseout={() => (selectedPost = null)}
+          on:focus={() => (selectedPost = post.path)}
+          on:blur={() => (selectedPost = null)}
+          class:unselected={selectedPost && selectedPost !== post.path}
           style="background-image: url({post.meta.cover
             ? post.meta.cover
-            : '/static/default-cover.jpg'});"
+            : '/default-cover.jpg'});"
         >
           <div class="text-cont">
             <h3 class="post-title">{post.meta.title}</h3>
@@ -90,12 +97,15 @@
 
     background-size: cover;
     background-position: center;
+
+    /* Add transition for opacity */
+    transition: opacity 0.3s ease;
   }
   .post:hover {
-    box-shadow: 0px 4px 58px 2px rgba(156, 15, 102, 0.425);
+    box-shadow: 0px 0px 88px 2px rgb(0, 0, 0);
     transition: box-shadow 0.3s ease;
     transform: scale(
-      1.02
+      1.005
     ); /* On hover, enlarge the background image slightly */
   }
 
@@ -112,6 +122,9 @@
   .post:hover .text-cont {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.521));
     color: #f5f5f5;
+  }
+  .post.unselected {
+    opacity: 0.2;
   }
 
   .post-title {
@@ -154,7 +167,7 @@
       font-size: 0.8rem;
     }
   }
-  @media (min-width: 900px){
+  @media (min-width: 900px) {
     .container {
       max-width: 80rem;
     }

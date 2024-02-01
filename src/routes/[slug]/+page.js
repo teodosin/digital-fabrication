@@ -4,6 +4,10 @@
 export async function load({ params }) {
     try {
         const posts = import.meta.glob('/src/posts/*.md');
+        if (!posts[`/src/posts/${params.slug}.md`]) {
+            console.error(`Post ${params.slug} does not exist`);
+            return;
+        }
         const post = await posts[`/src/posts/${params.slug}.md`]();
         // @ts-ignore
         const { title, date, categories, tags, cover } = post.metadata;

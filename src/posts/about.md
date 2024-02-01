@@ -4,7 +4,7 @@ date: "2024-01-11"
 description: "Introducing myself"
 categories: ["about"]
 tags: ["no-banner"]
-cover: "profile-cover.jpg"
+cover: "signature_cover.png"
 ---
 
 ![A picture of the author](my-face.jpeg "hi"){.tiny .round .no-caption}

@@ -1,7 +1,18 @@
 <script lang="ts">
 	import { base } from "$app/paths";
 	import rust from "svelte-highlight/languages/rust";
+	import { onMount } from "svelte";
+	// Uncomment all this stuff to enable silly p5 sketch in background
+	// import { runSketch } from "../lib/sketch";
+
+	// let sketchContainer: HTMLElement;
+
+	// onMount(() => {
+	// 	runSketch(sketchContainer);
+	// });
 </script>
+
+<!-- <div bind:this={sketchContainer} class="sketch-container"></div> -->
 
 <nav class="nav">
 	<a class="nav-button" href="{base}/">Home</a>
@@ -21,6 +32,15 @@
 		background-color: #121212;
 		color: #f5f5f5;
 	}
+
+	/* .sketch-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+	} */
 
 	:global(h1) {
 		font-family: "Playfair Display", serif;
@@ -50,7 +70,7 @@
 	.nav {
 		position: absolute;
 		left: 50%; /* Move the left edge of the element to the center of the container */
-        transform: translateX(-50%);
+		transform: translateX(-50%);
 		margin-top: 1rem;
 		width: 95vw;
 		display: flex;
