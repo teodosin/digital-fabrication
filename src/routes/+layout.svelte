@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { base } from "$app/paths";
 	import rust from "svelte-highlight/languages/rust";
+	import '../styles/code.css';
+
 	import { onMount } from "svelte";
 	// Uncomment all this stuff to enable silly p5 sketch in background
 	// import { runSketch } from "../lib/sketch";
@@ -65,6 +67,14 @@
 	}
 	:global(a:hover) {
 		color: #e3cdff;
+	}
+
+	:global(hr){
+		margin-top: 5rem;
+		border: 0;
+		width: 100%;
+		height: 2px;
+		background: #333;
 	}
 
 	.nav {

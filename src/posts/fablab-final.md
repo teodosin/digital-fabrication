@@ -33,7 +33,7 @@ It's been over year, and we're all still waiting for the official tutorial. The 
 
 The Digital Fabrication minor presents the perfect opportunity to finally attempt to make these controller gloves. It does not necessarily mean following the aforementioned instructions. Haptics aren't that important to me, for example. And it may be the wrong direction for me in other ways, though I don't know what those ways are. I am reliant on my teachers and classmates to point me in the right direction. 
 
-## The Sketch
+## The Initial Sketch
 
 ![An artistic sketch of the gloves](gloves_sketch.jpg)
 

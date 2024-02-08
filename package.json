@@ -37,6 +37,7 @@
 	"dependencies": {
 		"p5": "^1.9.0",
 		"remark-toc": "^9.0.0",
-		"sharp": "^0.33.2"
+		"sharp": "^0.33.2",
+		"shiki": "^1.0.0-beta.2"
 	}
 }

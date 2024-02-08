@@ -1,16 +1,35 @@
 <!-- src/routes/[slug]/+page.svelte -->
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { afterUpdate, onMount } from "svelte";
+    import { afterUpdate, onMount, tick } from "svelte";
 
     export let data: PageData;
 
-    onMount(() => {
+    onMount(async () => {
         const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
         headers.forEach((header, index) => {
             if (header.textContent !== null) {
                 const ref = header.textContent.toLowerCase().replace(/ /g, "-");
                 header.id = ref;
+            }
+        });
+
+        await tick();
+        const images = document.querySelectorAll(
+            ".centered-container :global(.img.cap)",
+        );
+
+        images.forEach((img) => {
+            const imageElement = img as HTMLImageElement;
+            const captionText = imageElement.alt;
+            const caption = document.createElement("div");
+            caption.className = "caption";
+            caption.textContent = captionText;
+            if (imageElement.parentNode) {
+                imageElement.parentNode.insertBefore(
+                    caption,
+                    imageElement.nextSibling,
+                );
             }
         });
     });
@@ -44,7 +63,6 @@
     const hasNoBannerTag = data.tags && data.tags.includes("no-banner");
 
     let scroll = 0;
-
 </script>
 
 <svelte:window bind:scrollY={scroll} />
@@ -93,8 +111,16 @@
         object-fit: cover;
         z-index: -1;
         top: 0;
-        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* Standard property */
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+        mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0) 100%
+        ); /* Standard property */
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0) 100%
+        );
     }
 
     .toc {
@@ -146,6 +172,10 @@
         padding-bottom: 20rem;
     }
 
+    :global(code) {
+        width: 100%;
+    }
+
     @media (max-width: 600px) {
         .toc {
             display: inline;
@@ -175,6 +205,12 @@
     .centered-container :global(.round) {
         border-radius: 5rem;
     }
+    .centered-container :global(.caption) {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.5rem;
+    }
 
     .date {
         margin-top: -2rem;
@@ -185,5 +221,19 @@
 
     :global(ul) {
         margin-block-start: 0px;
+    }
+
+    .post :global(h1) {
+        margin-top: 4rem;
+        font-size: 2rem;
+    }
+    .post :global(h2) {
+        font-size: 1.8rem;
+    }
+    .post :global(h3) {
+        font-size: 1.6rem;
+    }
+    .post :global(h4) {
+        font-size: 1.4rem;
     }
 </style>

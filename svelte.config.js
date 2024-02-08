@@ -37,18 +37,18 @@ const config = {
 		prerender: {
 			entries: entries,
 			handleMissingId: (id, path, error) => {
-                // Log the error and continue prerendering
-                console.warn(`Missing id '${id}' on path '${path}':`, error);
-                return true; // return true to continue prerendering
-            },
-			// entries: [
-			//     "/about",
-			//     "/something"
-			// ]
+				// Log the error and continue prerendering
+				console.warn(`Missing id '${id}' on path '${path}':`, error);
+				return true; // return true to continue prerendering
+			},
 		}
 	},
 
 	extensions: ['.svelte', '.md'],
+
+	// layout: {
+	// 	code: './src/lib/code-block.svelte',
+	// },
 
 	preprocess: [
 		sveltePreprocess(),

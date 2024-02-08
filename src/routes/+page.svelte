@@ -33,7 +33,9 @@
   }
 
   let selectedPost = null;
-</script>
+
+  let colors = ['#6B8E23', '#556B2F', '#483D8B', '#4B0082', '#696969', '#800000', '#8B4513'];
+  let bcolor = colors[Math.floor(Math.random() * colors.length)];</script>
 
 <div class="container">
   <h2 class="site-header">Teodosin's Digital Fabrication Portfolio</h2>
@@ -52,7 +54,9 @@
           class:unselected={selectedPost && selectedPost !== post.path}
           style="background-image: url({post.meta.cover
             ? post.meta.cover
-            : '/default-cover.jpg'});"
+            : '/default-cover.jpg'});
+            background-color: {bcolor};
+            "
         >
           <div class="text-cont">
             <h3 class="post-title">{post.meta.title}</h3>
@@ -93,7 +97,6 @@
     align-content: end;
 
     position: relative;
-    background-color: #2fb3bd13;
 
     background-size: cover;
     background-position: center;

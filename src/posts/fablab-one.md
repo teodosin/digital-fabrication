@@ -1,9 +1,10 @@
 ---
-title: "This Site"
+title: "Project Management - This Site"
 date: "2024-01-18"
 description: "The first assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
+cover: "frontpage_screenshot.png"
 ---
 
 Our first assignment in the Digital Fabrication minor was to build a portfolio site for out projects.
@@ -32,3 +33,64 @@ As for how git is used: I try to make commits for each small change and push the
 
 For reference, this is what the raw markdown for this page looks like in my editor. 
 ![A screenshot of this page's raw markdown](markdown_example.png)
+
+---
+
+Here's something useful: automatic resizing of images when building the site. 
+
+I have a resize-images.js script that gets called before the site is built.
+
+```json
+    // package.json
+	"scripts": {
+		"dev": "node src/lib/utils/generate-entries.js && vite dev",
+		"resize-images": "node src/lib/utils/resize-images.js",
+		// snip 
+		"build": "npm run resize-images && vite build",
+        // snip
+		"deploy": "npm run build && npx gh-pages -d build -t true"
+	},
+```
+
+I am currently deploying the site manually from the terminal when I choose to. I run the command `npm run deploy`, which in turn calls the `build` script. That, in turn runs the `resize-images` script before finally building the site. The next command always waits for the previous one to complete before starting, so it's reliable. 
+
+Here's the actual script in its entirety.
+
+```javascript
+// src/lib/utils/resize-images.js
+import { readdir, unlink, rename } from 'fs';
+import { join } from 'path';
+import sharp from 'sharp';
+
+const directoryPath = join(process.cwd(), 'static');
+const maxWidth = 1080;
+const maxHeight = 1080;
+
+readdir(directoryPath, (err, files) => {
+  if (err) {
+    return console.log('Unable to scan directory: ' + err);
+  }
+
+  files.forEach((file) => {
+    const filePath = join(directoryPath, file);
+    const tempFilePath = `${filePath}_temp`;
+
+    sharp(filePath)
+      .resize(maxWidth, maxHeight, {
+        fit: 'inside',
+        withoutEnlargement: true,
+      })
+      .toFile(tempFilePath, (err) => {
+        if (err) {
+          console.log('Error resizing image: ', err);
+        } else {
+          unlink(filePath, (err) => {
+            if (err) {
+              console.log('Error deleting original file: ', err);
+            } else {
+              rename(tempFilePath, filePath, (err) => {
+//  Omitted error handling at the end. 
+
+```
+
+The script goes through each file in my static folder. For each image it creates a new, resized version of it, then replaces the old image with it. This was necessary to do in two steps because you can't delete or overwrite the old file while you're still resizing it. 
