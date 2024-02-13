@@ -7,7 +7,9 @@ tags: ["digital-fabrication"]
 cover: "fab3/01_sketch1.jpg"
 ---
 
-# The Assignment
+### Table of Contents
+
+# Assignment
 
 The third assignment for the digital fabrication minor. 
 
@@ -20,9 +22,9 @@ We had finally gotten into fabrication this week. Here was the assignment:
 * Use the vinyl cutter to cut something. It can be as simple as a sticker for your laptop to multi-color design for your t-shirt.
 ```
 
-# The Idea
+# Idea
 
-I thought of those cool old globes where the pedestal was bulky and wrapped around the entire sphere at its waist. You know, one of _these_:
+I thought of those cool old globes where the stand was bulky and wrapped around the entire sphere at its waist. You know, one of _these_:
 
 ![Photo by Adolfo Félix  on Unsplash](fab3/00_globe.jpg){.cap}
 
@@ -30,19 +32,19 @@ I've always liked these better than the slim modern globes. There's just somethi
 
 But what if the globe could be rotated freely, and what if it was swappable? What if, instead of a map of the Earth, a globe was blank and could just be drawn on? To create a fictional planet for worldbuilding, whether it be for a story or a custom board game. Or just art for the sake of it, in an unusual format. 
 
-So the project would be the pedestal for globes. The globes themselves would be created separately. The design I came up with seemed doable for a first laser cutting project. 
+So the project would be the stand for globes. The globes themselves would be created separately. The design I came up with seemed doable for a first laser cutting project. 
 
-![First and second sketch of the pedestal](fab3/01_sketch1.jpg)
+![First and second sketch of the stand](fab3/01_sketch1.jpg)
 
 On the right, the first sketch. On the left, the second. 
 
 The legs of it would attach to the rim and to each other at the bottom. I took on the challenge of making six legs instead of four, because I thought it would look nicer that way. 
 
-The design could theoretically accomocate spheres of different scales. There would be adjustable supports with smooth ends at the bottom and the edges of the pedestal, which the spheres would rest on. The smaller the sphere, the longer the supports. The sphere would always rest in the center and be able to be rotated smoothly. 
+The design could theoretically accomocate spheres of different scales. There would be adjustable supports with smooth ends at the bottom and the edges of the stand, which the spheres would rest on. The smaller the sphere, the longer the supports. The sphere would always rest in the center and be able to be rotated smoothly. 
 
 ![Profile sketch of the design](fab3/02_sketch2.jpg)
 
-# The Digital 
+# CAD
 
 My first instinct was just going directly into Inkscape and trying to measure out all the different pieces there. Then I remembered an important detail in the assignment:
 
@@ -159,9 +161,76 @@ For the second circle plane, I went into the **Draft Workbench** and used **Clon
 
 Cool. 
 
-If you remember, the plan was to have adjustable supports coming inward from the tops of all the legs. At this point I still wasn't sure what they were going to look like and how they were going to be attached, but I trusted that if there was a bit of a supporting structure around the spots where they were going to be attached, there would be a way. So why not duplicate the rim and use the same boolean workflow with laps to attach it to the legs, just a bit below the top rim?
+If you remember, the plan was to have adjustable supports coming inward from the tops of all the legs. At this point I still wasn't sure what they were going to look like and how they were going to be attached, but I trusted that if there was a bit of a supporting structure around the spots where they were going to be attached, there would be a way. 
 
+I considered duplicating the entire rim, but then that would take up a ton of space on the cutting sheet. So I ended up just making small shelves in inside the legs just below the rim. 
 
+![Shelves](fab3/23_shelves.png)
 
+That mostly completed the design. 
 
+![Mostly complete design](fab3/24_complete.png)
 
+In the Draft workbench, **Shape2DViews** were created for each unique shape in the design. These would then be exported into an svg file. 
+
+![Shape2Ds](fab3/25_shape2d.png)
+
+In Inkscape, I copied over the shapes to have the correct amounts, in a similar layout as I was testing out much earlier. I was also happy to notice that the Shape2DView's were reactive to when I changed the material thickness in the spreadsheet, so I could just re-export them as svg's with different thicknesses, since I intended to eventually cut this out of plywood. 
+
+![Final Layout](fab3/26_sheet.png)
+
+There was one more issue I ran into while trying to offset the paths to account for the kerf of the laser. All paths were disconnected from each other by default when exporting from Ondsel. But the [solution](https://graphicdesign.stackexchange.com/questions/76534/automatically-merge-overlapping-nodes-in-inkscape) was soon found. 
+
+```
+* Ungroup (Shift-Ctrl-G) your objects, select the paths and combine (Ctrl-K) them in a single path
+
+* Switch to Edit paths by nodes mode (F2), select all the nodes and join selected nodes (Shift-J).
+
+* When all the nodes are selected, the join selected nodes function applies to all the couples of endnodes found.
+
+* If the coordinates of your nodes overlaps perfectly, this should work (you don't need to repeat your step 2. thousands of times).
+```
+
+Now the paths were correctly joined and the offset worked correctly. In Inkscape you may find it in the Paths Menu among the various Path Effects. Set to 0,19mm to offset by half of the kerf. 
+
+![Path Effects](fab3/27_fx.png)
+
+# Cardboard
+
+The day after the safety training, I arrived at the fablab to use the laser cutter. 
+
+![Prepping the cut](fab3/28_cutprep.jpg)
+
+I went through the steps and was pleased to notice that I could fit two of my sets onto one sheet of cardboard. So I had a backup in case something failed. And it almost did. 
+
+![Cutting the thing](fab3/29_cut.jpg)
+
+On the first pass some settings were off by a bit, and the laser didn't cut all the way through. I redid the same job with slighly lower power, unsure about how second passes such as this should be done. I also saw thin strands of smoke coming from a couple spots during the pass, so going over it a second time made me nervous. 
+
+The second pass went smoothly though, and it did cut through that time. Mostly. There was a clear difference in the cutting strength the farther you got from the top-left corner, which we were warned about, but I was still surprised it was that much. The bottom pieces I had to snap out, but luckily nothing ripped. 
+
+![Pieces](fab3/30_pcs.jpg)
+
+Assembly was harder than expected. The slots were a tight fit, and I'm still not sure what exactly was off. I think the cardboard was just thicker on average than the parts that were measured. I could have overestimated the kerf too. 
+
+I noticed that because of the inner structure of the cardboard, not all tabs and slots were created equal. This was most clear on the legs that were rotated on the sheet. The top tab was structurally firm on the legs that were vertical, but the rotated ones had less of the inner material in them and more easily collapsed. 
+
+![Upright and rotated legs' top tabs side by side](fab3/31_dir.jpg)
+
+It wasn't a dealbreaker though. Most connections were sound enough that the overall assembly went well. 
+
+![Topless](fab3/32_topless.jpg)
+
+![Finished cardboard model](fab3/33_done.jpg)
+
+I was quite happy with the result. 
+
+# Plywood
+
+I still wanted to make the thing properly, with plywood. So I could screw or glue the supports in and actually use it for its intended purpose. 
+
+It would use quite a bit of wood though. I needed to prepare test shapes which I could cut from scraps before committing to cutting the complete set. 
+
+![Test pieces for plywood cutting](fab3/34_test.png)
+
+The plywood I was going to use was 3mm in thickness. 
