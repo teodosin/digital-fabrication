@@ -195,6 +195,14 @@ Now the paths were correctly joined and the offset worked correctly. In Inkscape
 
 ![Path Effects](fab3/27_fx.png)
 
+# Group
+
+The documentation for our group introduction to the laser cutter can be found here:
+
+https://mikajarvi.gitlab.io/digital-fabrication/laser-cutting.html
+
+Credit and cheers to Mika Järvi. 
+
 # Cardboard
 
 The day after the safety training, I arrived at the fablab to use the laser cutter. 
@@ -233,4 +241,82 @@ It would use quite a bit of wood though. I needed to prepare test shapes which I
 
 ![Test pieces for plywood cutting](fab3/34_test.png)
 
-The plywood I was going to use was 3mm in thickness. 
+The plywood I was going to use was 3mm in thickness. How the test pieces fit together would determine whether I would use my 3.0mm vector file for cutting or the 3.1mm one.
+
+But that was independent of the kerf. I still needed to calculate the kerf with the material and cutting settings that I was going to be using. So I cut 5 squares to do the measurement and to determine the correct laser settings.
+
+![lots of failed squares](fab3/35_sqr.jpg)
+
+Fifth time's the charm. The first attempt I forgot to set the autofocus and all the following attempts I spent fiddling with the power and speed settings. I also was cutting the test squares at the furthest spot from the top-left that I knew my larger sheet was going to go to. Just to properly simulate the power loss that would later occur. 
+
+![squares](fab3/36.jpg)
+
+![a](fab3/37.jpg)
+
+The kerf turned out to less than I expected. Only 0.12mm. A 0.06 offset in the vector files would suffice. 
+
+I cut out the test pieces from the earlier file and tested how the parts snap together. It actually turned out that the 3.1mm tabs were snapping into place much better than the exact 3.0 equivalents, 
+
+It was time to start cutting. The job was to last a whopping 38 minutes. 
+
+![a](fab3/38.jpg)
+
+So far so good. It is good to see the cut pieces fall a bit from their enclosure. 
+
+![a](fab3/39.jpg)
+
+When the job was finished, there was an immediate issue. The laser cutter has a "safe area" in addition to just the region marked by the vector paths. When I moved my design in the laser cut prepping program, I must have moved it just barely past the edge of the safe area. So the bottoms of the last four legs weren't cut out. 
+
+I returned to the vector file and deleted everything except the missing parts of the legs plus a small buffer. I tried to place the new paths just by eyeing it with the camera. When I ran the cutting job, it was off by a couple millimeters. It took two more tries to get it right. The first leg from the left suffered a bit from the ends, but survived. 
+
+![a](fab3/40.jpg)
+
+Then, despite the cutting tests earlier, not all of the pieces were cleanly cut. Quite a few of the legs were still stuck to the surrounding wood by a surprising amount. Likely the wood was thicker on those points. I couldn't think of another reason. 
+
+![a](fab3/42_hex.jpg)
+
+Just for fun, I cut out a bunch of hexagons from the wood that was left. Also a small gift for a friend whose birthday it was on this day. 
+
+![a](fab3/43.jpg)
+
+Tokens or tiles for a board game?
+
+![a](fab3/41.jpg)
+
+The pieces that were still stuck to the board were easy enough to cut out with an exacto knife. During assembly, I was so relieved to find that the parts were clicking nicely into place. Some needed a bit of hammering though. 
+
+And here, the final cardboard and plywood models side by side. 
+
+![a](fab3/44.jpg)
+
+The supports and the actual globe of the project will come later, on my own time. At the time of writing this I'm about to order a couple styrofoam spheres for this. Still need to figure out a nice solution for the supports. 
+
+# Vinyl 
+
+The final part of the assignment was to get familiar with the lab's vinyl cutter. 
+
+
+![a](fab3/45.jpg)
+
+I originally thought I was going to print a sticker design and then cut that out with the cutter. I was reminded that the assignment was to just cut _something_, and not to get too involved with it. Just cut something. 
+
+I had the design ready though. I wanted to try to cut it out. 
+
+![a](fab3/46.jpg)
+![a](fab3/47.jpg)
+![a](fab3/48.jpg)
+![a](fab3/49.jpg)
+
+As expected, some details were way too small to be nicely cut. It wasn't too bad though; with some adjustment to the design, it could be turned into a decent sticker.
+
+![a](fab3/50.jpg)
+
+I salvaged a little bit and stuck it to my old laptop. Toothless grin. 
+
+![a](fab3/51.jpg)
+
+And for completeness' sake:
+
+![a](fab3/52.jpg)
+
+Kinda neat. 
