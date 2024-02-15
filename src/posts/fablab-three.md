@@ -4,7 +4,7 @@ date: "2024-02-15"
 description: "The third assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
-cover: "fab3/01_sketch1.jpg"
+cover: "fab3/44.jpg"
 ---
 
 ### Table of Contents
