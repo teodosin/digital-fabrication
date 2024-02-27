@@ -72,10 +72,6 @@ Starting with the smallest components, moving upward.
 
 There were some hiccups during the process. One of the larger components that the chip would get attached to got soldered at a slight angle. It was just forgivable enough that the component could bend a bit to still accomodate the chip. Definitely a point of improvement for the future. 
 
-![Sorry no alt](fab4/13.jpg)
-
-
-
 All the circuits I tested with the multimeter seemed fine. It was time to head home and try it out. 
 
 ![Sorry no alt](fab4/14.jpg)
@@ -89,4 +85,15 @@ With the board plugged into my PC, I proceeded with the rest of the instructions
 
 After trying to get the hello_tarantino script to work and only getting undefined behavior from the light and the button, it was pointed out to me that my board was missing a resistor. Delightful. I had soldered on all the components from my box, but hadn't bothered to double-check the example board or the schematic. 
 
-# Back to Soldering
+# Soldering Detour
+
+I got an extra resistor at the fablab and soldered it on. 
+
+Tested it out again back at home. 
+
+At first I thought it wasn't working again. I had booted it up and uploaded `hello_tarantino.ino` to it, but the light was behaving weirdly. It went on an off not from when I pressed the button, but from when I tapped one of the corners of the chip with my finger. 
+
+Removing the plug and plugging it back in, only without the boot button pressed, was more promising. Now the light got properly toggled when the big button was pressed. 
+
+![](fab4/16.jpg)
+![](fab4/17.jpg)
