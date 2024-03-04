@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/0.lmDuvr4l.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.ByynXfGf.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.WPV4DQXa.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.g1o_C-2X.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.WqRDolvd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.ruE5_2cD.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.uoMWNlw-.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.0NVKo1ab.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.XEBM7lqe.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.tKIPYdF9.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-1ov577t" src="fab4/14.jpg" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-1ov577t"><h1>Embedded Programming</h1> <p class="date svelte-1ov577t">Published: 2024-03-02</p></div> <div class="centered-container svelte-1ov577t"><div class="toc svelte-1ov577t"></div> <article class="post svelte-1ov577t"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1rzt84x"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#programming">Programming</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment:
+
+* Look at the datasheet of the RP2040 and reflect on what you learned.
+* Try and compare other MCU&#39;s, such as other XIAO boards and ATtiny and SAMD boards.
+* Look at Saskia&#39;s documentation where ATtiny and SAMD hello boards are explored.
+* You may do this individually or in group, feel free to choose what is best for you this time.
+
+Do the following to complete the assignment.
+
+* Program the XIAO board you made in Electronics Production week to do something with all available output devices on the board (R, G and B LEDs, NEOPIXEL LED). You need to have your board ready and functioning at this point.
+* Write code to detect a button press to switch between several modes.
+* Write code to send to and receive messages from the board using the Serial class.</code><!-- HTML_TAG_END --></pre> <h1 data-svelte-h="svelte-kxioer">Group</h1> <h1 data-svelte-h="svelte-w3tvz5">Programming</h1> <p data-svelte-h="svelte-15tikqn">My goal for the programming assigment to make the button on the board cycle through a few predetermined combinations of LEDs. So pretty much exactly what the assigment requires.</p> <p data-svelte-h="svelte-1vjf0ca">To do that though, I first had to make sure my LED’s were working properly.</p> <p data-svelte-h="svelte-1e8rh74">I modified <code>hello_tarantino.ino</code> a bit to try to access and activate two of the board’s LED’s at once.</p> <pre class="language-c"><!-- HTML_TAG_START --><code class="language-c">
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED1</span> <span class="token expression">D0</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED2</span> <span class="token expression">D7</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BTN</span> <span class="token expression">D1</span></span>
+
+bool led1_state <span class="token operator">=</span> HIGH<span class="token punctuation">;</span>
+bool led2_state <span class="token operator">=</span> HIGH<span class="token punctuation">;</span>
+bool btn_state <span class="token operator">=</span> HIGH<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// put your setup code here, to run once:</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>LED1<span class="token punctuation">,</span> OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>LED2<span class="token punctuation">,</span> OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>BTN<span class="token punctuation">,</span> INPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Set initial state of our LEDs</span>
+  <span class="token function">digitalWrite</span><span class="token punctuation">(</span>LED1<span class="token punctuation">,</span> led1_state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">digitalWrite</span><span class="token punctuation">(</span>LED2<span class="token punctuation">,</span> led2_state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// put your main code here, to run repeatedly:</span>
+
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre></article> </div> 
+			
+			<script>
+				{
+					__sveltekit_1vjg82c = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/digital-fabrication"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.WPV4DQXa.js"),
+						import("./_app/immutable/entry/app.uoMWNlw-.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
