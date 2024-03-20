@@ -1,6 +1,6 @@
 ---
 title: "Embedded Programming"
-date: "2024-03-02"
+date: "2024-03-09"
 description: "The fifth assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
@@ -154,6 +154,8 @@ sudo adduser YourUserName GroupToJoin Will fix things if you need to join a grou
 This did. After logging out, I was member of the proper group and the serial messages upon state changes were properly displayed in the Serial Monitor. 
 
 ![](fab6/serial.png)
+
+I also tried for a while to get the communication working the other way. I wanted to be able to type the number of a state into the serial monitor and change the state directly. I couldn't get it to work in a reasonable time though.
 
 Here is the final working code for the state machine. Sufficiently commented to be understandable, I would hope. 
 
