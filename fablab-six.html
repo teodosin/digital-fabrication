@@ -7,18 +7,18 @@
 		
 		<link href="./_app/immutable/assets/0.lmDuvr4l.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/3.ByynXfGf.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.ns2wlUM1.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.e43ImV9G.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.XGIEXKbM.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.9n3m1vcG.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.WqRDolvd.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/paths.zSm1dGv8.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.JAI4bFIf.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.nUMKNtLt.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.fNsczdJs.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.0NVKo1ab.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.7vCku-oe.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.I6bGJIRP.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.qOvk4PDl.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.Awnuf15B.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-1ov577t" src="fab4/14.jpg" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-1ov577t"><h1>Embedded Programming</h1> <p class="date svelte-1ov577t">Published: 2024-03-02</p></div> <div class="centered-container svelte-1ov577t"><div class="toc svelte-1ov577t"></div> <article class="post svelte-1ov577t"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1rzt84x"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#programming">Programming</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment:
+		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-1ov577t" src="fab4/14.jpg" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-1ov577t"><h1>Embedded Programming</h1> <p class="date svelte-1ov577t">Published: 2024-03-09</p></div> <div class="centered-container svelte-1ov577t"><div class="toc svelte-1ov577t"></div> <article class="post svelte-1ov577t"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1rzt84x"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#programming">Programming</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment:
 
 * Look at the datasheet of the RP2040 and reflect on what you learned.
 * Try and compare other MCU&#39;s, such as other XIAO boards and ATtiny and SAMD boards.
@@ -79,7 +79,7 @@ Example: crw-rw-r-- 1 root dialout ... /dev/ttyACM0, root is owner, dialout is t
 
 Entering the command, groups, in a terminal will show the groups you belong to.
 
-sudo adduser YourUserName GroupToJoin Will fix things if you need to join a group, logout and login after you run adduser.</code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-9yfvoo">This did. After logging out, I was member of the proper group and the serial messages upon state changes were properly displayed in the Serial Monitor.</p> <img src="fab6/serial.png"> <p data-svelte-h="svelte-13mj134">Here is the final working code for the state machine. Sufficiently commented to be understandable, I would hope.</p> <pre class="language-c"><!-- HTML_TAG_START --><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Adafruit_NeoPixel.h></span></span>
+sudo adduser YourUserName GroupToJoin Will fix things if you need to join a group, logout and login after you run adduser.</code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-9yfvoo">This did. After logging out, I was member of the proper group and the serial messages upon state changes were properly displayed in the Serial Monitor.</p> <img src="fab6/serial.png"> <p data-svelte-h="svelte-17ljdd4">I also tried for a while to get the communication working the other way. I wanted to be able to type the number of a state into the serial monitor and change the state directly. I couldn’t get it to work in a reasonable time though.</p> <p data-svelte-h="svelte-13mj134">Here is the final working code for the state machine. Sufficiently commented to be understandable, I would hope.</p> <pre class="language-c"><!-- HTML_TAG_START --><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Adafruit_NeoPixel.h></span></span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED</span> <span class="token expression">D0</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED2</span> <span class="token expression">D6 </span><span class="token comment">// There might be a design flaw with the board. This LED has no ground. </span></span>
@@ -181,7 +181,7 @@ Adafruit_NeoPixel <span class="token function">pixels</span><span class="token p
 			
 			<script>
 				{
-					__sveltekit_1cz9je8 = {
+					__sveltekit_1q0kvst = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						assets: "/digital-fabrication"
 					};
@@ -191,8 +191,8 @@ Adafruit_NeoPixel <span class="token function">pixels</span><span class="token p
 					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.ns2wlUM1.js"),
-						import("./_app/immutable/entry/app.JAI4bFIf.js")
+						import("./_app/immutable/entry/start.XGIEXKbM.js"),
+						import("./_app/immutable/entry/app.fNsczdJs.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
