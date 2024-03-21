@@ -4,7 +4,7 @@ date: "2024-03-21"
 description: "The eighth assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
-cover: "fab4/14.jpg"
+cover: "fab8/11.png"
 ---
 
 ### Table of Contents
@@ -64,10 +64,5 @@ My understanding was that each sensor or switch I would want to connect would ne
 ![](fab8/12.png)
 ![](fab8/13.png)
 ![](fab8/14.png)
-![](fab8/15.png)
-![](fab8/16.png)
-![](fab8/17.png)
-![](fab8/18.png)
-![](fab8/19.png)
-![](fab8/20.png)
+
 
