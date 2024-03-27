@@ -7,15 +7,15 @@
 		
 		<link href="./_app/immutable/assets/0.lmDuvr4l.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/3.ByynXfGf.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.95Hsy_Cq.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.gGRe3TWL.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.0f1t1_QH.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.-gCkrosA.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.WqRDolvd.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/paths.sKL_vRvq.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.xKmXIiLJ.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.lijlOoJi.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.BPt3het8.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.0NVKo1ab.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.0qjOlSXu.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.avtaAXnt.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.goDYbsvc.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.TtxIXQuJ.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-1ov577t" src="fab8/11.png" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-1ov577t"><h1>Electronics Design</h1> <p class="date svelte-1ov577t">Published: 2024-03-21</p></div> <div class="centered-container svelte-1ov577t"><div class="toc svelte-1ov577t"></div> <article class="post svelte-1ov577t"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1v95jb0"><li><a href="#assignment">Assignment</a></li> <li><a href="#kicad">KiCad</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment
@@ -33,11 +33,11 @@ Individual assignment
 * You can use XIAO, ATtiny, D11C microcontrollers as core components.
 * As a minimum, add a LED, a button and a 2x2 connector for serial communication with other boards that you will make in following weeks.
 * Break out all the unused pins of the microcontroller you are using as the core.
-* Calculate the ideal value of a current limiting resistor for the LED you are using on your board. </code><!-- HTML_TAG_END --></pre> <h1 data-svelte-h="svelte-1urbi">KiCad</h1> <p data-svelte-h="svelte-qv6hhr">For my first board, I wanted something general purpose. I didn’t want to attempt to make a board for my <a href="fablab-final">final project</a> just yet, at least not directly. I needed more practice before that.</p> <p data-svelte-h="svelte-qfhyv8">I went with the XIAO ESP32 for this board due to its wireless capabilities. A plausible use case I thought of was a wireless remote or controller for some other project. This would give me the opportunity to try out wireless data transfer, because I would be needing it for the glove controllers. I’d get to test the bandwidth and latency and hopefully also test the flex sensors and an accelorometer.</p> <img src="fab8/01.png"> <p data-svelte-h="svelte-6ze3j2">The power pins on this chip are outputs, unlike the power pins on the Attiny, which are inputs. Well, these ones also <em>can</em> be used as inputs because the chip supports being battery powered. Not applicable here, I didn’t want the added complexity.</p> <p data-svelte-h="svelte-1162clj">The pins labeled A0 - A3 are analog pins, which would preferrably be used for analog sensors such as the flex sensors. The pins prefixed with D are just digital pins. Some also have been labeled SDA, SCL, TX, RX, MOSI, MISO, SCK. These all apparently relate to communication between other chips, so they weren’t relevant here.</p> <img src="fab8/02.png"> <p data-svelte-h="svelte-edh5vl">I added the first two essential components in <strong>KiCad</strong>’s schematic editor. The Xiao chip itself, and the 2x02 pin header that was requested for networking purposes.</p> <img src="fab8/03.png"> <p data-svelte-h="svelte-1osap5e">Then, the rest of the required components. An LED and a button. The analog pins would be lead to sockets and a header.</p> <img src="fab8/04.png"> <p data-svelte-h="svelte-jmcwxk">My understanding was that each sensor or switch I would want to connect would need its own ground. So I needed 8 pins in total. I originally wanted to use the horizontal socket, but the labels on its pins scared me off. I opted for two 4pin vertical sockets instead.</p> <img src="fab8/05.png"> <img src="fab8/06.png"> <img src="fab8/07.png"> <img src="fab8/08.png"> <img src="fab8/09.png"> <img src="fab8/10.png"> <img src="fab8/11.png"> <img src="fab8/12.png"> <img src="fab8/13.png"> <img src="fab8/14.png"></article> </div> 
+* Calculate the ideal value of a current limiting resistor for the LED you are using on your board. </code><!-- HTML_TAG_END --></pre> <h1 data-svelte-h="svelte-1urbi">KiCad</h1> <p data-svelte-h="svelte-qv6hhr">For my first board, I wanted something general purpose. I didn’t want to attempt to make a board for my <a href="fablab-final">final project</a> just yet, at least not directly. I needed more practice before that.</p> <p data-svelte-h="svelte-qfhyv8">I went with the XIAO ESP32 for this board due to its wireless capabilities. A plausible use case I thought of was a wireless remote or controller for some other project. This would give me the opportunity to try out wireless data transfer, because I would be needing it for the glove controllers. I’d get to test the bandwidth and latency and hopefully also test the flex sensors and an accelorometer.</p> <img src="fab8/01.png"> <p data-svelte-h="svelte-6ze3j2">The power pins on this chip are outputs, unlike the power pins on the Attiny, which are inputs. Well, these ones also <em>can</em> be used as inputs because the chip supports being battery powered. Not applicable here, I didn’t want the added complexity.</p> <p data-svelte-h="svelte-1162clj">The pins labeled A0 - A3 are analog pins, which would preferrably be used for analog sensors such as the flex sensors. The pins prefixed with D are just digital pins. Some also have been labeled SDA, SCL, TX, RX, MOSI, MISO, SCK. These all apparently relate to communication between other chips, so they weren’t relevant here.</p> <img src="fab8/02.png"> <p data-svelte-h="svelte-edh5vl">I added the first two essential components in <strong>KiCad</strong>’s schematic editor. The Xiao chip itself, and the 2x02 pin header that was requested for networking purposes.</p> <img src="fab8/03.png"> <p data-svelte-h="svelte-1osap5e">Then, the rest of the required components. An LED and a button. The analog pins would be lead to sockets and a header.</p> <img src="fab8/04.png"> <p data-svelte-h="svelte-jmcwxk">My understanding was that each sensor or switch I would want to connect would need its own ground. So I needed 8 pins in total. I originally wanted to use the horizontal socket, but the labels on its pins scared me off. I opted for two 4pin vertical sockets instead.</p> <img src="fab8/05.png"> <img src="fab8/06.png"> <img src="fab8/07.png"> <img src="fab8/08.png"> <img src="fab8/09.png"> <img src="fab8/10.png"> <img src="fab8/11.png"> <img src="fab8/12.png"> <img src="fab8/13.png"> <img src="fab8/14.png"> <img src="fab8/15.jpg"> <img src="fab8/16.jpg"> <img src="fab8/17.jpg"> <img src="fab8/18.jpg"> <img src="fab8/19.jpg"> <img src="fab8/20.jpg"> <img src="fab8/21.jpg"> <img src="fab8/22.jpg"></article> </div> 
 			
 			<script>
 				{
-					__sveltekit_rgh6yc = {
+					__sveltekit_7l4tnd = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						assets: "/digital-fabrication"
 					};
@@ -47,8 +47,8 @@ Individual assignment
 					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.95Hsy_Cq.js"),
-						import("./_app/immutable/entry/app.xKmXIiLJ.js")
+						import("./_app/immutable/entry/start.0f1t1_QH.js"),
+						import("./_app/immutable/entry/app.BPt3het8.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
