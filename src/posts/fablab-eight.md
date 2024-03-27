@@ -64,5 +64,13 @@ My understanding was that each sensor or switch I would want to connect would ne
 ![](fab8/12.png)
 ![](fab8/13.png)
 ![](fab8/14.png)
+![](fab8/15.jpg)
+![](fab8/16.jpg)
+![](fab8/17.jpg)
+![](fab8/18.jpg)
+![](fab8/19.jpg)
+![](fab8/20.jpg)
+![](fab8/21.jpg)
+![](fab8/22.jpg)
 
 
