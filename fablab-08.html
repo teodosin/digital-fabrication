@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/0.lmDuvr4l.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.ByynXfGf.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.UIh2MY-8.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.j5rUhawG.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.WqRDolvd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.Cj-I-2Vp.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.QAykR8lT.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.0NVKo1ab.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.lbU59fPN.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.bxqb1VsP.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-1ov577t" src="fab8/11.png" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-1ov577t"><h1>Electronics Design</h1> <p class="date svelte-1ov577t">Published: 2024-03-21</p></div> <div class="centered-container svelte-1ov577t"><div class="toc svelte-1ov577t"></div> <article class="post svelte-1ov577t"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1fekc3"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#kicad">KiCad</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment
+
+* Join one of the test equipment introduction session.
+* Use the test equipment (benchtop power supply, oscilloscope, logic analyzer) at the Fablab to observe the operation of a microcontroller circuit board.
+* Check operating voltage on the board with multimeter or voltmeter.
+* Elect a group leader who will be responsible for creating group assignment page.
+* Help group leader with adding relevant information to the group assignment page.
+
+Individual assignment
+
+* Add link to the group assignment to your documentation page along with a paragraph of text about what you learned.
+* Design and make a circuit board using KiCad or equivalent electronics design automation (EDA) software. 
+* You can use XIAO, ATtiny, D11C microcontrollers as core components.
+* As a minimum, add a LED, a button and a 2x2 connector for serial communication with other boards that you will make in following weeks.
+* Break out all the unused pins of the microcontroller you are using as the core.
+* Calculate the ideal value of a current limiting resistor for the LED you are using on your board. </code><!-- HTML_TAG_END --></pre> <h1 data-svelte-h="svelte-kxioer">Group</h1> <p data-svelte-h="svelte-kjcvjv">The group assignment responsibilities for this week were handled by <a href="https://tomimonahan.gitlab.io/digital-fabrication/electronics-design-group-assignment.html" rel="nofollow">Tomi Monahan</a></p> <h1 data-svelte-h="svelte-1urbi">KiCad</h1> <p data-svelte-h="svelte-5xr65j">For my first board, I wanted something general purpose. I didn’t want to attempt to make a board for my <a href="fablab-00">final project</a> just yet, at least not directly. I needed more practice before that.</p> <p data-svelte-h="svelte-qfhyv8">I went with the XIAO ESP32 for this board due to its wireless capabilities. A plausible use case I thought of was a wireless remote or controller for some other project. This would give me the opportunity to try out wireless data transfer, because I would be needing it for the glove controllers. I’d get to test the bandwidth and latency and hopefully also test the flex sensors and an accelorometer.</p> <img src="fab8/01.png"> <p data-svelte-h="svelte-6ze3j2">The power pins on this chip are outputs, unlike the power pins on the Attiny, which are inputs. Well, these ones also <em>can</em> be used as inputs because the chip supports being battery powered. Not applicable here, I didn’t want the added complexity.</p> <p data-svelte-h="svelte-1162clj">The pins labeled A0 - A3 are analog pins, which would preferrably be used for analog sensors such as the flex sensors. The pins prefixed with D are just digital pins. Some also have been labeled SDA, SCL, TX, RX, MOSI, MISO, SCK. These all apparently relate to communication between other chips, so they weren’t relevant here.</p> <img src="fab8/02.png"> <p data-svelte-h="svelte-edh5vl">I added the first two essential components in <strong>KiCad</strong>’s schematic editor. The Xiao chip itself, and the 2x02 pin header that was requested for networking purposes.</p> <img src="fab8/03.png"> <p data-svelte-h="svelte-1osap5e">Then, the rest of the required components. An LED and a button. The analog pins would be lead to sockets and a header.</p> <img src="fab8/04.png"> <p data-svelte-h="svelte-jmcwxk">My understanding was that each sensor or switch I would want to connect would need its own ground. So I needed 8 pins in total. I originally wanted to use the horizontal socket, but the labels on its pins scared me off. I opted for two 4pin vertical sockets instead.</p> <img src="fab8/05.png"> <img src="fab8/06.png"> <p data-svelte-h="svelte-oz0qqh">With this small number of components, the layout wasn’t going to present difficulties in a technical sense. It did take some time to decide where to put the sockets though, without a clear use-case in mind for the board.</p> <img src="fab8/07.png"> <p data-svelte-h="svelte-1sw0a79">Ended up simply putting the sockets at the opposite end of Xiao’s USB-C port. The button went to the corner for easy access when holding the board in one’s hand.</p> <img src="fab8/08.png"> <p data-svelte-h="svelte-9xugon">Set the clearance and track width to 0.4mm from the default 0.2mm, as recommended in the lecture.</p> <img src="fab8/09.png"> <p data-svelte-h="svelte-lpn2zl">Of course, during routing it can become clear that some pins should be switched around to be better in line with their destinations.</p> <img src="fab8/10.png"> <p data-svelte-h="svelte-37l19a">Entered a fillet radius of 3mm.</p> <img src="fab8/11.png"> <p data-svelte-h="svelte-1omlpx3">Everything routed at this point, except for the ground.</p> <img src="fab8/12.png"> <p data-svelte-h="svelte-1rpbbzd">The design rules checker seemed fine with everything. The silkscreen stuff was irrelevant for this board.</p> <img src="fab8/13.png"> <p data-svelte-h="svelte-1i68dbr">Settings used for the export of gerbers.</p> <img src="fab8/14.png"> <p data-svelte-h="svelte-24l9ba">All ground pins were connected to the base plate, as suggested in the lecture. It is nice to not have to worry about routing the ground pins, makes the work quite a bit simpler.</p> <img src="fab8/15.jpg"> <p data-svelte-h="svelte-1ymq8np">Time for milling. My board was supposedly even a bit smaller than the Tarantino, so I got one of the last remaining small copper plates for it.</p> <img src="fab8/16.jpg"> <p data-svelte-h="svelte-1wu9jr1">The plate must have been ever so slightly bent, because the milling didn’t go through the copper layer at the edges of the plate. Twice I had to increase the depth slightly and go again until all of the routes were properly milled. You could tell by the color and reflectivity of the gaps whether they had gone through the copper all the way.</p> <img src="fab8/17.jpg"> <p data-svelte-h="svelte-4ysoqi">Three milling passes and it was done. In the future it might be worth increasing the milling depth by default, and of course take more care to ensure the plate is as straight as possible.</p> <img src="fab8/18.jpg"> <p data-svelte-h="svelte-1a4ksim">Finished milling.</p> <img src="fab8/19.jpg"> <p data-svelte-h="svelte-1s61ski">The pin sockets were in these long pieces that were supposed to be cut to specified sizes.</p> <img src="fab8/20.jpg"> <p data-svelte-h="svelte-1pyxjxd">I went with two 4pin pieces for the analog inputs and with two 7pin pieces for the Xiao. I chose to have the 7 together in one component despite it being harder to solder, because the tradeoff of them being better aligned with each other was worth it for me.</p> <img src="fab8/21.jpg"> <p data-svelte-h="svelte-1bxr9dk">Soldering work in progress.</p> <img src="fab8/22.jpg"> <p data-svelte-h="svelte-1pasxti">Soldering finished. I allowed the ground pin connections to be sloppy, assuming that wouldn’t matter since those were connected to the entire base copper layer anyway.</p></article> </div> 
+			
+			<script>
+				{
+					__sveltekit_16ujz9a = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/digital-fabrication"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.UIh2MY-8.js"),
+						import("./_app/immutable/entry/app.QAykR8lT.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
