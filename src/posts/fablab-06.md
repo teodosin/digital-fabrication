@@ -1,7 +1,7 @@
 ---
 title: "Embedded Programming"
 date: "2024-03-09"
-description: "The fifth assignment for the Digital Fabrication minor."
+description: "The sixth assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
 cover: "fab6/19.jpg"

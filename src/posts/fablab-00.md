@@ -54,3 +54,4 @@ A few months into the courses, I had a clearer idea of what is feasible and how 
 * A 6-axis accelorometer per hand. 
 
 Analog pins are scarce, and even with less sensors one microcontroller wouldn't be enough to support all of them. Getting the bend of each knuckle as well as the rotation and movement of each hand should be enough to support interesting gestures for interaction. 
+

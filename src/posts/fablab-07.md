@@ -38,7 +38,7 @@ The workflow was quite familiar at this point. Create sketches, reference the sp
 
 ![](fab7/04.png)
 
-Even though the basic structure is dead-simple, I made an attempt to make it look at least a bit interesting by curving the legs in a similar style as I did with my [previous cutting project](fablab-three). It looked odd though. The contrast of the curved and straight edges ended up looking somewhat jarring, I think. I didn't want to spend too much time on just the design, so I moved on. I also didn't want to risk the stability of the final object by adding too many holes and curves and making it too weird. A fair tradeoff considering my lack of experience. 
+Even though the basic structure is dead-simple, I made an attempt to make it look at least a bit interesting by curving the legs in a similar style as I did with my [previous cutting project](fablab-03). It looked odd though. The contrast of the curved and straight edges ended up looking somewhat jarring, I think. I didn't want to spend too much time on just the design, so I moved on. I also didn't want to risk the stability of the final object by adding too many holes and curves and making it too weird. A fair tradeoff considering my lack of experience. 
 
 ![](fab7/05.png)
 
