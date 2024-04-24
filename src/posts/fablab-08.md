@@ -1,6 +1,6 @@
 ---
 title: "Electronics Design"
-date: "2024-03-21"
+date: "2024-03-28"
 description: "The eighth assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
@@ -128,5 +128,111 @@ Soldering work in progress.
 
 Soldering finished. I allowed the ground pin connections to be sloppy, assuming that wouldn't matter since those were connected to the entire base copper layer anyway. 
 
+# Coding
 
+It was three weeks after completing the board that I tried programming it. At the time of writing, I had been learning to program in [Rust](https://www.rust-lang.org/) for about a year. I did several projects with it and then started making my thesis software prototype with it also. Given Rust's reputation with also being a great language for embedded programming, I wanted to try it. 
 
+I found a lot of resources to just get started. Here were the main ones:
+
+[Github community for Rust on ESP](https://github.com/esp-rs)  
+[Main book for the above](https://docs.esp-rs.org/book/introduction.html)   
+[Book for ESP without Rust's standard library](https://docs.esp-rs.org/no_std-training/01_intro.html)
+
+The "std" in "no_std" refers to Rust's standard library, which provides a lot of common functions and tools. It is not required for bare metal programming, but can be used for convenience. One of the chapters in the above book mentions that it can add overhead and some latency to projects, so I opted to go without. Latency was important to mitigate for my [final project](fablab00).
+
+I won't go through the setup process here, since I just directly followed the book. Simply, I started my project using the no_std template, installed all the dependencies and then tried to blink an LED. I'm using Linux, so I followed the instructions for that. 
+
+```rust
+#![no_std]
+#![no_main]
+
+use esp_backtrace as _;
+use esp_hal::{clock::ClockControl, delay::Delay, gpio::IO, peripherals::Peripherals, prelude::*};
+
+#[entry]
+fn main() -> ! {        
+    let peripherals = Peripherals::take();
+    let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
+    let system = peripherals.SYSTEM.split();
+    let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
+
+    let delay = Delay::new(&clocks);
+
+    esp_println::logger::init_logger_from_env();
+
+    let mut led9 = io.pins.gpio9.into_push_pull_output();
+
+    // Set led to high
+    led9.set_high();
+
+    loop {
+        log::info!("Hello world!");
+        delay.delay(1000.millis());
+        led9.toggle();
+    }
+}
+```
+
+Then I plugged in the ESP32, ran `cargo run` to run the Rust code, and it flashed! It found the microcontroller, and started spamming Hello World in the terminal. I was expecting issues with this step, but it was much easier than my previous experience with the Arduino IDE. 
+
+Unfortunately, there still was an issue. The LED didn't blink. I swapped the ESP32 onto the Tarantino board to try with that board's lights, and it worked fine. So the issue was evidently with my newly designed board. 
+
+Something might have been wrong with my Tarantino board as well. This came up when I was trying to read the button press on both boards. On my design, the button didn't work at all. But with the Tarantino, the button did not register, but randomly touching the board on some places did trigger its input pin and terminal went crazy. 
+
+I went to debug my design with a multimeter and noticed that the ground pin on the header simply wasn't touching the copper. The lump of solder was hanging in the air, the gap barely visible with the naked eye. I fixed it with the ugliest solder joint you've ever seen, out of spite (allowed because the entire copper plate belongs to ground). The button header pin also seemed like it wasn't properly connected, so I fixed that too. 
+
+![please forgive me](fab8/23.jpg)
+
+There might be more issues still, but this at least allowed me to get the button and LED to work. Here was the final Rust code that makes the LED toggle on and off on each button release:
+
+```rust
+#![no_std]
+#![no_main]
+
+use esp_backtrace as _;
+use esp_hal::{
+    clock::ClockControl, delay::Delay, gpio::IO, peripherals::Peripherals, prelude::*,
+};
+
+#[entry]
+fn main() -> ! {
+    let peripherals = Peripherals::take();
+    let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
+    let system = peripherals.SYSTEM.split();
+
+    // Not used right now. You would use these to make delays. 
+    let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
+    let _delay = Delay::new(&clocks);
+
+    // Initialise logger to allow printing to terminal.
+    esp_println::logger::init_logger_from_env();
+
+    // Initialise pins
+    let mut led9 = io.pins.gpio9.into_push_pull_output();
+    let btn = io.pins.gpio8.into_pull_up_input();
+
+    let mut toggle_state: bool = false;
+
+    loop {
+        // Read button state
+        let btn_read = !btn.is_high();
+
+        // If button state is the same as the previous state, reset loop
+        if toggle_state == btn_read {
+            continue;
+        }
+
+        // This could probably be more robust, so don't take it as gospel
+        if btn.is_low() {
+            toggle_state = true;
+            log::info!("Button pressed");
+        } else if toggle_state == true {
+            toggle_state = false;
+            led9.toggle();
+            log::info!("Button released");
+        }
+    }
+}
+```
+
+One thing to note here is that the Rust libraries expose many more options for even the pin settings than Arduino code does. You can see from the initialisers above, the functions `into_push_pull_output()` and `into_pull_up_input()` are used to set the pin modes. These weren't something that I recognised from Arduino, which simply had you set the pin mode to `INPUT` or `OUTPUT`. There are multiple other function options not shown here, and it took a bit of trial and error and searching around to figure out the appropriate ones. I didn't understand them fully at this point yet, but they did the trick. 

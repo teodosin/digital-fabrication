@@ -1,0 +1,113 @@
+---
+title: "Input Devices"
+date: "2024-03-21"
+description: "The tenth assignment for the Digital Fabrication minor."
+categories: ["projects"]
+tags: ["digital-fabrication"]
+cover: "fab10/01.png"
+---
+
+### Table of Contents
+
+# Assignment
+
+```
+Group assignment
+1. Join one of the introduction sessions on Mon, Tue or Wed and document the probing of several different input devices.
+2. Pick a group leader who has to create and populate the group assignment page. 
+
+Individual assignment
+1. Link to the group assignment page and describe what you learned from the group assignment.
+2. Add a sensor to a microcontroller board that you have designed and read it.
+```
+
+# Group
+
+I was unfortunately sick on the day that my group had their introduction session. I will link to it here still, once it is posted. 
+
+# Datasheet
+
+My [final project, the glove controllers](fablab-00), consists only of input devices and a microcontroller capable of transimitting that data. So this week was the perfect time to finally attempt the first iteration of the board. 
+
+For the board, I thought I'd again use the ESP32C3, like in the [electronic design week's project](fablab-08). Back then I naively thought I could just plug in the flex sensors into the analog pins and ground and it would work. Only after making the board did I look into how flex sensors are supposed to be used. So this was my opportunity to correct that mistake. 
+
+I used [this video](https://www.youtube.com/watch?v=_tXWoplbqWo) as a reference for figuring out the circuit for the flex sensors. 
+
+![](fab10/01.png)
+
+So I needed 5 analog pins per glove just for the flex sensors. For the That was more than the ESP32 had available, and I thought I needed multiple chips intercommunicating for that. Instead I was recommended to use a **multiplexer** to multiply the amount of pins. 
+
+There were no footprints in the fablab library for the multiplexers, so I took a stab at making the one for the one I needed. 
+
+Taking a look at the [datasheet](https://www.ti.com/lit/ds/symlink/cd74hc4051.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1713092472891&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Fcd74hc4051), the two main pieces of information I'm looking for are the **pin configuration** and the **footprint**. Finding the pin configuration was already somewhat confusing, as there were three different layouts in the datasheet. Figuring out which one was correct took a while, until I took a closer look at the numbering scheme of the component:
+
+![](fab10/05.png)
+![](fab10/06.png)
+
+The pin configurations were labeled _4051B, _4052B and _4053B (underscore means I omitted identical strings). 4051 matches the code on the Digikey product site. I hoped this was correct. 
+
+Then, finding the footprint. There were multiple diagrams of the physical dimensions of the component, and they too were different. 
+
+![](fab10/03.png)
+![](fab10/04.png)
+
+# Multiplexer
+
+On to KiCad. 
+
+I was following [this tutorial](https://www.youtube.com/watch?v=pV-4ElYoXYU&t=62s) to learn the basics of symbol and footprint creation.    
+
+I opened the Aalto fablab kicad library repository and added a new footprint.
+
+According to the datasheet, the distance between centres of pins is 1.27mm. I created a new grid with that spacing. 
+
+![](fab10/08.png)
+
+I created a new **pad** in the centre of the grid with the following settings. The dimensions of the pads come from the datasheet as well. Not shown is the **pad clearance**, which I set to 0.5mm. 
+
+![](fab10/09.png)
+
+I immediately deleted the grid I had and made a new one with the correct horizontal offset of 7mm. 
+
+![](fab10/11.png)
+![](fab10/10.png)
+
+The numbering of the pads was also clear in the datasheet. 
+
+![](fab10/02.png)
+
+After the footprint, the symbol. A simple rectangle, like most other component symbols. 
+
+![](fab10/12.png)
+
+Pin properties. Default settings except for the pin names, numbers and electrical types. I tried to match them to the types declared in the datasheet, even though they weren't one to one matches. I/O became bidirectional, and the different powers pins all became power inputs in KiCad. 
+
+![](fab10/13.png)
+
+Below, the table I referenced. 
+
+![](fab10/14.png)
+
+![](fab10/15.png)
+
+A test connection showed that the footprint wasn't correctly linked to the symbol, so it wasn't appearing in the PCB editor. Also, the other components in the fablab library had a courtyard, so I added that too. 
+
+![](fab10/16.png)
+
+![](fab10/17.png)
+
+At this point I noticed and referred to the [KiCad Library Conventions](https://klc.kicad.org/) and oh dear, was there a lot of things to still go through. I didn't have time to check absolutely everything at this point, so I skimmed through to look for the things that seemed most relevant or important. 
+
+Grouping the pins in the symbol better was a logical change.
+
+![](fab10/18.png)
+
+# IMU
+
+For tracking the position and orientation of a glove I picked an Inertial Measurement Unit with an accelerometer and a gyroscope. Specifically, the [LSM6DSOX](https://www.adafruit.com/product/4438). 
+
+The unit itself was intimidating with its large number of pins. Learning about the I2C protocol and referencing the [wiring guide](https://learn.adafruit.com/adafruit-lsm6dsox-3d-accelerometer-gyroscope-breakout/wiring-and-test) was a bit of a challenge, but I eventually got it working.
+
+![](fab10/19.png)
+![](fab10/20.png)
+![](fab10/21.jpg)   

@@ -40,7 +40,7 @@ On the right, the first sketch. On the left, the second.
 
 The legs of it would attach to the rim and to each other at the bottom. I took on the challenge of making six legs instead of four, because I thought it would look nicer that way. 
 
-The design could theoretically accomocate spheres of different scales. There would be adjustable supports with smooth ends at the bottom and the edges of the stand, which the spheres would rest on. The smaller the sphere, the longer the supports. The sphere would always rest in the center and be able to be rotated smoothly. 
+The design could theoretically accomocate spheres of different scales. There would be adjustable supports with smooth ends at the bottom and the edges of the stand, which the spheres would rest on. The smaller the sphere, the longer the supports. The sphere would always rest in the centre and be able to be rotated smoothly. 
 
 ![Profile sketch of the design](fab3/02_sketch2.jpg)
 
@@ -69,7 +69,7 @@ Then it was time to create the outline sketches. At this point I did move to Ink
 
 ![Vector design for the legs](fab3/07_leg_svg.png)
 
-The leg doesn't reach the center because many of them will have to fit around in a circle. Shortening it in that direction would also help with fitting the legs more easily on the flat sheet that I was cutting from. I wanted an outer circumference of **400mm** for the rim so I could fit a 300mm circumference sphere at best. The design also requires 12 leg cutouts. It was a lot to fit on a single sheet. 
+The leg doesn't reach the centre because many of them will have to fit around in a circle. Shortening it in that direction would also help with fitting the legs more easily on the flat sheet that I was cutting from. I wanted an outer circumference of **400mm** for the rim so I could fit a 300mm circumference sphere at best. The design also requires 12 leg cutouts. It was a lot to fit on a single sheet. 
 
 ![Test layout in vector](fab3/09_layout.png)
 
@@ -81,7 +81,7 @@ I created three more variables/aliases with the following values:
 
 * tab_length - 20.0mm
 * lap_depth - 20.0mm
-* center_radius - 40.0mm
+* centre_radius - 40.0mm
 
 In case they might need to be changed later. 
 

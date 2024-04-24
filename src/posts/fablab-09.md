@@ -1,6 +1,6 @@
 ---
 title: "Output Devices"
-date: "2024-03-21"
+date: "2024-04-12"
 description: "The ninth assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
@@ -64,3 +64,49 @@ Then I noticed I had forgotten the mounting holes.
 ![](fab9/08.png)
 
 # Milling
+
+This was my most painful milling experience at this point. It took over three hours to get a board that looked passable. 
+
+The first attempt produced routes that were too thin. I had set the depth of the engraving too deep, trying to avoid the multiple milling passes I had to do with the previous board. Ended up ruining the plate, and I had to prepare another. No images of the first one. 
+
+![](fab9/08.jpg)
+
+The second attempt was uneven; half of the board was milled properly, and the other half was too shallow and didn't cut away all the copper. You can tell from the shininess. 
+
+![](fab9/09.jpg)
+
+I had taped the board in two parts, and milled exactly above the gap between the tapes. Clearly, the two tapes had lifted the board to different heights. Also I didn't think to properly clean the machine bed after my first attempt, so the dust could also have contributed to the problem. This wasn't something that could be fixed with a new milling pass, so I had to start over again. 
+
+![](fab9/10.jpg)
+
+With the third plate I set the engraving depth more conservatively and accepted that I might have to do multiple passes. And I did end up doing multiple, because the plate was again uneven, though less than before. After the last one, there was only copper left in one corner, and I scraped that out with just a knife. Made me think whether the previous attempt could also have been salvaged manually. 
+
+# Soldering
+
+![](fab9/11.jpg)
+
+Components were gathered, and I only then realised that I needed rivets for the screw terminals. They ended up causing most of the problems in the soldering process. 
+
+![](fab9/12.jpg)
+
+I inserted the rivets from the back of the board, planning to put solder only there after inserting the screw terminals. I thought that on the opposing side, the rivets would have had more surface area to connect to the board. 
+
+![](fab9/13.jpg)
+
+I tried testing the rivets' conductivity, and at that point they seemed fine. I proceeded with soldering the rest of the components. 
+
+![](fab9/14.jpg)
+
+The motor drivers were somewhat challenging. The exposed pad was recommended to be soldered with solder paste and a hot airgun. It took multiple attempts on both drivers, but eventually I managed to keep the paste liquid enough and pressed hard enough that the solder joints were formed. 
+
+![](fab9/15.jpg)
+
+Soldering the rest of the pins was actually very enjoyable. I made mistakes multiple times, connecting the pads accidentally to the surrounding copper, but managed to fix each with the desoldering band. 
+
+The screw terminals, however, weren't connecting properly. I had to really press with the multimeter to get a signal. I was overconfident and had soldered the terminals on tightly, and needed help getting them out. I hammered in the rivets again until I was certain they were in. And then, I only put the screw terminals in at the very ends, so I could have space later to put more solder on if necessary. 
+
+![](fab9/16.jpeg)
+
+# Testing
+
+(haven't had time to do this yet)
