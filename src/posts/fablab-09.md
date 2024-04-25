@@ -109,4 +109,81 @@ The screw terminals, however, weren't connecting properly. I had to really press
 
 # Testing
 
-(haven't had time to do this yet)
+Just before doing this I succeeded in getting Rust code to run on my [previous board](fablab-08). You can refer to that post for an introduction and some pointers. I wanted to do the same here and get some basic test code working. Oh, it wasn't easy at all this time. I was quite immersed in solving the issues, so I didn't document much. But here's the gist of it:
+
+This board uses the ESP32-S3, whereas the previous one used the C3. On the surface, the only difference was that you had to choose a different microcontroller when initialising the template. However, when running the code and trying to flash the ESP, my terminal kept complaining that it couldn't find the `glibc` library with versions 2.32, 2.33 or 2.34. My version was 2.31. And for context, the library in question was the GNU C Library, Linux's implementation of the standard C library that underpins the entire operating system. I had to upgrade my entire OS, which isn't a trivial thing to do on Linux. Took me several hours. 
+
+After that though, my code compiled. I ran some experiments with the pins and got a satisfying test working with the following code:
+
+```rust
+#![no_std]
+#![no_main]
+
+use esp_backtrace as _;
+use esp_hal::{clock::ClockControl, delay::Delay, gpio::IO, peripherals::Peripherals, prelude::*};
+
+// Derive debug
+#[derive(Debug)]
+enum State {
+    ZZ,
+    OZ,
+    ZO,
+    OO,
+}
+
+#[entry]
+fn main() -> ! {
+    let peripherals = Peripherals::take();
+    let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
+    let system = peripherals.SYSTEM.split();
+
+    let clocks = ClockControl::max(system.clock_control).freeze();
+    let delay = Delay::new(&clocks);
+
+    esp_println::logger::init_logger_from_env();
+
+    let mut mot3 = io.pins.gpio4.into_push_pull_output();
+    let mut mot4 = io.pins.gpio5.into_push_pull_output();
+
+    let mut state = State::ZZ;
+
+    loop {
+        match state {
+            State::ZZ => {
+                mot3.set_high();
+                mot4.set_high();
+            }
+            State::ZO => {
+                mot3.set_high();
+                mot4.set_low();
+            }
+            State::OZ => {
+                mot3.set_low();
+                mot4.set_high();
+            }
+            State::OO => {
+                mot3.set_low();
+                mot4.set_low();
+            }
+        }
+
+        delay.delay(3000.millis());
+        
+        state = match state {
+            State::ZZ => State::ZO,
+            State::ZO => State::OZ,
+            State::OZ => State::OO,
+            State::OO => State::ZZ,
+        };
+        log::info!("{:?}", state);
+        log::info!("Pins set to {:?}", (mot3.is_set_high(), mot4.is_set_high()));
+
+    }
+}
+```
+
+There are two pins on the motor driver that control the motor, so there are four possible combinations for how they can be set. The `mot3` and `mot4` variables are the handles for those pins. The `state` variable is a simple enum that keeps track of the current state. Every three seconds, the loop transitions to the next state. 
+
+Running this code causes the connected motor to go in one direction, then the other, then stop. 
+
+![](video.mp4)
