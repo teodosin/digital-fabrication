@@ -186,4 +186,9 @@ There are two pins on the motor driver that control the motor, so there are four
 
 Running this code causes the connected motor to go in one direction, then the other, then stop. 
 
-![](video.mp4)
+<video
+src="fab9/motor.mp4"
+autoplay="autoplay"
+loop="loop"
+>
+</video>

@@ -236,4 +236,9 @@
     .post :global(h4) {
         font-size: 1.4rem;
     }
+
+    .post :global(video) {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 </style>

@@ -6,6 +6,8 @@ import { mdsvex } from 'mdsvex';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkAttr from 'remark-attr';
 import remarkToc from 'remark-toc';
+import RehypeVideo from 'rehype-video';
+import remarkOEmbed from 'remark-oembed';
 
 import fs from 'fs';
 import path from 'path';
@@ -58,7 +60,11 @@ const config = {
 				remarkUnwrapImages,
 				remarkAttr,
 				remarkToc,
+				remarkOEmbed,
 			],
+			rehypePlugins: [
+				RehypeVideo,
+			]
 		})
 	]
 };
