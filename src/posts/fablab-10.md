@@ -4,7 +4,7 @@ date: "2024-03-21"
 description: "The tenth assignment for the Digital Fabrication minor."
 categories: ["projects"]
 tags: ["digital-fabrication"]
-cover: "fab10/01.png"
+cover: "fab10/31.jpg"
 ---
 
 ### Table of Contents
@@ -106,8 +106,47 @@ Grouping the pins in the symbol better was a logical change.
 
 For tracking the position and orientation of a glove I picked an Inertial Measurement Unit with an accelerometer and a gyroscope. Specifically, the [LSM6DSOX](https://www.adafruit.com/product/4438). 
 
-The unit itself was intimidating with its large number of pins. Learning about the I2C protocol and referencing the [wiring guide](https://learn.adafruit.com/adafruit-lsm6dsox-3d-accelerometer-gyroscope-breakout/wiring-and-test) was a bit of a challenge, but I eventually got it working.
+The unit itself was intimidating with its large number of pins. Learning about the I2C protocol and referencing the [wiring guide](https://learn.adafruit.com/adafruit-lsm6dsox-3d-accelerometer-gyroscope-breakout/wiring-and-test) was a bit of a challenge, but I eventually found the diagrams that showed the wiring clearly.
 
 ![](fab10/19.png)
 ![](fab10/20.png)
+
+The connector type on the IMU is called **Stemma**. I found a wire bundle with a stemma on one end and four standard male headers on the other. I would use these for the first iteration of the board. This would also spare me from having to create another new footprint, since I was already a bit behind on the assignments. 
+
 ![](fab10/21.jpg)   
+
+So the only four pins relevant to the I2C protocol are the power and ground pins, and the SDA and SCL pins for data transfer and clock speed respectively. 
+
+![](fab10/22.png)
+
+# Routing
+
+I had all the components placed in the schematic, so I could start routing. 
+
+![](fab10/23.png)
+
+The multiplexer, even with many of its pins unused, was a dense and difficult routing job. Even figuring out the correct orientation for it took a while. I had to move a lot of pins around. 
+
+![](fab10/24.png)
+
+When most of it was routed, I was still missing some ground connections that I had no way of routing. I resorted to using three 0 ohm resistors to jump across some routes and connect the ground to the remaining flex sensor pads. 
+
+![](fab10/25.png)
+![](fab10/26.png)
+![](fab10/27.png)
+
+Edge cuts and mounting holes left, and then the design was done. 
+
+![](fab10/28.png)
+
+# Milling
+
+Milling went much better than with the [previous assignment](fablab-09). I did mess up one board, still. The bottom of the circuit was barely getting milled but the top half looked fine. The difference was too great to fix with repeated passes, since then the top would get milled too much. I stopped the job and placed another plate. 
+
+![](fab10/29.jpg)
+
+The second board was successful. I made a point to place the board bottom edge first, and then bending it backwards to try to make the tape connect fully along the whole length of it. With a bit of force, it seemed to work and the board got milled evenly everywhere. 
+
+![](fab10/30.jpg)
+![](fab10/31.jpg)
+
