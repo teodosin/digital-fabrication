@@ -9,12 +9,7 @@ cover: "fab11/40.jpg"
 
 ### Table of Contents
 
-# Assignment
-
-```
-```
-
-# Group
+# Prep
 
 
 ![](fab11/01.jpg)
@@ -46,6 +41,8 @@ Color pigments are available but are difficult to use, so it is preferred to avo
 When the two parts of a material make contact, the countdown to the curing begins. That countdown is called the **pot life**. You should have the materials ready and set in their containers by the end of that specified time. Above is an example of what can happen if the materials make contact too soon. What likely happened is that someone used the same mixing stick for both parts, resulting in contamination, and the next person to use them got a mix that was already curing. This is why you should always throw away mixing sticks and never reuse them. 
 
 ![](fab11/07.jpg)
+
+# Molding
 
 Materials are mixed by hand, first individually, then together. They are viscous so it takes many minutes of stirring to get them to run evenly. The two parts are then mixed together, measured by either weight or volume (there's a scale on the mixing table for this) and usually with a 1 to 1 ratio. 
 
@@ -109,6 +106,9 @@ When starting the pour, try to make the strand as thin as possible. Start from o
 ![](fab11/31.jpg)
 ![](fab11/32.jpg)
 ![](fab11/33.jpg)
+
+# Casting 
+
 ![](fab11/34.jpg)
 
 For the final casting, a different material is used. This one has a much faster pot life and cure time, so you shouldn't take too long in pouring it. 
