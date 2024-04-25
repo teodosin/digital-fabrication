@@ -1,4 +1,4 @@
-import{s as At,e,a as p,H as J,c as o,g as l,b as i,j as V,k as Z,h as t,f as c,d as Bn,i as a,n as Xn}from"./scheduler.WqRDolvd.js";import{S as Rt,i as Ot}from"./index.0NVKo1ab.js";function Ut(Lt){let u,qn="Table of Contents",Q,r,zn='<li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#programming">Programming</a></li>',$,k,Fn="Assignment",nn,d,tn,St=`<code class="language-undefined">Group assignment:
+import{s as At,e,a as p,H as J,c as o,g as l,b as i,j as V,k as Z,h as t,f as c,d as Bn,i as a,n as Xn}from"./scheduler.VDxU6aNK.js";import{S as Rt,i as Ot}from"./index.CMIy7L5C.js";function Ut(Lt){let u,qn="Table of Contents",Q,r,zn='<li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#programming">Programming</a></li>',$,k,Fn="Assignment",nn,d,tn,St=`<code class="language-undefined">Group assignment:
 
 * Look at the datasheet of the RP2040 and reflect on what you learned.
 * Try and compare other MCU&#39;s, such as other XIAO boards and ATtiny and SAMD boards.
