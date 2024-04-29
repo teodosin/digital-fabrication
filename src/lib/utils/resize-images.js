@@ -20,31 +20,43 @@ function processDirectory(directoryPath) {
       if (file.isDirectory()) {
         processDirectory(filePath);
       } else {
-        const tempFilePath = `${filePath}_temp`;
-
         sharp(filePath)
-          .resize(maxWidth, maxHeight, {
-            fit: 'inside',
-            withoutEnlargement: true,
-          })
-          .toFile(tempFilePath, (err) => {
-            if (err) {
-              console.log('Error resizing image: ', err);
+          .metadata()
+          .then((metadata) => {
+            const { width, height } = metadata;
+            if (width > maxWidth || height > maxHeight) {
+              const tempFilePath = `${filePath}_temp`;
+
+              sharp(filePath)
+                .resize(maxWidth, maxHeight, {
+                  fit: 'inside',
+                  withoutEnlargement: true,
+                })
+                .toFile(tempFilePath, (err) => {
+                  if (err) {
+                    console.log('Error resizing image: ', err);
+                  } else {
+                    unlink(filePath, (err) => {
+                      if (err) {
+                        console.log('Error deleting original file: ', err);
+                      } else {
+                        rename(tempFilePath, filePath, (err) => {
+                          if (err) {
+                            console.log('Error renaming temporary file: ', err);
+                          } else {
+                            console.log(`Resized image saved as ${filePath}`);
+                          }
+                        });
+                      }
+                    });
+                  }
+                });
             } else {
-              unlink(filePath, (err) => {
-                if (err) {
-                  console.log('Error deleting original file: ', err);
-                } else {
-                  rename(tempFilePath, filePath, (err) => {
-                    if (err) {
-                      console.log('Error renaming temporary file: ', err);
-                    } else {
-                      console.log(`Resized image saved as ${filePath}`);
-                    }
-                  });
-                }
-              });
+              console.log(`Image ${filePath} is within the size limit. Skipping resizing.`);
             }
+          })
+          .catch((err) => {
+            console.log('Error reading image metadata: ', err);
           });
       }
     });
