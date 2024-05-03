@@ -126,7 +126,7 @@ However, it was clear that something was off with my board again. The button did
 
 I had to return to soldering yet again. While there I also got help troubleshooting why the third LED didn't work. Turns out it might be a design flaw in the actual Tarantino board: the third LED isn't connected to ground. Manually bridging it to some ground made it work. At the time of writing this I am still waiting for confirmation on whether this is an actual design flaw or just a misunderstanding on the purpose of that third LED.
 
-![](fab6/27.jpg)
+![sorry, no alt found](fab6/27.jpg)
 
 Back to coding. 
 
@@ -153,7 +153,7 @@ sudo adduser YourUserName GroupToJoin Will fix things if you need to join a grou
 
 This did. After logging out, I was member of the proper group and the serial messages upon state changes were properly displayed in the Serial Monitor. 
 
-![](fab6/serial.png)
+![sorry, no alt found](fab6/serial.png)
 
 I also tried for a while to get the communication working the other way. I wanted to be able to type the number of a state into the serial monitor and change the state directly. I couldn't get it to work in a reasonable time though.
 

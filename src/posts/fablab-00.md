@@ -50,8 +50,25 @@ The sketch first sketch was not meant to be realistic. I expected the real thing
 
 A few months into the courses, I had a clearer idea of what is feasible and how the actual gloves should be built. 
 
+Two flex sensors per finger would have added a lot of complexity to the build without adding all that many features. Getting splay to work would be an entirely different challenge in addition to that. So the revised scope of the project was as follows:
+
 * 1 flex sensor per finger, so 5 per hand. 
 * A 6-axis accelorometer per hand. 
 
-Analog pins are scarce, and even with less sensors one microcontroller wouldn't be enough to support all of them. Getting the bend of each knuckle as well as the rotation and movement of each hand should be enough to support interesting gestures for interaction. 
+Getting the bend of each knuckle as well as the rotation and movement of each hand should be enough to support interesting gestures for interaction. 
 
+At the start of the Studio course I also discovered a highly interesting glove project dubbed [ImmersiveGloves](https://github.com/ras-marques/ImmersiveGloves). This project used IMUs on each finger to track the finger movements. They've showed very accurate tracking of fingers, including splay. Currently they're adding a second set of IMUs for each finger, which would capture both of the independent ranges of motion that the fingers have. The project is impressive, to say the least. I would love to take inspiration from it, but I discovered it too late to fit it into my scope. So that will have to happen on my own time. 
+
+
+The steps remaining:
+* Figure out the networking solution [networking week](fablab-12)
+* First iteration of the board from [input devices week](fablab-10)
+* Working code for the input board
+* Quick and dirty glove
+* Second iteration board design
+* 2nd board milling
+* 2nd board soldering
+* 2nd board casing design
+* 2nd board casing printing
+* Assembly
+* Write a simple app to check correctness 

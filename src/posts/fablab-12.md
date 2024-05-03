@@ -43,21 +43,10 @@ Let's break down the task a bit. No need to immediately jump to board-to-board c
 
 # Button Print
 
-I hacked together a modification of the above access point example. There was an issue with the compilation:
+The process to get code to compile was painful. There were so many errors and dead ends, and I was so tunnel-visioned to get it to work that I didn't take time to document. 
 
-```rust
-error[E0463]: can't find crate for `std`
- --> /home/viktor/.cargo/registry/src/index.crates.io-6f17d22bba15001f/managed-0.8.0/src/lib.rs:7:1
-  |
-7 | extern crate std;
-  | ^^^^^^^^^^^^^^^^^ can't find crate
-  |
+I eventually did get the example codes from esp-wifi to compile and run, and I was able to connect the ESP32 to my wifi network. I didn't manage, however, to do anything with that connection. I also tried running the bluetooth example, but couldn't connect to the device. So I'm condensing maybe two days worth of work into these two disappointing paragraphs. 
 
-```
+I looked elsewhere. I found [a tutorial series](https://dev.to/apollolabsbin/embedded-rust-bluetooth-on-esp-ble-scanner-1gb7) that seemed promising. It was only under two months old and really in depth. 
 
-The `managed`crate is a dependency of `smoltcp`. This crate was used in the example as well as in my code. 
-
-```rust
-esp-wifi = { version = "0.5.1", features = ["esp32c3", "wifi", "esp-now"] }
-```
-
+I read through the series carefully and implemented the code. 

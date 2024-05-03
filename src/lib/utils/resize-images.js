@@ -24,7 +24,11 @@ function processDirectory(directoryPath) {
           .metadata()
           .then((metadata) => {
             const { width, height } = metadata;
-            if (width > maxWidth || height > maxHeight) {
+            if (width === undefined || height === undefined) {
+              return;
+            }
+            
+            if (width > maxWidth || height > maxHeight ) {
               const tempFilePath = `${filePath}_temp`;
 
               sharp(filePath)

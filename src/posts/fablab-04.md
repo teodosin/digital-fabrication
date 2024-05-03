@@ -95,5 +95,5 @@ At first I thought it wasn't working again. I had booted it up and uploaded `hel
 
 Removing the plug and plugging it back in, only without the boot button pressed, was more promising. Now the light got properly toggled when the big button was pressed. 
 
-![](fab4/16.jpg)
-![](fab4/17.jpg)
+![sorry, no alt found](fab4/16.jpg)
+![sorry, no alt found](fab4/17.jpg)
