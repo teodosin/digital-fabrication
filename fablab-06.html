@@ -7,15 +7,15 @@
 		
 		<link href="./_app/immutable/assets/0.CWYO6-vi.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/3.D2JvoFPL.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.-2FUg_Fz.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.DctSeXcc.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.Bp9BQVyS.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.D6xBGbV3.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.VDxU6aNK.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/paths.D5eEPBA6.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.CCEibzkn.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.DvbRd5zl.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.DkcuOZsU.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.D6kgxu3v.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.CMIy7L5C.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.Bs0LNH7y.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.DkaBFALz.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.CoYs3Zcx.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.C2m41328.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-12zqzs0" src="fab6/19.jpg" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-12zqzs0"><h1>Embedded Programming</h1> <p class="date svelte-12zqzs0">Published: 2024-03-09</p></div> <div class="centered-container svelte-12zqzs0"><div class="toc svelte-12zqzs0"></div> <article class="post svelte-12zqzs0"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1rzt84x"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#programming">Programming</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment:
@@ -72,14 +72,14 @@ bool btn_state <span class="token operator">=</span> HIGH<span class="token punc
 <span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// put your main code here, to run repeatedly:</span>
 
-<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-3toh0m">I also tried to access the third LED which seemed to be connected to D6. It didn’t work, and I didn’t know enough about how the circuits actually functioned to debug this. The second LED did light up though.</p> <img src="fab6/19.jpg" alt="Two LED's on"> <p data-svelte-h="svelte-1kxo3fy">However, it was clear that something was off with my board again. The button didn’t work at all, and the lights only toggled when I touched the corner of the chip with my finger. After a bit of poking around with my finger and a paperclip, I found the issue. The lights only toggled when I touched the top of the <strong>D1</strong> header, as well as the bottom mass of solder. But it didn’t trigger on the path to the button. The solder had come off the board beneath, leaving a gap unless the chip was pressed firmly enough to close it.</p> <p data-svelte-h="svelte-182frz">I had to return to soldering yet again. While there I also got help troubleshooting why the third LED didn’t work. Turns out it might be a design flaw in the actual Tarantino board: the third LED isn’t connected to ground. Manually bridging it to some ground made it work. At the time of writing this I am still waiting for confirmation on whether this is an actual design flaw or just a misunderstanding on the purpose of that third LED.</p> <img src="fab6/27.jpg" alt="an image"> <p data-svelte-h="svelte-4fw7qs">Back to coding.</p> <p data-svelte-h="svelte-107bt94">Before I go through the finished the code, I want to go over an issue I ran into with using Serial.</p> <p data-svelte-h="svelte-npenjn">My issue with using Serial was about not having proper permissions to connect to the port.</p> <p data-svelte-h="svelte-10yah90">The solutions are specific to Linux. I can’t comment on other platforms. First, someone suggested adding permissions to the port using this command:</p> <p data-svelte-h="svelte-1hmmbb1"><code>sudo chmod a+rw /dev/ttyACM0</code></p> <p data-svelte-h="svelte-ed1trv">This didn’t work, however.</p> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">In a terminal, with the board plugged in, enter.
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-3toh0m">I also tried to access the third LED which seemed to be connected to D6. It didn’t work, and I didn’t know enough about how the circuits actually functioned to debug this. The second LED did light up though.</p> <img src="fab6/19.jpg" alt="Two LED's on"> <p data-svelte-h="svelte-1kxo3fy">However, it was clear that something was off with my board again. The button didn’t work at all, and the lights only toggled when I touched the corner of the chip with my finger. After a bit of poking around with my finger and a paperclip, I found the issue. The lights only toggled when I touched the top of the <strong>D1</strong> header, as well as the bottom mass of solder. But it didn’t trigger on the path to the button. The solder had come off the board beneath, leaving a gap unless the chip was pressed firmly enough to close it.</p> <p data-svelte-h="svelte-182frz">I had to return to soldering yet again. While there I also got help troubleshooting why the third LED didn’t work. Turns out it might be a design flaw in the actual Tarantino board: the third LED isn’t connected to ground. Manually bridging it to some ground made it work. At the time of writing this I am still waiting for confirmation on whether this is an actual design flaw or just a misunderstanding on the purpose of that third LED.</p> <img src="fab6/27.jpg" alt="sorry, no alt found"> <p data-svelte-h="svelte-4fw7qs">Back to coding.</p> <p data-svelte-h="svelte-107bt94">Before I go through the finished the code, I want to go over an issue I ran into with using Serial.</p> <p data-svelte-h="svelte-npenjn">My issue with using Serial was about not having proper permissions to connect to the port.</p> <p data-svelte-h="svelte-10yah90">The solutions are specific to Linux. I can’t comment on other platforms. First, someone suggested adding permissions to the port using this command:</p> <p data-svelte-h="svelte-1hmmbb1"><code>sudo chmod a+rw /dev/ttyACM0</code></p> <p data-svelte-h="svelte-ed1trv">This didn’t work, however.</p> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">In a terminal, with the board plugged in, enter.
 ls -l /dev/ttyACM*, this will show the group that has access to the port.
 
 Example: crw-rw-r-- 1 root dialout ... /dev/ttyACM0, root is owner, dialout is the group with access.
 
 Entering the command, groups, in a terminal will show the groups you belong to.
 
-sudo adduser YourUserName GroupToJoin Will fix things if you need to join a group, logout and login after you run adduser.</code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-9yfvoo">This did. After logging out, I was member of the proper group and the serial messages upon state changes were properly displayed in the Serial Monitor.</p> <img src="fab6/serial.png" alt="an image"> <p data-svelte-h="svelte-17ljdd4">I also tried for a while to get the communication working the other way. I wanted to be able to type the number of a state into the serial monitor and change the state directly. I couldn’t get it to work in a reasonable time though.</p> <p data-svelte-h="svelte-13mj134">Here is the final working code for the state machine. Sufficiently commented to be understandable, I would hope.</p> <pre class="language-c"><!-- HTML_TAG_START --><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Adafruit_NeoPixel.h></span></span>
+sudo adduser YourUserName GroupToJoin Will fix things if you need to join a group, logout and login after you run adduser.</code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-9yfvoo">This did. After logging out, I was member of the proper group and the serial messages upon state changes were properly displayed in the Serial Monitor.</p> <img src="fab6/serial.png" alt="sorry, no alt found"> <p data-svelte-h="svelte-17ljdd4">I also tried for a while to get the communication working the other way. I wanted to be able to type the number of a state into the serial monitor and change the state directly. I couldn’t get it to work in a reasonable time though.</p> <p data-svelte-h="svelte-13mj134">Here is the final working code for the state machine. Sufficiently commented to be understandable, I would hope.</p> <pre class="language-c"><!-- HTML_TAG_START --><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Adafruit_NeoPixel.h></span></span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED</span> <span class="token expression">D0</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED2</span> <span class="token expression">D6 </span><span class="token comment">// There might be a design flaw with the board. This LED has no ground. </span></span>
@@ -181,7 +181,7 @@ Adafruit_NeoPixel <span class="token function">pixels</span><span class="token p
 			
 			<script>
 				{
-					__sveltekit_1kaz4n0 = {
+					__sveltekit_pkx9rs = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						assets: "/digital-fabrication"
 					};
@@ -191,8 +191,8 @@ Adafruit_NeoPixel <span class="token function">pixels</span><span class="token p
 					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.-2FUg_Fz.js"),
-						import("./_app/immutable/entry/app.CCEibzkn.js")
+						import("./_app/immutable/entry/start.Bp9BQVyS.js"),
+						import("./_app/immutable/entry/app.DkcuOZsU.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
