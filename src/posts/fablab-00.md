@@ -59,16 +59,21 @@ Getting the bend of each knuckle as well as the rotation and movement of each ha
 
 At the start of the Studio course I also discovered a highly interesting glove project dubbed [ImmersiveGloves](https://github.com/ras-marques/ImmersiveGloves). This project used IMUs on each finger to track the finger movements. They've showed very accurate tracking of fingers, including splay. Currently they're adding a second set of IMUs for each finger, which would capture both of the independent ranges of motion that the fingers have. The project is impressive, to say the least. I would love to take inspiration from it, but I discovered it too late to fit it into my scope. So that will have to happen on my own time. 
 
+## Assignments
+
+A lot of the groundwork was laid during the weekly assignments. 
+
+Figured out a plausible networking solution during the [networking](fablab-12) and [app programming](fablab-13) weeks. 
+
+Made the first iteration of the board during the [input devices week](fablab-10).
 
 The steps remaining:
-* Figure out the networking solution [networking week](fablab-12)
-* First iteration of the board from [input devices week](fablab-10)
-* Working code for the input board
-* Quick and dirty glove
+* Working code for the input board 
+* Quick and dirty glove assembly
 * Second iteration board design
 * 2nd board milling
 * 2nd board soldering
 * 2nd board casing design
 * 2nd board casing printing
 * Assembly
-* Write a simple app to check correctness 
+* Expand on the previous [application](fablab-13) to test glove correctness

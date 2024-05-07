@@ -45,11 +45,19 @@ Let's break down the task a bit. No need to immediately jump to board-to-board c
 
 The process to get code to compile was painful. There were so many errors and dead ends, and I was so tunnel-visioned to get it to work that I didn't take time to document. 
 
-I eventually did get the example codes from esp-wifi to compile and run, and I was able to connect the ESP32 to my wifi network. I didn't manage, however, to do anything with that connection. I also tried running the bluetooth example, but couldn't connect to the device. So I'm condensing maybe two days worth of work into these two disappointing paragraphs. 
+I eventually did get the example codes from esp-wifi to compile and run, and I was able to connect the ESP32 to my wifi network. I didn't manage, however, to do anything with that connection. I also tried running the bluetooth example, but couldn't connect to the device. So I'm condensing maybe two days worth of work into these two disappointing paragraphs.
 
 I looked elsewhere. I found [a tutorial series](https://dev.to/apollolabsbin/embedded-rust-bluetooth-on-esp-ble-scanner-1gb7) that seemed promising. It was only under two months old and really in depth. The only downside was that there was seemingly no no_std option. 
 
 I implemented the code for the unsecure BLE client. After lots of config and wrestling with the compiler:
 
+![connection success](fab12/01.png)
+
 It seems like I managed to connect to the chip with my phone. 
+
+At this point in the process, time had marched on and the next assignment was presented, [application programming](fablab-13). I moved to doing that, as it was more urgent for my final project. I made progress such that I was able to send data from the chip to my pc. That made this initial button test obsolete, so I could move on to making the button do something more interesting.
+
+# Button to Motor
+
+I would next attempt to connect the two boards to each other using the espnow protocol. I imagined it would be more straightforward than bluetooth or wifi.
 
