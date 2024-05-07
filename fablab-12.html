@@ -5,20 +5,20 @@
 		<link rel="icon" href="./favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link href="./_app/immutable/assets/0.lmDuvr4l.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/3.9ib6BTy7.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.ZvhOelnD.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.4tOs8JuX.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.WqRDolvd.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/paths.QriqbjjS.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.O5OIf-GT.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.0NVKo1ab.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.j5v1bVhy.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.STiblY--.js">
+		<link href="./_app/immutable/assets/0.CWYO6-vi.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.D2JvoFPL.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.DbnBjFkq.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.C-V3oeAm.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.VDxU6aNK.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.eJWwnG8S.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.mlaaPPog.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.D6kgxu3v.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.CMIy7L5C.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.BR62AGXS.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.NSUN2PyV.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-12zqzs0" src="fab11/01.png" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-12zqzs0"><h1>Networking</h1> <p class="date svelte-12zqzs0">Published: 2024-05-05</p></div> <div class="centered-container svelte-12zqzs0"><div class="toc svelte-12zqzs0"></div> <article class="post svelte-12zqzs0"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-6ulxad"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#research">Research</a></li> <li><a href="#button-print">Button Print</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment
+		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-12zqzs0" src="fab11/01.png" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-12zqzs0"><h1>Networking</h1> <p class="date svelte-12zqzs0">Published: 2024-05-05</p></div> <div class="centered-container svelte-12zqzs0"><div class="toc svelte-12zqzs0"></div> <article class="post svelte-12zqzs0"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-2yafdu"><li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#research">Research</a></li> <li><a href="#button-print">Button Print</a></li> <li><a href="#button-to-motor">Button to Motor</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Group assignment
 
 * Join a introduction session to get an overview of networking possibilities with XIAO ESP32
 * Pick a group leader who is going to populate the group assignment page
@@ -30,11 +30,11 @@ Individual assignment
 * Plug it into one of the boards you produced earlier.
 * Program the XIAO board to spawn an Access Point and create a simple REST API.
 * The REST API should have endpoints for controlling output device(s) of your board as well as reading input.
-* Document as you go and publish content on a page on your documentation website.</code><!-- HTML_TAG_END --></pre> <h1 data-svelte-h="svelte-kxioer">Group</h1> <h1 data-svelte-h="svelte-1lm3rdx">Research</h1> <p data-svelte-h="svelte-dgg4jp">Still going with Rust, building on the experience from the last two test programs on the <a href="fablab-08">ESP32-C3</a> and <a href="fablab-09">ESP32-S3</a> respectively. This week the intent was to get these boards to talk to each other. Simply, pressing the button on the C3 board should activate the motor on the S3 board.</p> <p data-svelte-h="svelte-neszod">Because of my choice of programming language, I couldn’t directly follow the instructions on the Xiao getting started guides. So my starting point was the <a href="https://github.com/esp-rs/awesome-esp-rust" rel="nofollow">Awesome ESP Rust</a> repository, which would hopefully have example projects.</p> <p data-svelte-h="svelte-1ml3dqh">The relevant crate for wifi and so on is <a href="https://github.com/esp-rs/esp-wifi" rel="nofollow">esp-wifi</a>. It’s actual <a href="https://github.com/esp-rs/esp-wifi/blob/main/esp-wifi/README.md" rel="nofollow">README</a> is of course highly relevant.</p> <p data-svelte-h="svelte-1thneiu">The crate has an <a href="https://github.com/esp-rs/esp-wifi/blob/main/esp-wifi/examples/access_point.rs" rel="nofollow">example for creating an Access Point</a>.</p> <p data-svelte-h="svelte-8e6n8y">Let’s break down the task a bit. No need to immediately jump to board-to-board communication. Let’s first try to print a message to the computer screen every time the button is pressed.</p> <h1 data-svelte-h="svelte-x5ocs3">Button Print</h1> <p data-svelte-h="svelte-8inp2t">The process to get code to compile was painful. There were so many errors and dead ends, and I was so tunnel-visioned to get it to work that I didn’t take time to document.</p> <p data-svelte-h="svelte-hfpw0j">I eventually did get the example codes from esp-wifi to compile and run, and I was able to connect the ESP32 to my wifi network. I didn’t manage, however, to do anything with that connection. I also tried running the bluetooth example, but couldn’t connect to the device. So I’m condensing maybe two days worth of work into these two disappointing paragraphs.</p> <p data-svelte-h="svelte-1ocimfj">I looked elsewhere. I found <a href="https://dev.to/apollolabsbin/embedded-rust-bluetooth-on-esp-ble-scanner-1gb7" rel="nofollow">a tutorial series</a> that seemed promising. It was only under two months old and really in depth. The only downside was that there was seemingly no no_std option.</p> <p data-svelte-h="svelte-15hnhj6">I implemented the code for the unsecure BLE client. After lots of config and wrestling with the compiler:</p> <p data-svelte-h="svelte-pm6j9a">It seems like I managed to connect to the chip with my phone.</p></article> </div> 
+* Document as you go and publish content on a page on your documentation website.</code><!-- HTML_TAG_END --></pre> <h1 data-svelte-h="svelte-kxioer">Group</h1> <h1 data-svelte-h="svelte-1lm3rdx">Research</h1> <p data-svelte-h="svelte-dgg4jp">Still going with Rust, building on the experience from the last two test programs on the <a href="fablab-08">ESP32-C3</a> and <a href="fablab-09">ESP32-S3</a> respectively. This week the intent was to get these boards to talk to each other. Simply, pressing the button on the C3 board should activate the motor on the S3 board.</p> <p data-svelte-h="svelte-neszod">Because of my choice of programming language, I couldn’t directly follow the instructions on the Xiao getting started guides. So my starting point was the <a href="https://github.com/esp-rs/awesome-esp-rust" rel="nofollow">Awesome ESP Rust</a> repository, which would hopefully have example projects.</p> <p data-svelte-h="svelte-1ml3dqh">The relevant crate for wifi and so on is <a href="https://github.com/esp-rs/esp-wifi" rel="nofollow">esp-wifi</a>. It’s actual <a href="https://github.com/esp-rs/esp-wifi/blob/main/esp-wifi/README.md" rel="nofollow">README</a> is of course highly relevant.</p> <p data-svelte-h="svelte-1thneiu">The crate has an <a href="https://github.com/esp-rs/esp-wifi/blob/main/esp-wifi/examples/access_point.rs" rel="nofollow">example for creating an Access Point</a>.</p> <p data-svelte-h="svelte-8e6n8y">Let’s break down the task a bit. No need to immediately jump to board-to-board communication. Let’s first try to print a message to the computer screen every time the button is pressed.</p> <h1 data-svelte-h="svelte-x5ocs3">Button Print</h1> <p data-svelte-h="svelte-8inp2t">The process to get code to compile was painful. There were so many errors and dead ends, and I was so tunnel-visioned to get it to work that I didn’t take time to document.</p> <p data-svelte-h="svelte-1rs0iaf">I eventually did get the example codes from esp-wifi to compile and run, and I was able to connect the ESP32 to my wifi network. I didn’t manage, however, to do anything with that connection. I also tried running the bluetooth example, but couldn’t connect to the device. So I’m condensing maybe two days worth of work into these two disappointing paragraphs.</p> <p data-svelte-h="svelte-1ocimfj">I looked elsewhere. I found <a href="https://dev.to/apollolabsbin/embedded-rust-bluetooth-on-esp-ble-scanner-1gb7" rel="nofollow">a tutorial series</a> that seemed promising. It was only under two months old and really in depth. The only downside was that there was seemingly no no_std option.</p> <p data-svelte-h="svelte-15hnhj6">I implemented the code for the unsecure BLE client. After lots of config and wrestling with the compiler:</p> <img src="fab12/01.png" alt="connection success"> <p data-svelte-h="svelte-pm6j9a">It seems like I managed to connect to the chip with my phone.</p> <p data-svelte-h="svelte-akdnd1">At this point in the process, time had marched on and the next assignment was presented, <a href="fablab-13">application programming</a>. I moved to doing that, as it was more urgent for my final project. I made progress such that I was able to send data from the chip to my pc. That made this initial button test obsolete, so I could move on to making the button do something more interesting.</p> <h1 data-svelte-h="svelte-1jke9ne">Button to Motor</h1> <p data-svelte-h="svelte-19rt9e9">I would next attempt to connect the two boards to each other using the espnow protocol. I imagined it would be more straightforward than bluetooth or wifi.</p></article> </div> 
 			
 			<script>
 				{
-					__sveltekit_kymz0c = {
+					__sveltekit_1e7wpzo = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						assets: "/digital-fabrication"
 					};
@@ -44,8 +44,8 @@ Individual assignment
 					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.ZvhOelnD.js"),
-						import("./_app/immutable/entry/app.O5OIf-GT.js")
+						import("./_app/immutable/entry/start.DbnBjFkq.js"),
+						import("./_app/immutable/entry/app.mlaaPPog.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
