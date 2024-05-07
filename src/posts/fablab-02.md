@@ -29,7 +29,7 @@ I've omitted points 4-6, since they were just about the documentation.
 
 # 1 - Simple Vector
 
-From my in-progress log for the [Glove Controllers](fablab-final):
+From my in-progress log for the [Glove Controllers](fablab-00):
 
 ![An artistic sketch of the gloves](gloves_sketch.jpg)
 

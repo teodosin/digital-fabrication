@@ -138,7 +138,7 @@ I found a lot of resources to just get started. Here were the main ones:
 [Main book for the above](https://docs.esp-rs.org/book/introduction.html)   
 [Book for ESP without Rust's standard library](https://docs.esp-rs.org/no_std-training/01_intro.html)
 
-The "std" in "no_std" refers to Rust's standard library, which provides a lot of common functions and tools. It is not required for bare metal programming, but can be used for convenience. One of the chapters in the above book mentions that it can add overhead and some latency to projects, so I opted to go without. Latency was important to mitigate for my [final project](fablab00).
+The "std" in "no_std" refers to Rust's standard library, which provides a lot of common functions and tools. It is not required for bare metal programming, but can be used for convenience. One of the chapters in the above book mentions that it can add overhead and some latency to projects, so I opted to go without. Latency was important to mitigate for my [final project](fablab-00).
 
 I won't go through the setup process here, since I just directly followed the book. Simply, I started my project using the no_std template, installed all the dependencies and then tried to blink an LED. I'm using Linux, so I followed the instructions for that. 
 

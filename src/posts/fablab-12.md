@@ -47,6 +47,9 @@ The process to get code to compile was painful. There were so many errors and de
 
 I eventually did get the example codes from esp-wifi to compile and run, and I was able to connect the ESP32 to my wifi network. I didn't manage, however, to do anything with that connection. I also tried running the bluetooth example, but couldn't connect to the device. So I'm condensing maybe two days worth of work into these two disappointing paragraphs. 
 
-I looked elsewhere. I found [a tutorial series](https://dev.to/apollolabsbin/embedded-rust-bluetooth-on-esp-ble-scanner-1gb7) that seemed promising. It was only under two months old and really in depth. 
+I looked elsewhere. I found [a tutorial series](https://dev.to/apollolabsbin/embedded-rust-bluetooth-on-esp-ble-scanner-1gb7) that seemed promising. It was only under two months old and really in depth. The only downside was that there was seemingly no no_std option. 
 
-I read through the series carefully and implemented the code. 
+I implemented the code for the unsecure BLE client. After lots of config and wrestling with the compiler:
+
+It seems like I managed to connect to the chip with my phone. 
+
