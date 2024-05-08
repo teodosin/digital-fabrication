@@ -1,12 +1,27 @@
 #!/bin/bash
 
-# Function to resize and compress a video
+# Function to resize and compress a video while maintaining aspect ratio
 resize_and_compress_video() {
   input_file="$1"
   output_file="$2"
-  target_width="$3"
-  target_height="$4"
-  crf_value="$5"
+  target_dimension="$3"
+  crf_value="$4"
+
+  # Get the video's original width and height
+  original_width=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=noprint_wrappers=1:nokey=1 "$input_file")
+  original_height=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=noprint_wrappers=1:nokey=1 "$input_file")
+
+  # Calculate the aspect ratio
+  aspect_ratio=$(awk "BEGIN {print $original_width / $original_height}")
+
+  # Calculate the target width and height based on the target dimension
+  if (( $(echo "$original_width > $original_height" | bc -l) )); then
+    target_width=$target_dimension
+    target_height=$(awk "BEGIN {print int($target_width / $aspect_ratio)}")
+  else
+    target_height=$target_dimension
+    target_width=$(awk "BEGIN {print int($target_height * $aspect_ratio)}")
+  fi
 
   ffmpeg -i "$input_file" -vf "scale=$target_width:$target_height" -c:v libx264 -preset slow -crf "$crf_value" -c:a copy "$output_file"
 }
@@ -18,14 +33,20 @@ then
   exit 1
 fi
 
-# Set the target width, height, and CRF value
-target_width=640
-target_height=360
+# Check if FFprobe is installed
+if ! command -v ffprobe &> /dev/null
+then
+  echo "FFprobe is not installed. Please install FFprobe and try again."
+  exit 1
+fi
+
+# Set the target dimension (width or height) and CRF value
+target_dimension=640
 crf_value=23
 
 # Set the input and output directories
-input_directory="../../../static/fab9"
-output_directory="../../../static/fab9"
+input_directory="../../../static/fab13"
+output_directory="../../../static/fab13"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_directory"
@@ -36,12 +57,11 @@ for input_file in "$input_directory"/*.{mp4,avi,mov}; do
   if [ -e "$input_file" ]; then
     # Generate the output file name
     filename=$(basename "$input_file")
-    output_file="$output_directory/${filename%.*}.mp4"
+    output_file="$output_directory/${filename%.*}r.mp4"
 
-    # Resize and compress the video
-    resize_and_compress_video "$input_file" "$output_file" "$target_width" "$target_height" "$crf_value"
+    # Resize and compress the video while maintaining aspect ratio
+    resize_and_compress_video "$input_file" "$output_file" "$target_dimension" "$crf_value"
 
     echo "Compressed $input_file -> $output_file"
   fi
 done
-
