@@ -110,15 +110,271 @@ loop="loop"
 >
 </video>
 
-Yeah. Turned out the circuits were fine. There was a 2V difference in the voltage of the analog pin when the flex sensor was bent. So the problem had to be in the software. 
+Yeah. Turned out the circuits were fine. There was a 2V difference in the voltage of the analog pin when the flex sensor was bent. So the problem had to be in the software.
+
+I tried for several more hours to get the analog reading to work. No matter what library I tried or what function, something somewhere broke. I couldn't get the libraries to compiler, or the correct features enabled. So I gave up on using Rust for this. The ecosystem was far too immature in the end, and I don't have even close to the required programming knowledge to compensate. 
+
+## Arduino
+
+
+
 
 # Code
 
-Both of the programs are split into multiple files. I don't understand a lot of it. Most is hacked together from examples. 
+Both of the Rust programs are split into multiple files. The unused and incomplete Rust ESP32 code is at the bottom. 
+
+## Bevy
+
+I will show screenshots of the app and then the final working code at the end. 
+
+I wanted to learn how to use the [Bevy Hanabi] GPU particle plugin, so I started my project from their portal example. 
+
+![Bevy Hanabi example](fab13/s01.png)
+
+```rust
+// main.rs
+
+mod asyncs;
+mod ble;
+mod particles;
+
+use asyncs::{TaskContext, TokioTasksPlugin, TokioTasksRuntime};
+use bevy::prelude::*;
+use btleplug::api::{Central, Manager as _, Peripheral, ScanFilter};
+use btleplug::platform::Manager;
+use particles::ParticlePlugin;
+use std::time::Duration;
+use tokio::time;
+
+fn main() {
+    App::new()
+        .add_plugins(DefaultPlugins)
+        .add_plugins(TokioTasksPlugin::default())
+        .add_plugins(ParticlePlugin)
+        
+
+        .add_systems(Startup, connect)
+        .add_systems(Update, listen)
+    .run();
+}
+
+fn connect(runtime: ResMut<TokioTasksRuntime>, mut commands: Commands) {
+    // do the bluetooth connection thingy
+    runtime.spawn_background_task(try_connect);
+
+}
+
+fn listen() {
+    // nothing right now
+}
+
+async fn try_connect(mut ctx: TaskContext) {
+    let manager = Manager::new().await.expect("Failed to create BLE manager");
+    let adapter_list = manager.adapters().await.expect("Failed to get adapter list");
+    if adapter_list.is_empty() {
+        eprintln!("No Bluetooth adapters found");
+        return;
+    }
+
+    for adapter in adapter_list.iter() {
+        println!("Starting scan on {}...", adapter.adapter_info().await.expect("Failed to get adapter info"));
+        
+        
+        adapter
+            .start_scan(ScanFilter::default())
+            .await
+            .expect("Can't scan BLE adapter for connected devices...");
 
 
+        time::sleep(Duration::from_secs(20)).await;
+        let peripherals = adapter.peripherals().await.expect("Failed to get peripherals");
+        if peripherals.is_empty() {
+            eprintln!("->>> BLE peripheral devices were not found, sorry. Exiting...");
+        } else {
 
-## ESP32
+            let target_name = "Ruka";
+
+            // All peripheral devices in range
+            for peripheral in peripherals.iter() {
+                let properties = peripheral.properties().await.expect("Failed to get peripheral properties");
+                let is_connected = peripheral.is_connected().await.expect("Failed to get connection status");
+                let local_name = properties
+                    .unwrap()
+                    .local_name
+                    .unwrap_or(String::from("(peripheral name unknown)"));
+
+                if local_name != target_name {
+                    continue;
+                }
+
+                println!(
+                    "Peripheral {:?} is connected: {:?}",
+                    local_name, is_connected
+                );
+                if !is_connected {
+                    println!("Connecting to peripheral {:?}...", &local_name);
+                    if let Err(err) = peripheral.connect().await {
+                        eprintln!("Error connecting to peripheral, skipping: {}", err);
+                        continue;
+                    }
+                }
+                let is_connected = peripheral.is_connected().await.expect("Failed to get connection status");
+                println!(
+                    "Now connected ({:?}) to peripheral {:?}...",
+                    is_connected, &local_name
+                );
+                peripheral.discover_services().await.expect("Failed to discover services");
+                println!("Discover peripheral {:?} services...", &local_name);
+                for service in peripheral.services() {
+                    println!(
+                        "Service UUID {}, primary: {}",
+                        service.uuid, service.primary
+                    );
+                    for characteristic in service.characteristics {
+                        println!("Trying to read {:?}", characteristic);
+                        let read_result = peripheral.read(&characteristic).await;
+                        match read_result {
+                            Ok(data) => {
+                                let string = unsafe { std::str::from_utf8_unchecked(&data)};
+                                println!("Read result: {:?}", string);
+                            }
+                            Err(err) => {
+                                eprintln!("Error reading characteristic: {}", err);
+                            }
+                        }
+                        for descriptor in characteristic.descriptors {
+                            println!("    Descriptor UUID: {}", descriptor);
+                        }
+                    }
+                }
+                if is_connected {
+                    println!("Disconnecting from peripheral {:?}...", &local_name);
+                    peripheral
+                        .disconnect()
+                        .await
+                        .expect("Error disconnecting from BLE peripheral");
+                }
+            }
+        }
+    }
+}
+```
+
+```rust
+// asyncs.rs is practically identical to 
+// https://github.com/EkardNT/bevy-tokio-tasks/blob/master/src/lib.rs
+```
+
+```rust
+// particles.rs
+
+// This module has the graphical stuff
+// (Currently just the bevy_hanabi portal example)
+
+use bevy::{app::{App, Plugin, Startup}, asset::Assets, core::Name, core_pipeline::{bloom::BloomSettings, core_3d::Camera3dBundle, tonemapping::Tonemapping}, ecs::system::{Commands, ResMut}, math::{Vec2, Vec3, Vec4}, prelude::default, render::{camera::Camera, color::Color}, transform::components::Transform};
+use bevy_hanabi::{Attribute, ColorOverLifetimeModifier, EffectAsset, ExprWriter, Gradient, HanabiPlugin, LinearDragModifier, OrientMode, OrientModifier, ParticleEffect, ParticleEffectBundle, SetAttributeModifier, SetPositionCircleModifier, ShapeDimension, SizeOverLifetimeModifier, Spawner, TangentAccelModifier};
+
+
+pub struct ParticlePlugin;
+
+impl Plugin for ParticlePlugin {
+    fn build(&self, app: &mut App) {
+        app
+            .add_plugins(HanabiPlugin)
+            .add_systems(Startup, setup)
+        ;
+    }
+}
+
+fn setup(mut commands: Commands, mut effects: ResMut<Assets<EffectAsset>>) {
+    commands.spawn((
+        Camera3dBundle {
+            transform: Transform::from_translation(Vec3::new(0., 0., 25.)),
+            camera: Camera {
+                hdr: true,
+                clear_color: Color::BLACK.into(),
+                ..default()
+            },
+            tonemapping: Tonemapping::None,
+            ..default()
+        },
+        BloomSettings::default(),
+    ));
+
+    let mut color_gradient1 = Gradient::new();
+    color_gradient1.add_key(0.0, Vec4::new(4.0, 4.0, 4.0, 1.0));
+    color_gradient1.add_key(0.1, Vec4::new(4.0, 4.0, 0.0, 1.0));
+    color_gradient1.add_key(0.9, Vec4::new(4.0, 0.0, 0.0, 1.0));
+    color_gradient1.add_key(1.0, Vec4::new(4.0, 0.0, 0.0, 0.0));
+
+    let mut size_gradient1 = Gradient::new();
+    size_gradient1.add_key(0.3, Vec2::new(0.2, 0.02));
+    size_gradient1.add_key(1.0, Vec2::splat(0.0));
+
+    let writer = ExprWriter::new();
+
+    let init_pos = SetPositionCircleModifier {
+        center: writer.lit(Vec3::ZERO).expr(),
+        axis: writer.lit(Vec3::Z).expr(),
+        radius: writer.lit(4.).expr(),
+        dimension: ShapeDimension::Surface,
+    };
+
+    let age = writer.lit(0.).expr();
+    let init_age = SetAttributeModifier::new(Attribute::AGE, age);
+
+    // Give a bit of variation by randomizing the lifetime per particle
+    let lifetime = writer.lit(0.6).uniform(writer.lit(1.3)).expr();
+    let init_lifetime = SetAttributeModifier::new(Attribute::LIFETIME, lifetime);
+
+    // Add drag to make particles slow down a bit after the initial acceleration
+    let drag = writer.lit(2.).expr();
+    let update_drag = LinearDragModifier::new(drag);
+
+    let mut module = writer.finish();
+
+    let tangent_accel = TangentAccelModifier::constant(&mut module, Vec3::ZERO, Vec3::Z, 30.);
+
+    let effect1 = effects.add(
+        EffectAsset::new(16384, Spawner::rate(5000.0.into()), module)
+            .with_name("portal")
+            .init(init_pos)
+            .init(init_age)
+            .init(init_lifetime)
+            .update(update_drag)
+            .update(tangent_accel)
+            .render(ColorOverLifetimeModifier {
+                gradient: color_gradient1,
+            })
+            .render(SizeOverLifetimeModifier {
+                gradient: size_gradient1,
+                screen_space_size: false,
+            })
+            .render(OrientModifier::new(OrientMode::AlongVelocity)),
+    );
+
+    commands.spawn((
+        Name::new("portal"),
+        ParticleEffectBundle {
+            effect: ParticleEffect::new(effect1),
+            transform: Transform::IDENTITY,
+            ..Default::default()
+        },
+    ));
+}
+```
+
+```rust
+```
+
+```rust
+```
+
+
+## ESP32 Rust
+
+
+This was the ultimately unused Rust code for the ESP32. Reading the analog pin proved to be too difficult, but digital pins worked fine and the code does manage to send some data when the chip gets connected. I left this here for the sake of completeness, in case someone wants to take a look and maybe learn from these mistakes. 
 
 ```rust
 // main.rs
@@ -411,249 +667,3 @@ pub fn pin_set_mux_selector(pin: MuxPins, s: &mut Selector) {
 }
 ```
 
-## Bevy
-
-I will show screenshots of the app and then the final working code at the end. 
-
-I wanted to learn how to use the [Bevy Hanabi] GPU particle plugin, so I started my project from their portal example. 
-
-![Bevy Hanabi example](fab13/s01.png)
-
-```rust
-// main.rs
-
-mod asyncs;
-mod ble;
-mod particles;
-
-use asyncs::{TaskContext, TokioTasksPlugin, TokioTasksRuntime};
-use bevy::prelude::*;
-use btleplug::api::{Central, Manager as _, Peripheral, ScanFilter};
-use btleplug::platform::Manager;
-use particles::ParticlePlugin;
-use std::time::Duration;
-use tokio::time;
-
-fn main() {
-    App::new()
-        .add_plugins(DefaultPlugins)
-        .add_plugins(TokioTasksPlugin::default())
-        .add_plugins(ParticlePlugin)
-        
-
-        .add_systems(Startup, connect)
-        .add_systems(Update, listen)
-    .run();
-}
-
-fn connect(runtime: ResMut<TokioTasksRuntime>, mut commands: Commands) {
-    // do the bluetooth connection thingy
-    runtime.spawn_background_task(try_connect);
-
-}
-
-fn listen() {
-    // nothing right now
-}
-
-async fn try_connect(mut ctx: TaskContext) {
-    let manager = Manager::new().await.expect("Failed to create BLE manager");
-    let adapter_list = manager.adapters().await.expect("Failed to get adapter list");
-    if adapter_list.is_empty() {
-        eprintln!("No Bluetooth adapters found");
-        return;
-    }
-
-    for adapter in adapter_list.iter() {
-        println!("Starting scan on {}...", adapter.adapter_info().await.expect("Failed to get adapter info"));
-        
-        
-        adapter
-            .start_scan(ScanFilter::default())
-            .await
-            .expect("Can't scan BLE adapter for connected devices...");
-
-
-        time::sleep(Duration::from_secs(20)).await;
-        let peripherals = adapter.peripherals().await.expect("Failed to get peripherals");
-        if peripherals.is_empty() {
-            eprintln!("->>> BLE peripheral devices were not found, sorry. Exiting...");
-        } else {
-
-            let target_name = "Ruka";
-
-            // All peripheral devices in range
-            for peripheral in peripherals.iter() {
-                let properties = peripheral.properties().await.expect("Failed to get peripheral properties");
-                let is_connected = peripheral.is_connected().await.expect("Failed to get connection status");
-                let local_name = properties
-                    .unwrap()
-                    .local_name
-                    .unwrap_or(String::from("(peripheral name unknown)"));
-
-                if local_name != target_name {
-                    continue;
-                }
-
-                println!(
-                    "Peripheral {:?} is connected: {:?}",
-                    local_name, is_connected
-                );
-                if !is_connected {
-                    println!("Connecting to peripheral {:?}...", &local_name);
-                    if let Err(err) = peripheral.connect().await {
-                        eprintln!("Error connecting to peripheral, skipping: {}", err);
-                        continue;
-                    }
-                }
-                let is_connected = peripheral.is_connected().await.expect("Failed to get connection status");
-                println!(
-                    "Now connected ({:?}) to peripheral {:?}...",
-                    is_connected, &local_name
-                );
-                peripheral.discover_services().await.expect("Failed to discover services");
-                println!("Discover peripheral {:?} services...", &local_name);
-                for service in peripheral.services() {
-                    println!(
-                        "Service UUID {}, primary: {}",
-                        service.uuid, service.primary
-                    );
-                    for characteristic in service.characteristics {
-                        println!("Trying to read {:?}", characteristic);
-                        let read_result = peripheral.read(&characteristic).await;
-                        match read_result {
-                            Ok(data) => {
-                                let string = unsafe { std::str::from_utf8_unchecked(&data)};
-                                println!("Read result: {:?}", string);
-                            }
-                            Err(err) => {
-                                eprintln!("Error reading characteristic: {}", err);
-                            }
-                        }
-                        for descriptor in characteristic.descriptors {
-                            println!("    Descriptor UUID: {}", descriptor);
-                        }
-                    }
-                }
-                if is_connected {
-                    println!("Disconnecting from peripheral {:?}...", &local_name);
-                    peripheral
-                        .disconnect()
-                        .await
-                        .expect("Error disconnecting from BLE peripheral");
-                }
-            }
-        }
-    }
-}
-```
-
-```rust
-// asyncs.rs is practically identical to 
-// https://github.com/EkardNT/bevy-tokio-tasks/blob/master/src/lib.rs
-```
-
-```rust
-// particles.rs
-
-// This module has the graphical stuff
-// (Currently just the bevy_hanabi portal example)
-
-use bevy::{app::{App, Plugin, Startup}, asset::Assets, core::Name, core_pipeline::{bloom::BloomSettings, core_3d::Camera3dBundle, tonemapping::Tonemapping}, ecs::system::{Commands, ResMut}, math::{Vec2, Vec3, Vec4}, prelude::default, render::{camera::Camera, color::Color}, transform::components::Transform};
-use bevy_hanabi::{Attribute, ColorOverLifetimeModifier, EffectAsset, ExprWriter, Gradient, HanabiPlugin, LinearDragModifier, OrientMode, OrientModifier, ParticleEffect, ParticleEffectBundle, SetAttributeModifier, SetPositionCircleModifier, ShapeDimension, SizeOverLifetimeModifier, Spawner, TangentAccelModifier};
-
-
-pub struct ParticlePlugin;
-
-impl Plugin for ParticlePlugin {
-    fn build(&self, app: &mut App) {
-        app
-            .add_plugins(HanabiPlugin)
-            .add_systems(Startup, setup)
-        ;
-    }
-}
-
-fn setup(mut commands: Commands, mut effects: ResMut<Assets<EffectAsset>>) {
-    commands.spawn((
-        Camera3dBundle {
-            transform: Transform::from_translation(Vec3::new(0., 0., 25.)),
-            camera: Camera {
-                hdr: true,
-                clear_color: Color::BLACK.into(),
-                ..default()
-            },
-            tonemapping: Tonemapping::None,
-            ..default()
-        },
-        BloomSettings::default(),
-    ));
-
-    let mut color_gradient1 = Gradient::new();
-    color_gradient1.add_key(0.0, Vec4::new(4.0, 4.0, 4.0, 1.0));
-    color_gradient1.add_key(0.1, Vec4::new(4.0, 4.0, 0.0, 1.0));
-    color_gradient1.add_key(0.9, Vec4::new(4.0, 0.0, 0.0, 1.0));
-    color_gradient1.add_key(1.0, Vec4::new(4.0, 0.0, 0.0, 0.0));
-
-    let mut size_gradient1 = Gradient::new();
-    size_gradient1.add_key(0.3, Vec2::new(0.2, 0.02));
-    size_gradient1.add_key(1.0, Vec2::splat(0.0));
-
-    let writer = ExprWriter::new();
-
-    let init_pos = SetPositionCircleModifier {
-        center: writer.lit(Vec3::ZERO).expr(),
-        axis: writer.lit(Vec3::Z).expr(),
-        radius: writer.lit(4.).expr(),
-        dimension: ShapeDimension::Surface,
-    };
-
-    let age = writer.lit(0.).expr();
-    let init_age = SetAttributeModifier::new(Attribute::AGE, age);
-
-    // Give a bit of variation by randomizing the lifetime per particle
-    let lifetime = writer.lit(0.6).uniform(writer.lit(1.3)).expr();
-    let init_lifetime = SetAttributeModifier::new(Attribute::LIFETIME, lifetime);
-
-    // Add drag to make particles slow down a bit after the initial acceleration
-    let drag = writer.lit(2.).expr();
-    let update_drag = LinearDragModifier::new(drag);
-
-    let mut module = writer.finish();
-
-    let tangent_accel = TangentAccelModifier::constant(&mut module, Vec3::ZERO, Vec3::Z, 30.);
-
-    let effect1 = effects.add(
-        EffectAsset::new(16384, Spawner::rate(5000.0.into()), module)
-            .with_name("portal")
-            .init(init_pos)
-            .init(init_age)
-            .init(init_lifetime)
-            .update(update_drag)
-            .update(tangent_accel)
-            .render(ColorOverLifetimeModifier {
-                gradient: color_gradient1,
-            })
-            .render(SizeOverLifetimeModifier {
-                gradient: size_gradient1,
-                screen_space_size: false,
-            })
-            .render(OrientModifier::new(OrientMode::AlongVelocity)),
-    );
-
-    commands.spawn((
-        Name::new("portal"),
-        ParticleEffectBundle {
-            effect: ParticleEffect::new(effect1),
-            transform: Transform::IDENTITY,
-            ..Default::default()
-        },
-    ));
-}
-```
-
-```rust
-```
-
-```rust
-```
