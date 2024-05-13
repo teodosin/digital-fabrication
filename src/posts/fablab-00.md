@@ -67,13 +67,10 @@ Figured out a plausible networking solution during the [networking](fablab-12) a
 
 Made the first iteration of the board during the [input devices week](fablab-10).
 
-The steps remaining:
-* Working code for the input board 
-* Quick and dirty glove assembly
-* Second iteration board design
-* 2nd board milling
-* 2nd board soldering
-* 2nd board casing design
-* 2nd board casing printing
-* Assembly
-* Expand on the previous [application](fablab-13) to test glove correctness
+## 1st Assembly
+
+## Timeline
+
+Here's the project schedule, updated last on 13.5.
+
+![Task timeline](fab0/sched_513.png)
