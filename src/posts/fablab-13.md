@@ -84,6 +84,8 @@ For reference, here is the PCB footprint of the board. I was mostly testing the 
 
 The intended circuit was that the power is first drawn from the `5V` pin, lead through the `R1` resistor, then the flex sensor at `J1` (which is a variable resistor, essentially) and then to ground. The route to the multiplexer pin `A4` in the corner of the mux starts from between the two resistors. My understanding is that which resistor is on the power side and which on the ground side doesn't really matter, since I've seen sources with both setups. 
 
+I later learned that this type of circuit is called a `voltage divider`.
+
 The first issue was quickly found and easily fixed. I had selected the wrong pins to be the selector pins for the multiplexer. I only noticed when I connected a pin that wasn't being used at all to the LED, and it lit up. It was being used as one of the selectors. Unfortunately, switching to the correct selector pins wasn't enough to fix the issue. 
 
 The second thing I checked was whether there was power coming out of the flex sensor circuit. There wasn't, at least not enough to turn on the LED. There was power going into the resistor `R1`, lighting up the LED brightly. The trace after the resistor lit it up dimly, and the trace after the flex sensor, not at all. So one hypothesis for what could be wrong is that the resistance is too much and there isn't anything left for the analog pin to measure. The resistor is 47k0hms, a value that was recommended by [this source](https://learn.sparkfun.com/tutorials/flex-sensor-hookup-guide/all) for example. [This video](https://www.youtube.com/watch?v=_tXWoplbqWo) has the order of resistors flipped, and an even higher Ohm resistor. It seemed unlikely that this was the issue, but I couldn't rule it out just yet. 
@@ -116,7 +118,39 @@ I tried for several more hours to get the analog reading to work. No matter what
 
 ## Arduino
 
+I went back to Arduino. I expected to be able to immediately utilise out-of-the-box solutions for the BLE and analog pins. But of course there were issues. 
 
+First issue turned out insurmountable. Trying to read analog signals with the ESP32 led to the serial monitor printing just "ADC2 is not supported". Turned out there's an actual hardware design flaw in the ESP32 that makes its better Analog to Digital Converter unreliable and off by default. Supposedly it was possible to force it on, but I simply couldn't figure out how to do it with the Arduino IDE, since it doesn't support sdkconfig files or other env variable settings. Also couldn't find how to switch to the more coarse ADC1. Stuck, again. 
+
+I was told about an alternative to the ESP32, the nrf52 microcontroller. It boasted 6 analog input pins, making a multiplexer unnecessary. Its bluetooth connection was touted as highly reliable, more so than the ESP. Additionally, its Sense version had a built-in accelerometer and gyroscope. What a marvel. 
+
+I implemented the minimal code to get the flex sensor inputs. There was one more speedbump though. During compilation, the IDE couldn't find the `adafruit-nrfutils`package despite it being installed and added to the `PATH` variable. But running the IDE with sudo (as admin) fixed that, and behold:
+
+<video
+src="fab0/07r.mp4"
+autoplay="autoplay"
+loop="loop"
+>
+</video>
+
+As you can see, it maxes out soon at 1023. This indicated that too much voltage was ending up at the analog pin, and therefore the power-side resistor was too low. 
+
+![breadboard resistor experiment](fab0/01.jpg)
+
+I got to borrow a breadboard to test out different resistor values. The one on my board was 47kOhms. Testing a few I landed on 180kOhms being a good value. No matter how much the flex sensor was bent or straightened, the voltage stayed in range.
+
+It didn't cover the whole range though, so I initially thought I needed some sort of voltage magnification before the input pin. But then I researched and discovered that the nrf52's analog pins were **14bit** precision, meaning it could measure up to **16384** different values. Losing a few thousand from each end was no issue at all. 
+
+I also tried the built-in IMU with modified example code:
+
+<video
+src="fab0/08r.mp4"
+autoplay="autoplay"
+loop="loop"
+>
+</video>
+
+Amazing. I also discovered that the exact IMU on the nrf52 was the same one as the breakout IMU I had, showing that my concerns about it being a downgrade were unfounded. For the second glove board iteration, I could get rid of both the multiplexer and external IMU.  
 
 
 # Code
