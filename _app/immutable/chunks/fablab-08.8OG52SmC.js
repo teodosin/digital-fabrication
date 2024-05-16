@@ -1,4 +1,4 @@
-import{s as cs,e as a,a as p,H as Xn,c as o,g as c,b as l,j as Bn,k as Yn,h as e,f as i,d as u,i as s,n as Fn}from"./scheduler.WqRDolvd.js";import{S as us,i as rs}from"./index.0NVKo1ab.js";function ks(os){let r,Kn="Table of Contents",It,k,Nn='<li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#kicad">KiCad</a></li> <li><a href="#coding">Coding</a></li>',Tt,m,Wn="Assignment",Mt,d,Pt,ps=`<code class="language-undefined">Group assignment
+import{s as cs,e as a,a as p,H as Xn,c as o,g as c,b as l,j as Bn,k as Yn,h as e,f as i,d as u,i as s,n as Fn}from"./scheduler.VDxU6aNK.js";import{S as us,i as rs}from"./index.CMIy7L5C.js";function ks(os){let r,Kn="Table of Contents",It,k,Nn='<li><a href="#assignment">Assignment</a></li> <li><a href="#group">Group</a></li> <li><a href="#kicad">KiCad</a></li> <li><a href="#coding">Coding</a></li>',Tt,m,Wn="Assignment",Mt,d,Pt,ps=`<code class="language-undefined">Group assignment
 
 * Join one of the test equipment introduction session.
 * Use the test equipment (benchtop power supply, oscilloscope, logic analyzer) at the Fablab to observe the operation of a microcontroller circuit board.
