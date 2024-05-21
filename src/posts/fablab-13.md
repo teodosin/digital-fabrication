@@ -144,7 +144,7 @@ It didn't cover the whole range though, so I initially thought I needed some sor
 I also tried the built-in IMU with modified example code:
 
 <video
-src="fab0/08r.mp4"
+src="fab0/06r.mp4"
 autoplay="autoplay"
 loop="loop"
 >
@@ -152,6 +152,16 @@ loop="loop"
 
 Amazing. I also discovered that the exact IMU on the nrf52 was the same one as the breakout IMU I had, showing that my concerns about it being a downgrade were unfounded. For the second glove board iteration, I could get rid of both the multiplexer and external IMU.  
 
+Now, the process for getting the flex data sent over bluetooth to the Bevy app was arduous and full of stumbling blocks. 
+
+The main resources I was continually referring to:
+[Adafruit Bluefruit library for the nRF52 (works on the Xiao nRF52 too)](https://learn.adafruit.com/bluefruit-nrf52-feather-learning-guide/bluefruit-nrf52-api)
+[Bluefruit's Characteristic Documentation](https://learn.adafruit.com/bluefruit-nrf52-feather-learning-guide/blecharacteristic)
+[Standard UUID's for BLE Services and Characteristics](https://github.com/adafruit/Adafruit_nRF52_Arduino/blob/0ed4d9ffc674ae407be7cacf5696a02f5e789861/libraries/Bluefruit52Lib/src/BLEUuid.h#L109)
+[nRF Connect app](https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile)
+
+
+For a couple hours I was struggling with getting my custom service and characteristics to show up in my Bevy app, despite the connection being fine and all the other characteristics showing up. My custom characteristics were also visible just fine on nRF Connect. For whatever reason, chasing the UUID for my service to something else fixed the issue. 
 
 # Code
 
@@ -264,6 +274,7 @@ async fn try_connect(mut ctx: TaskContext) {
                         "Service UUID {}, primary: {}",
                         service.uuid, service.primary
                     );
+
                     for characteristic in service.characteristics {
                         println!("Trying to read {:?}", characteristic);
                         let read_result = peripheral.read(&characteristic).await;

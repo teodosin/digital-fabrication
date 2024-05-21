@@ -23,7 +23,7 @@ resize_and_compress_video() {
     target_width=$(awk "BEGIN {print int($target_height * $aspect_ratio)}")
   fi
 
-  ffmpeg -i "$input_file" -vf "scale=$target_width:$target_height" -c:v libx264 -preset slow -crf "$crf_value" -c:a copy "$output_file"
+  ffmpeg -i "$input_file" -vf "scale=$target_width:$target_height" -c:v libx264 -preset slow -crf "$crf_value" -an "$output_file"
 }
 
 # Check if FFmpeg is installed

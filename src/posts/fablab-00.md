@@ -89,8 +89,43 @@ Being unfamiliar with solutions like fabric glue, I first tried sowing. I used o
 
 My next idea was to first enclose each flex sensor completely into fabric and then attach that fabric to the glove as minimally as I could get away with. That would keep the sensors in place but also loose enough from one end that they could follow the bend of the knuckle nicely. 
 
+![](fab0/08.jpg)
+
+Got some leftover fabric and string from the costume workshop above the fablab. In hindsight I probably should have chosen something yellow to match the glove, but the brown isn't too bad either. 
+
+![](fab0/10.jpg)
+
+Using a paperclip, I kept in place and sowed shut the underside of each flex sensor pocket/enclosure. 
+
+![](fab0/11.jpg)
+
+Finished pocket compared to the first naive attempt. Significant improvement in aesthetics, but also usability. The sensor can still slide out of the pocket, so it could be slid out for more easy soldering to a wire or later on if one needs to be replaced, it can be. 
+
+![](fab0/12.jpg)
+
+All sensors sowed onto the glove. At this point they were attached at two points, both on the side of the finger joint. The other end would be held down with a buckle or the PCB enclosure. 
+
+At this point, I unfortunately sprained my right thumb during a training session. I moved on to working on software things while it healed. 
+
+## Integration
+
+After the sprain, I finished the [application programming assignment](fablab13) by finally getting the bluetooth data to the app. 
+
+Also there was [systems integration week](fablab15), during which I made mockups of the glove and decided on some important details. It was beginning to look like the gloves were circling back to a design more similar to my initial sketch. 
+
+![](fab15/06.png)
+
+## 2nd PCB
+
+I had begun work on the 2nd PCB design. Thanks to the nRF52 making most of the previous board redundant, I could reduce the board size by a lot. 
+
+![PCB](fab0/15.png)
+
+From this schematic were still missing the extra power switch and button that I wanted to add. I was also unsure of the connectors for the flex sensors and the battery. Those could be changed later though. At this point it was important to get a feel for how to route all five voltage dividers. 
+
+
 ## Timeline
 
 Here's the project schedule, updated last wherever the white line is.
 
-![Task timeline](fab0/sched_513.png)
+![Task timeline](fab0/sched_521.png)

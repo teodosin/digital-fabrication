@@ -77,7 +77,6 @@
 {/if}
 <div class="post-header {hasNoBannerTag ? 'no-banner' : ''}">
     <h1>{data.title}</h1>
-    <p class="date">Published: {data.date}</p>
 </div>
 
 <div class="centered-container">
