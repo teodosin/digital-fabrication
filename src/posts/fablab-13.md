@@ -161,7 +161,14 @@ The main resources I was continually referring to:
 [nRF Connect app](https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile)
 
 
-For a couple hours I was struggling with getting my custom service and characteristics to show up in my Bevy app, despite the connection being fine and all the other characteristics showing up. My custom characteristics were also visible just fine on nRF Connect. For whatever reason, chasing the UUID for my service to something else fixed the issue. 
+For a couple hours I was struggling with getting my custom service and characteristics to show up in my Bevy app, despite the connection being fine and all the other characteristics showing up. My custom characteristics were also visible just fine on nRF Connect. For whatever reason, changing the UUID for my service to something else fixed the issue. It seemed like the btleplug library was picky about the UUIDs it could recognise. 
+
+<video
+src="fab0/08r.mp4"
+autoplay="autoplay"
+loop="loop"
+>
+</video>
 
 # Code
 
@@ -169,11 +176,13 @@ Both of the Rust programs are split into multiple files. The unused and incomple
 
 ## Bevy
 
-I will show screenshots of the app and then the final working code at the end. 
-
 I wanted to learn how to use the [Bevy Hanabi] GPU particle plugin, so I started my project from their portal example. 
 
 ![Bevy Hanabi example](fab13/s01.png)
+
+You can see the simple app working in the video above. I was pressed for time, since it took so long to even get the data to transmit properly. So for this assignment, this simple circle and particle movement had to suffice. 
+
+The whole setup _might_ be more complicated than it needs to be. Basically, the code that sets up and continually monitors the bluetooth connection has to be asynchronous, but the main Bevy thread has to be free to update its World (loaded data) every frame. The TokioTasksPlugin is there to allow for a new thread to be spawned for the bluetooth code, and for it to have access to the Bevy World to update the input resource. I suspect that this might lead to slowdown, since the World is likely blocked from being accessed from the other systems while the async thread is modifying a part of it. A ton of room for optimisation that I don't know how to do just yet. 
 
 ```rust
 // main.rs
@@ -184,7 +193,7 @@ mod particles;
 
 use asyncs::{TaskContext, TokioTasksPlugin, TokioTasksRuntime};
 use bevy::prelude::*;
-use btleplug::api::{Central, Manager as _, Peripheral, ScanFilter};
+use btleplug::api::{Central, Characteristic, Manager as _, Peripheral, ScanFilter};
 use btleplug::platform::Manager;
 use particles::ParticlePlugin;
 use std::time::Duration;
@@ -196,20 +205,51 @@ fn main() {
         .add_plugins(TokioTasksPlugin::default())
         .add_plugins(ParticlePlugin)
         
+        .insert_resource(RukaInput::default())
 
         .add_systems(Startup, connect)
-        .add_systems(Update, listen)
     .run();
+}
+
+#[derive(Resource, Default)]
+pub struct RukaInput {
+    init: bool,
+    fingers: [u16; 5]
+}
+
+impl RukaInput {
+    pub fn init(&self) -> bool {
+        self.init
+    }
+
+    pub fn set_init(&mut self, init: bool) {
+        self.init = init;
+    }
+
+    pub fn get_fingers(&self) -> [f32; 5] {
+        let mut fingers = [0.0; 5];
+        for (i, finger) in self.fingers.iter().enumerate() {
+            fingers[i] = *finger as f32 / 16384.0;
+        }
+        fingers
+    }
+
+    pub fn update_fingers(&mut self, new_fingers: [u16; 5]) {
+        self.fingers = new_fingers;
+    }
+
+    pub fn update_finger(&mut self, finger: usize, value: u16) {
+        if finger > 4 {
+            panic!("Finger index out of bounds");
+        }
+        self.fingers[finger] = value;
+    }
 }
 
 fn connect(runtime: ResMut<TokioTasksRuntime>, mut commands: Commands) {
     // do the bluetooth connection thingy
     runtime.spawn_background_task(try_connect);
 
-}
-
-fn listen() {
-    // nothing right now
 }
 
 async fn try_connect(mut ctx: TaskContext) {
@@ -263,41 +303,59 @@ async fn try_connect(mut ctx: TaskContext) {
                     }
                 }
                 let is_connected = peripheral.is_connected().await.expect("Failed to get connection status");
+                
                 println!(
                     "Now connected ({:?}) to peripheral {:?}...",
                     is_connected, &local_name
                 );
-                peripheral.discover_services().await.expect("Failed to discover services");
-                println!("Discover peripheral {:?} services...", &local_name);
-                for service in peripheral.services() {
-                    println!(
-                        "Service UUID {}, primary: {}",
-                        service.uuid, service.primary
-                    );
 
-                    for characteristic in service.characteristics {
-                        println!("Trying to read {:?}", characteristic);
-                        let read_result = peripheral.read(&characteristic).await;
-                        match read_result {
-                            Ok(data) => {
-                                let string = unsafe { std::str::from_utf8_unchecked(&data)};
-                                println!("Read result: {:?}", string);
+                println!("Discover peripheral {:?} services...", &local_name);
+                peripheral.discover_services().await.expect("Failed to discover services");
+
+                ctx.run_on_main_thread(move |main_ctx| {
+                    let mut ruka = main_ctx.world.get_resource_mut::<RukaInput>().unwrap();
+                    ruka.set_init(true);
+                }).await;
+
+                while is_connected {
+                    let mut value: u16 = 0;
+
+                    for service in peripheral.services() {
+                        for characteristic in service.characteristics {
+                            if characteristic.uuid.to_string() != "00002af9-0000-1000-8000-00805f9b34fb" {
+                                continue;
                             }
-                            Err(err) => {
-                                eprintln!("Error reading characteristic: {}", err);
+                            
+                            println!("Trying to read {:?}", characteristic.uuid.to_string());
+                            let read_result = peripheral.read(&characteristic).await;
+                            match read_result {
+                                Ok(data) => {
+                                    if data.len() == 2 {
+                                        let high_byte = data[0];
+                                        let low_byte = data[1];
+                            
+                                        // Combine the high and low bytes to get the original 16-bit value
+                                        value = ((high_byte as u16) << 6) | (low_byte as u16);
+                                        println!("Read bytes: {:?}", value);
+                                    }
+                                    println!("---------------------------------------");
+                                }
+                                Err(err) => {
+                                    eprintln!("Error reading characteristic: {}", err);
+                                }
                             }
-                        }
-                        for descriptor in characteristic.descriptors {
-                            println!("    Descriptor UUID: {}", descriptor);
                         }
                     }
-                }
-                if is_connected {
-                    println!("Disconnecting from peripheral {:?}...", &local_name);
-                    peripheral
-                        .disconnect()
-                        .await
-                        .expect("Error disconnecting from BLE peripheral");
+
+                    let delay = Duration::from_millis(1000 / 30);
+                    tokio::time::sleep(delay).await;
+
+                    if is_connected {
+                        ctx.run_on_main_thread(move |main_ctx| {
+                            let mut ruka = main_ctx.world.get_resource_mut::<RukaInput>().unwrap();
+                            ruka.update_finger(0, value);
+                        }).await;
+                    }
                 }
             }
         }
@@ -316,8 +374,10 @@ async fn try_connect(mut ctx: TaskContext) {
 // This module has the graphical stuff
 // (Currently just the bevy_hanabi portal example)
 
-use bevy::{app::{App, Plugin, Startup}, asset::Assets, core::Name, core_pipeline::{bloom::BloomSettings, core_3d::Camera3dBundle, tonemapping::Tonemapping}, ecs::system::{Commands, ResMut}, math::{Vec2, Vec3, Vec4}, prelude::default, render::{camera::Camera, color::Color}, transform::components::Transform};
+use bevy::{app::{App, Plugin, Startup, Update}, asset::Assets, core::Name, core_pipeline::{bloom::BloomSettings, core_3d::Camera3dBundle, tonemapping::Tonemapping}, ecs::{query::With, system::{Commands, Query, Res, ResMut}}, gizmos::gizmos::Gizmos, math::{Vec2, Vec3, Vec4}, prelude::default, render::{camera::Camera, color::Color}, transform::components::Transform};
 use bevy_hanabi::{Attribute, ColorOverLifetimeModifier, EffectAsset, ExprWriter, Gradient, HanabiPlugin, LinearDragModifier, OrientMode, OrientModifier, ParticleEffect, ParticleEffectBundle, SetAttributeModifier, SetPositionCircleModifier, ShapeDimension, SizeOverLifetimeModifier, Spawner, TangentAccelModifier};
+
+use crate::RukaInput;
 
 
 pub struct ParticlePlugin;
@@ -327,7 +387,32 @@ impl Plugin for ParticlePlugin {
         app
             .add_plugins(HanabiPlugin)
             .add_systems(Startup, setup)
+            .add_systems(Update, update_fx)
         ;
+    }
+}
+
+fn update_fx(
+    mut fx: ResMut<Assets<EffectAsset>>,
+    mut fxe: Query<&mut Transform, With<ParticleEffect>>,
+    ruka: Res<RukaInput>,
+    mut gizmos: Gizmos,
+){
+    if !ruka.init(){
+        return;
+    }
+    let new = ruka.get_fingers()[0] * 10.0;
+
+    gizmos.circle_2d(Vec2::new(0.0, 0.0), new, Color::RED).segments(64);
+
+    for fct in fx.iter_mut() {
+        let ting = fct.1;
+
+    }
+
+    for mut f in fxe.iter_mut() {
+        println!("Trying to update resource with new value {}", new);
+        f.translation = Vec3::new(new, 0.0, 1.0);
     }
 }
 

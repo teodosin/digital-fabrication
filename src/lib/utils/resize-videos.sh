@@ -23,6 +23,10 @@ resize_and_compress_video() {
     target_width=$(awk "BEGIN {print int($target_height * $aspect_ratio)}")
   fi
 
+  # Ensure target width and height are even numbers
+  target_width=$((target_width & ~1))
+  target_height=$((target_height & ~1))
+
   ffmpeg -i "$input_file" -vf "scale=$target_width:$target_height" -c:v libx264 -preset slow -crf "$crf_value" -an "$output_file"
 }
 
@@ -45,8 +49,8 @@ target_dimension=640
 crf_value=23
 
 # Set the input and output directories
-input_directory="../../../static/fab0"
-output_directory="../../../static/fab0"
+input_directory="../../../static/fab13"
+output_directory="../../../static/fab13"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_directory"
