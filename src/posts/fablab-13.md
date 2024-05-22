@@ -161,10 +161,10 @@ The main resources I was continually referring to:
 [nRF Connect app](https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile)
 
 
-For a couple hours I was struggling with getting my custom service and characteristics to show up in my Bevy app, despite the connection being fine and all the other characteristics showing up. My custom characteristics were also visible just fine on nRF Connect. For whatever reason, changing the UUID for my service to something else fixed the issue. It seemed like the btleplug library was picky about the UUIDs it could recognise. 
+For many hours I was struggling with getting my custom service and characteristics to show up in my Bevy app, despite the connection being fine and all the other characteristics showing up. My custom characteristics were also visible just fine on nRF Connect. For whatever reason, changing the UUID for my service to something else fixed the issue. It seemed like the btleplug library was picky about the UUIDs it could recognise. 
 
 <video
-src="fab0/08r.mp4"
+src="fab13/08r.mp4"
 autoplay="autoplay"
 loop="loop"
 >
@@ -172,7 +172,333 @@ loop="loop"
 
 # Code
 
-Both of the Rust programs are split into multiple files. The unused and incomplete Rust ESP32 code is at the bottom. 
+Arduino code first, then the Rust code. The unused and incomplete Rust ESP32 code is at the bottom. 
+
+## Arduino
+
+The Arduino code is in three files. The file concerning most BLE functionality is mostly from a Bluefruit example, but I added a custom service and characteristic to it. The other two files are the main file and the flex sensor setup.
+
+This code only sends the reading of one flex sensor over Bluetooth, but it should be trivial to include the rest as well as the IMU readings for the final project. The function mapping various pins to multiplexer selector values will also be made redundant when the 2nd PCB design is produced, but hopefully it can be useful as a reference for working with the multiplexer in code. 
+
+```cpp
+// main.ino
+
+void setup()
+{
+  Serial.begin(115200);
+
+  flex_setup();
+  ble_setup();
+}
+
+
+void loop()
+{
+  // Forward data from HW Serial to BLEUART
+  while (Serial.available())
+  {
+    // Delay to wait for enough input, since we have a limited transmission buffer
+    delay(2);
+
+    uint8_t buf[64];
+    int count = Serial.readBytes(buf, sizeof(buf));
+    bleuart.write( buf, count );
+  }
+
+  // Forward from BLEUART to HW Serial
+  while ( bleuart.available() )
+  {
+    uint8_t ch;
+    ch = (uint8_t) bleuart.read();
+    Serial.write(ch);
+  }
+  
+  flex_loop();
+}
+```
+
+```cpp
+// ble.ino
+// Based on an Adafruit Bluefruit example 
+
+#include <bluefruit.h>
+#include <Adafruit_LittleFS.h>
+#include <InternalFileSystem.h>
+
+
+// Create the custom flex sensor service
+BLEService flexSensorService = BLEService(0x2222); // 0x1812
+
+// Create the custom flex sensor characteristic
+BLECharacteristic flexChar = BLECharacteristic(UUID16_CHR_GENERIC_LEVEL); // 0x2AF9
+
+
+// BLE Service
+BLEDfu  bledfu;  // OTA DFU service
+BLEDis  bledis;  // device information
+BLEUart bleuart; // uart over ble
+BLEBas  blebas;  // battery
+
+void ble_setup()
+{
+#if CFG_DEBUG
+  // Blocking wait for connection when debug mode is enabled via IDE
+  while ( !Serial ) yield();
+#endif
+  
+  Serial.println("Bluefruit52 BLEUART Example");
+  Serial.println("---------------------------\n");
+
+
+  // Setup the BLE LED to be enabled on CONNECT
+  // Note: This is actually the default behavior, but provided
+  // here in case you want to control this LED manually via PIN 19
+  Bluefruit.autoConnLed(true);
+
+  // Config the peripheral connection with maximum bandwidth 
+  // more SRAM required by SoftDevice
+  // Note: All config***() function must be called before begin()
+  Bluefruit.configPrphBandwidth(BANDWIDTH_MAX);
+
+  Bluefruit.begin();
+  Bluefruit.setName("Ruka");
+  Bluefruit.setTxPower(8);    // Check bluefruit.h for supported values
+  //Bluefruit.setName(getMcuUniqueID()); // useful testing with multiple central connections
+  Bluefruit.Periph.setConnectCallback(connect_callback);
+  Bluefruit.Periph.setDisconnectCallback(disconnect_callback);
+
+  // To be consistent OTA DFU should be added first if it exists
+  bledfu.begin();
+
+  // Configure and Start Device Information Service
+  bledis.setManufacturer("Adafruit Industries");
+  bledis.setModel("Bluefruit Feather52");
+  bledis.begin();
+
+  // Configure and Start BLE Uart Service
+  bleuart.begin();
+
+
+  // Start BLE Battery Service
+  blebas.begin();
+  blebas.write(100);
+
+  // Configure and Start the custom flex sensor service
+  flexSensorService.begin();
+
+  // Setup and add the custom flex sensor characteristic.
+  // It is automatically added to the last service that was begun. 
+  flexChar.setProperties(CHR_PROPS_READ);
+  flexChar.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
+  flexChar.setMaxLen(2);
+  flexChar.setUserDescriptor("flex");
+  flexChar.begin();
+
+  // Set up and start advertising
+  startAdv();
+
+}
+
+void startAdv(void)
+{
+  // Advertising packet
+  Bluefruit.Advertising.addFlags(BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE);
+  Bluefruit.Advertising.addTxPower();
+
+  // Include bleuart 128-bit uuid
+  Bluefruit.Advertising.addService(bleuart);
+
+  Bluefruit.Advertising.addService(flexSensorService);
+  
+  // Secondary Scan Response packet (optional)
+  // Since there is no room for 'Name' in Advertising packet
+  Bluefruit.ScanResponse.addName();
+  
+  /* Start Advertising
+   * - Enable auto advertising if disconnected
+   * - Interval:  fast mode = 20 ms, slow mode = 152.5 ms
+   * - Timeout for fast mode is 30 seconds
+   * - Start(timeout) with timeout = 0 will advertise forever (until connected)
+   * 
+   * For recommended advertising interval
+   * https://developer.apple.com/library/content/qa/qa1931/_index.html   
+   */
+  Bluefruit.Advertising.restartOnDisconnect(true);
+  Bluefruit.Advertising.setInterval(32, 244);    // in unit of 0.625 ms
+  Bluefruit.Advertising.setFastTimeout(30);      // number of seconds in fast mode
+  Bluefruit.Advertising.start(0);                // 0 = Don't stop advertising after n seconds  
+}
+
+void send_flex(int flex){
+  // Convert the 14-bit value to a 16-bit unsigned integer
+  uint16_t flexValue = (uint16_t)flex;
+
+  // Create a byte array to store the 16-bit value
+  uint8_t flexData[2];
+  flexData[0] = (uint8_t)(flexValue >> 6);    // High byte (8 most significant bits)
+  flexData[1] = (uint8_t)(flexValue & 0x3F);  // Low byte (6 least significant bits)
+
+  // Send the flex sensor value as a byte array
+  flexChar.write(flexData, sizeof(flexData));
+}
+
+void ble_loop()
+{
+  // Forward data from HW Serial to BLEUART
+  while (Serial.available())
+  {
+    // Delay to wait for enough input, since we have a limited transmission buffer
+    delay(2);
+
+    uint8_t buf[64];
+    int count = Serial.readBytes(buf, sizeof(buf));
+    bleuart.write( buf, count );
+  }
+
+  // Forward from BLEUART to HW Serial
+  while ( bleuart.available() )
+  {
+    uint8_t ch;
+    ch = (uint8_t) bleuart.read();
+    Serial.write(ch);
+  }
+}
+
+// callback invoked when central connects
+void connect_callback(uint16_t conn_handle)
+{
+  // Get the reference to current connection
+  BLEConnection* connection = Bluefruit.Connection(conn_handle);
+
+  char central_name[32] = { 0 };
+  connection->getPeerName(central_name, sizeof(central_name));
+
+  Serial.print("Connected to ");
+  Serial.println(central_name);
+}
+
+/**
+ * Callback invoked when a connection is dropped
+ * @param conn_handle connection where this event happens
+ * @param reason is a BLE_HCI_STATUS_CODE which can be found in ble_hci.h
+ */
+void disconnect_callback(uint16_t conn_handle, uint8_t reason)
+{
+  (void) conn_handle;
+  (void) reason;
+
+  Serial.println();
+  Serial.print("Disconnected, reason = 0x"); Serial.println(reason, HEX);
+}
+```
+
+```cpp
+// flex.ino
+
+const int flx = D3;
+const int s2 = D0;
+const int s1 = D1;
+const int s0 = D2; 
+
+// Filter class for reducing noise from the flex sensor. 
+// Lower alpha values mean more smoothing. 
+class ExponentialFilter {
+private:
+  float alpha;
+  float filteredValue;
+
+public:
+  ExponentialFilter(float alpha, float initialValue) {
+    this->alpha = alpha;
+    this->filteredValue = initialValue;
+  }
+
+  float filter(float rawValue) {
+    filteredValue = alpha * rawValue + (1 - alpha) * filteredValue;
+    return filteredValue;
+  }
+
+  float getCurrentValue() {
+    return filteredValue;
+  }
+};
+
+ExponentialFilter flexFilter(0.15, 0);
+
+void flex_setup() {
+  
+  pinMode(flx, INPUT);  // declare the sensorPin as an INPUT
+  pinMode(s2, OUTPUT);   
+  pinMode(s1, OUTPUT);
+  pinMode(s0, OUTPUT);
+
+
+  set_selector(4, s0, s1, s2);
+  analogReadResolution(14);
+
+  Serial.begin(9600);
+  while (!Serial);
+}
+
+void flex_loop() {
+  // read the value from the sensor:
+  int raw = analogRead(flx);
+
+  int smooth = flexFilter.filter(raw);
+
+  // Send the average sensor vWalue
+  Serial.println(smooth);
+  send_flex(smooth);
+
+  delay(50);
+}
+
+// Function that maps multiplexer pins to the correct selector values. 
+void set_selector(int pin, int s0, int s1, int s2) {
+  switch (pin) {
+    case 0: // A0
+      digitalWrite(s2, LOW);
+      digitalWrite(s1, LOW);
+      digitalWrite(s0, LOW);
+      break;
+    case 1: // A1
+      digitalWrite(s2, LOW);
+      digitalWrite(s1, LOW);
+      digitalWrite(s0, HIGH);
+      break;
+    case 2: // A2
+      digitalWrite(s2, LOW);
+      digitalWrite(s1, HIGH);
+      digitalWrite(s0, LOW);
+      break;
+    case 3: // A3
+      digitalWrite(s2, LOW);
+      digitalWrite(s1, HIGH);
+      digitalWrite(s0, HIGH);
+      break;
+    case 4: // A4
+      digitalWrite(s2, HIGH);
+      digitalWrite(s1, LOW);
+      digitalWrite(s0, LOW);
+      break;
+    case 5: // A5
+      digitalWrite(s2, HIGH);
+      digitalWrite(s1, LOW);
+      digitalWrite(s0, HIGH);
+      break;
+    case 6: // A6
+      digitalWrite(s2, HIGH);
+      digitalWrite(s1, HIGH);
+      digitalWrite(s0, LOW);
+      break;
+    case 7: // A7
+      digitalWrite(s2, HIGH);
+      digitalWrite(s1, HIGH);
+      digitalWrite(s0, HIGH);
+      break;
+  }
+}
+```
 
 ## Bevy
 
@@ -180,7 +506,14 @@ I wanted to learn how to use the [Bevy Hanabi] GPU particle plugin, so I started
 
 ![Bevy Hanabi example](fab13/s01.png)
 
-You can see the simple app working in the video above. I was pressed for time, since it took so long to even get the data to transmit properly. So for this assignment, this simple circle and particle movement had to suffice. 
+<video
+src="fab13/08r.mp4"
+autoplay="autoplay"
+loop="loop"
+>
+</video>
+
+You can see the simple app working in the video above. I was pressed for time, since it took so long to even get the data to transmit properly. So for this assignment, this simple circle and particle movement had to suffice. When the hardware portion of the final project was done, I could try to do something more interesting with the debug app. 
 
 The whole setup _might_ be more complicated than it needs to be. Basically, the code that sets up and continually monitors the bluetooth connection has to be asynchronous, but the main Bevy thread has to be free to update its World (loaded data) every frame. The TokioTasksPlugin is there to allow for a new thread to be spawned for the bluetooth code, and for it to have access to the Bevy World to update the input resource. I suspect that this might lead to slowdown, since the World is likely blocked from being accessed from the other systems while the async thread is modifying a part of it. A ton of room for optimisation that I don't know how to do just yet. 
 
@@ -494,11 +827,6 @@ fn setup(mut commands: Commands, mut effects: ResMut<Assets<EffectAsset>>) {
 }
 ```
 
-```rust
-```
-
-```rust
-```
 
 
 ## ESP32 Rust

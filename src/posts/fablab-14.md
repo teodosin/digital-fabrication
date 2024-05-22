@@ -4,7 +4,7 @@ date: "2024-05-05"
 description: "The fourteenth assignment."
 categories: ["projects"]
 tags: ["digital-fabrication"]
-cover: "fab14/01.png"
+cover: "fab14/04.png"
 ---
 
 ### Table of Contents

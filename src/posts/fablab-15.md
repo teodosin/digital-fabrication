@@ -4,7 +4,7 @@ date: "2024-05-05"
 description: "The fifteenth assignment."
 categories: ["projects"]
 tags: ["digital-fabrication"]
-cover: "fab13/s01.png"
+cover: "fab15/11.jpg"
 ---
 
 ### Table of Contents
@@ -54,9 +54,19 @@ To represent the flex sensors, I modeled each with just two polygons each and ap
 
 ![](fab15/06.png)
 
-My understanding was that the material was going to be slightly translucent. I didn't know whether it could be dyed or if there were colour options, but I still depicted the structure as translucent red like I was wishing I could make it. 
+My understanding was that the material was going to be slightly translucent. I didn't know whether it could be dyed or if there were colour options, but I still depicted the structure as translucent red like I was wishing I could make it. During my introduction to the Formlabs resin printers, it was made clear that there was no coloring option, and that the material reserved for the printer is not translucent. Maybe I can live without them.  
 
 # Power Budget
 
-# Connectors
+![](fab15/07.png)
+
+The nRF52 consumes very little. According to the datasheet, only a bit above 16 milliamps. I got a rechargeable battery of 700mAh which could theoretically run the thing for over 40 hours. Even a fifth of that would be plenty. 
+
+# Cables
+
+![](fab15/09.jpg)
+
+I decided on **JST** connectors for the project. They're small, fitting well into a small PCB, but firm, so they shouldn't come loose accidentally. The connectors would be wired together with flexible silicone cables. This would be necessary because the flex sensors would extend to below the PCB, so the wires connecting them would have to make a sharp turn. Maybe this crude wiring diagram can explain what I mean:
+
+![](fab15/11.jpg)
 

@@ -121,11 +121,9 @@ I had begun work on the 2nd PCB design. Thanks to the nRF52 making most of the p
 
 ![PCB](fab0/15.png)
 
-From this schematic were still missing the extra power switch and button that I wanted to add. I was also unsure of the connectors for the flex sensors and the battery. Those could be changed later though. At this point it was important to get a feel for how to route all five voltage dividers. 
-
 
 ## Timeline
 
-Here's the project schedule, updated last wherever the white line is.
+Here's the project schedule, updated last wherever the white line is. 
 
-![Task timeline](fab0/sched_521.png)
+![Task timeline](fab0/sched_522.png)
