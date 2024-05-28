@@ -109,17 +109,33 @@ At this point, I unfortunately sprained my right thumb during a training session
 
 ## Integration
 
-After the sprain, I finished the [application programming assignment](fablab13) by finally getting the bluetooth data to the app. 
+After the sprain, I finished the [application programming assignment](fablab-13) by finally getting the bluetooth data to the app. 
 
-Also there was [systems integration week](fablab15), during which I made mockups of the glove and decided on some important details. It was beginning to look like the gloves were circling back to a design more similar to my initial sketch. 
+Also there was [systems integration week](fablab-15), during which I made mockups of the glove and decided on some important details. It was beginning to look like the gloves were circling back to a design more similar to my initial sketch. 
 
 ![](fab15/06.png)
+
+[Applications & Implications week](fablab-16) helped zoom out to see the big picture of the project again, after being so 
 
 ## 2nd PCB
 
 I had begun work on the 2nd PCB design. Thanks to the nRF52 making most of the previous board redundant, I could reduce the board size by a lot. 
 
 ![PCB](fab0/15.png)
+
+The bulk of the PCB would be just the voltage divider circuits for all the flex sensors. It's possible that a multiplexer and only one analog pin could still be made very small, since that would theoretically only require one voltage divider. I didn't experiment with that though. 
+
+![PCB Schemdone](fab15/17.png)
+
+Added the JST connector pads for the battery, the power switch and the extra button. 
+
+![PCB footprints](fab15/16.png)
+
+Routing the footprints was challenging and took some iteration. I wanted the PCB to be as small as possible, and for aesthetic reasons, circular. The nRF52 would also be soldered directly onto the board instead of being lifted up on headers. At this scale, even though the JST sockets are small, they would take up a lot of space and needed to be efficiently placed along the circle. The pads of the unused nRF52 pins were scaled down so they could be routed around more compactly. 
+
+I eventually managed to fit all the components and routes into a circle with a radius of 20mm, diameter 40mm. For reference, the board I made during [electronics design week](fablab-08), laying on the back of my hand. It's rectangular, with the shorter side being just under 40mm:
+
+![Old board on back of hand](fab15/19.jpg)
 
 
 ## Timeline
