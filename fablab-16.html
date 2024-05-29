@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/0.lmDuvr4l.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.vHzfnE6X.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.YL67Nvne.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.YDQq8Kfj.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.WqRDolvd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.itRrgjqV.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.Pvcff27D.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.0HuHagjb.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.0NVKo1ab.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.tljsFjc_.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.b7TcD1Kt.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">   <nav class="nav svelte-1kc7d4u" data-svelte-h="svelte-1x1gium"><a class="nav-button svelte-1kc7d4u" href="./">Home</a></nav>     <img class="cover-banner svelte-12zqzs0" src="fab15/11.jpg" style="transform: translate3d(0, 0px, 0);"> <div class="post-header  svelte-12zqzs0"><h1>Applications &amp; Implications</h1></div> <div class="centered-container svelte-12zqzs0"><div class="toc svelte-12zqzs0"></div> <article class="post svelte-12zqzs0"><h3 data-svelte-h="svelte-sbwzft">Table of Contents</h3> <ul data-svelte-h="svelte-1aq3d84"><li><a href="#assignment">Assignment</a></li> <li><a href="#overview">Overview</a></li></ul> <h1 data-svelte-h="svelte-g9rspt">Assignment</h1> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">* Answer the following questions related to your final project.
+         What will it do?
+         Who&#39;s done what beforehand?
+         What will you design?
+         What materials and components will be used?
+         Where will come from?
+         How much will they cost?
+         What parts and systems will be made?
+         What processes will be used?
+         What questions need to be answered?
+         How will it be evaluated?
+* Make sure that...
+      Your project should incorporate 2D and 3D design,
+         additive and subtractive fabrication processes,
+         electronics design and production,
+         embedded microcontroller interfacing and programming,
+         system integration and packaging
+      Where possible, you should make rather than buy
+         the parts of your project
+      Projects can be separate or joint, but need to show individual 
+         mastery of the skills, and be independently operable </code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-ig9q7u">A big picture reflection on the <a href="fablab-00">Glove Controller final project</a>.</p> <h1 data-svelte-h="svelte-1vqw00z">Overview</h1> <p data-svelte-h="svelte-84eywt">My final project is a single glove for the right hand that would measure movement, rotation and flexion of the fingers in real time, and transmit that data over Bluetooth to a PC. This would allow a user to potentially have more intuitive analog control over software applications, provided there is support for them. Originally the plan was to create a pair of gloves, but the scope had to be reduced from this due to time constraints.</p> <p data-svelte-h="svelte-j5wape">The intended use-case is for creative applications. Digital sculpting, painting, and general navigation and manipulation of 3D space were the aspirational applications for the gloves. For a single glove the possibilities are simplified, but an example use-case could be using gestures to control digital painting settings such as brush size, opacity, colour and so on, while the other hand is free to use a stylus.</p> <p data-svelte-h="svelte-i5ad89">Glove controllers are by no means an original idea. Several projects have inspired this one.</p> <p data-svelte-h="svelte-35xkdy"><a href="https://github.com/LucidVR/lucidgloves/tree/proto5" rel="nofollow">The LucidGloves</a> are a glove project that focuses on haptic feedback for VR gaming, in addition to the sensors. This was the initial inspiration, showing that something like this is possible.</p> <p data-svelte-h="svelte-kuyejs"><a href="https://www.mimugloves.com/" rel="nofollow">The MiMu Gloves</a> are a commercial product which allow musicians to create music with their hands. This is so far the only glove project I’ve come across that was developed for something other than VR gaming. The technology is also almost the same as what my project ended up using, namely flex sensors for finger tracking and accelerometer+gyroscope for hand tracking.</p> <p data-svelte-h="svelte-1p65blq"><a href="https://github.com/ras-marques/ImmersiveGloves" rel="nofollow">The ImmersiveGloves</a> are, in terms of fidelity and accuracy, the most impressive I’ve come across. The project utilises IMUs on each finger, allowing tracking of orientation for each in all directions. Looking ahead, this project is what I would want to take inspiration from for when I have the opportunity to make a proper pair of gloves.</p> <p data-svelte-h="svelte-dlhrac">These projects aren’t being looked at beyond basic specs. So each piece of the project will be designed by me from scratch:</p> <ul data-svelte-h="svelte-1p11kav"><li>The PCB schematic and design</li> <li>The frame that all the components will attach to. Either a resin exoskeleton, or if that fails, a cloth glove.</li> <li>The enclosure for the PCB, placed at the back of the hand</li> <li>The enclosure for the battery, placed either on the back of the hand as well or just below the wrist</li> <li>The basic debugging application on the receiving end</li></ul> <p data-svelte-h="svelte-129nia8">The list of materials is as follows.</p> <p data-svelte-h="svelte-j6cqn7">INSERT</p> <p data-svelte-h="svelte-i3mse5">During the project, several modules will be completed that will fit together into the complete controller glove.</p> <ul data-svelte-h="svelte-8yapcq"><li>The custom PCB, designed milled and soldered</li> <li>The casing of the PCB</li> <li>The casing for the battery</li> <li>The frame or glove for the flex sensors</li></ul> <p data-svelte-h="svelte-r4qiai">Various digital fabrication processes will be used:</p> <ul data-svelte-h="svelte-rr9eor"><li>Digital circuit board design with KiCad</li> <li>CAD modeling with Ondsel</li> <li>PCB milling with the Roland MDX-40</li> <li>Hand-soldering of components onto the PCB</li> <li>3D printing with Formlabs printers and their resin</li></ul> <p data-svelte-h="svelte-24u0gx">On the software side, embedded programming will be done with the Arduino IDE compiled to the nRF52, and on the receiving debug application side Rust and Bevy will be used. The communication protocol will be Bluetooth Low Energy.</p> <p data-svelte-h="svelte-1nzssan">This project is intended to be an initial prototype for future iterations of controller gloves. It seeks to answer a few important questions:</p> <ul data-svelte-h="svelte-idnqoo"><li><p>How well can an IMU be used for hand tracking? How well will it work with just an accelerometer and gyroscope, without a magnetometer?</p></li> <li><p>How suitable is the Bluetooth Low Energy connection for this use-case? Is the latency acceptable? Can it transmit the required amount of data, even taking into account future glove iterations which will have more parameters?</p></li> <li><p>Should the resin frame get completed, how comfortable and practical is it? Can the fingers bend laterally as well? How reliable and sturdy is the attachment of the PCB case to the back of the hand?</p></li></ul> <p data-svelte-h="svelte-15ct2fk">What questions?
+Can accelerometer? No mag?
+Can bluetooth? Latency and data?</p></article> </div> 
+			
+			<script>
+				{
+					__sveltekit_4kygwr = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/digital-fabrication"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.YL67Nvne.js"),
+						import("./_app/immutable/entry/app.Pvcff27D.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
