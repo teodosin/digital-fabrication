@@ -125,21 +125,71 @@ I had begun work on the 2nd PCB design. Thanks to the nRF52 making most of the p
 
 The bulk of the PCB would be just the voltage divider circuits for all the flex sensors. It's possible that a multiplexer and only one analog pin could still be made very small, since that would theoretically only require one voltage divider. I didn't experiment with that though. 
 
-![PCB Schemdone](fab15/17.png)
+![PCB Schemdone](fab0/17.png)
 
 Added the JST connector pads for the battery, the power switch and the extra button. 
 
-![PCB footprints](fab15/16.png)
+![PCB footprints](fab0/16.png)
 
 Routing the footprints was challenging and took some iteration. I wanted the PCB to be as small as possible, and for aesthetic reasons, circular. The nRF52 would also be soldered directly onto the board instead of being lifted up on headers. At this scale, even though the JST sockets are small, they would take up a lot of space and needed to be efficiently placed along the circle. The pads of the unused nRF52 pins were scaled down so they could be routed around more compactly. 
 
-I eventually managed to fit all the components and routes into a circle with a radius of 20mm, diameter 40mm. For reference, the board I made during [electronics design week](fablab-08), laying on the back of my hand. It's rectangular, with the shorter side being just under 40mm:
+I eventually managed to fit all the components and routes into a circle with a radius of 20mm, diameter 40mm. For reference, the board I made during [electronics design week](fablab-08), laying on the back of my hand. It's rectangular, with the shorter side being just under 40mm.
 
-![Old board on back of hand](fab15/19.jpg)
+![Old board on back of hand](fab0/19.jpg)
 
+The new PCB would be even smaller, and lower profile because the nRF would be soldered directly onto the board without headers supporting it. 
+
+![](fab0/26.jpg)
+
+When I was about to mill at the lab, it was suggested that I remove the routes for the battery and power switch and instead cut a hole in the PCB instead, and just get wires to come in from below
+
+![](fab0/25.png)
+
+Some last minute changes to the footprint. I had added mounting holes just in case I'd need them, adjusting their placement here, and removed the routes from the top and added edge cuts around the battery pins. 
+
+![](fab0/27.jpg)
+
+The footprint for the Xiao had these holes in the pads which I hadn't realised. I didn't think I'd need them, so I removed them and began the milling process. I had also somehow forgotten to update the clearance from the default 0.2mm to 0.4mm, and had to adjust many routes. I had rushed to go do the milling, overconfident about my design. It took just under two hours to make the required fixes before I could actually mill the board.
+
+![](fab0/28.jpg)
+
+Then, surprisingly, the board came out perfect on the first attempt. Helps that it was so small there wasn't even room for the PCB to bend. 
+
+![](fab0/29.jpg)
+
+Size comparison between the first and second iteration boards. 
+
+![](fab0/30.jpg)
+
+Resistors and nRF52 soldered on, as well as two flex sensors for testing purposes. The sensors were soldered onto silicon wires and the attachment covered with the thinnest heatshrink that was available at the lab. The wires would still have to be shortened when the final casing was done.
+
+# Frame & Casing
+
+I had first tried using Blender and its geometry nodes to make the frame. It had been several weeks since I last used Ondsel and Blender was fresher in my mind. Eventually I gave up on the nodes: it was much too cumbersome to do even simple things like make edge cuts and extrude from specific spots. 
+
+![](fab0/22.png)
+
+Then, still clinging onto Blender, I tried [CAD sketcher](www.cadsketcher.com), a Blender addon for CAD modeling. It was missing a couple constraints that were important to my previous Ondsel workflows, so I gave up on it also quite quickly. Know that it exists though, it's based on Solvespace and could still be useful for some simpler projects. 
+
+![](fab0/23.png)
+
+Back in Ondsel, my workflow was simple. Nothing new compared to previous weeks, so I won't go in depth here. Create sketch, pad it, create another sketch on top of a previous face, pad it, rinse and repeat. I used a boolean once to cut out a hole for the rubber ban. A few fillets at the end to make it look just a bit nicer. 
+
+We had done a few tests (can't find the pictures) to determine the optimal thickness for the flex frame to make it flexible. 0.4mm was the ideal amount, and that's what this initial design used. 
+
+![](fab0/31.jpg)
+
+The print came out alright, but it was clear the gaps were too small. The Formlabs resin had collapsed and closed the spots where the flex sensor was meant to snap into. The slot for the rubber band was also just slightly too tight to fit it comfortably. I didn't want to have to crumple it up and force it through. 
+
+![](fab0/32.jpg)
+![](fab0/33.jpg)
+
+I modified some parameters to grow all gaps by fractions of millimetres. Then tried again. Somewhat horrifyingly, the print lasted four hours. I was nervous about how long the casing would take to print, let alone the full frame that should cover the whole hand. 
+
+# Assembly
 
 ## Timeline
 
 Here's the project schedule, updated last wherever the white line is. 
 
-![Task timeline](fab0/sched_522.png)
+![Task timeline](fab0/sched_529.png)

@@ -62,12 +62,28 @@ The list of materials is as follows.
 
 INSERT
 
-WHAT MADE? The PCB, duh
+During the project, several modules will be completed that will fit together into the complete controller glove. 
+* The custom PCB, designed milled and soldered
+* The casing of the PCB
+* The casing for the battery
+* The frame or glove for the flex sensors
 
-PROCESS
-CNC PCB Milling 
-Component Soldering 
-Formlabs resin printing
+Various digital fabrication processes will be used:
+* Digital circuit board design with KiCad
+* CAD modeling with Ondsel
+* PCB milling with the Roland MDX-40
+* Hand-soldering of components onto the PCB
+* 3D printing with Formlabs printers and their resin
+
+On the software side, embedded programming will be done with the Arduino IDE compiled to the nRF52, and on the receiving debug application side Rust and Bevy will be used. The communication protocol will be Bluetooth Low Energy. 
+
+This project is intended to be an initial prototype for future iterations of controller gloves. It seeks to answer a few important questions:
+
+* How well can an IMU be used for hand tracking? How well will it work with just an accelerometer and gyroscope, without a magnetometer? 
+
+* How suitable is the Bluetooth Low Energy connection for this use-case? Is the latency acceptable? Can it transmit the required amount of data, even taking into account future glove iterations which will have more parameters?
+
+* Should the resin frame get completed, how comfortable and practical is it? Can the fingers bend laterally as well? How reliable and sturdy is the attachment of the PCB case to the back of the hand?
 
 What questions?
 Can accelerometer? No mag?
