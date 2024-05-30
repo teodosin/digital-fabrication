@@ -58,9 +58,9 @@ These projects aren't being looked at beyond basic specs. So each piece of the p
 * The enclosure for the battery, placed either on the back of the hand as well or just below the wrist
 * The basic debugging application on the receiving end 
 
-The list of materials is as follows.
+The bill of materials is as follows.
 
-INSERT
+![Bill of materials](fab16/bill.png)
 
 During the project, several modules will be completed that will fit together into the complete controller glove. 
 * The custom PCB, designed milled and soldered

@@ -163,7 +163,7 @@ Size comparison between the first and second iteration boards.
 
 Resistors and nRF52 soldered on, as well as two flex sensors for testing purposes. The sensors were soldered onto silicon wires and the attachment covered with the thinnest heatshrink that was available at the lab. The wires would still have to be shortened when the final casing was done.
 
-# Frame & Casing
+# Frame
 
 I had first tried using Blender and its geometry nodes to make the frame. It had been several weeks since I last used Ondsel and Blender was fresher in my mind. Eventually I gave up on the nodes: it was much too cumbersome to do even simple things like make edge cuts and extrude from specific spots. 
 
@@ -185,6 +185,21 @@ The print came out alright, but it was clear the gaps were too small. The Formla
 ![](fab0/33.jpg)
 
 I modified some parameters to grow all gaps by fractions of millimetres. Then tried again. Somewhat horrifyingly, the print lasted four hours. I was nervous about how long the casing would take to print, let alone the full frame that should cover the whole hand. 
+
+The next day the print had cured, and I saw that it was again a failure. 
+
+I made the choice to fall back on the cloth glove I had prepared earlier. The flexible frame was a neat idea, but I started with it too late to get through the necessary iterations to get it right. A whole day for a single flex sensor frame was too much
+
+# Casing
+
+![](fab0/40.png)
+![](fab0/41.png)
+![](fab0/42.png)
+![](fab0/43.png)
+![](fab0/44.png)
+![](fab0/45.png)
+![](fab0/46.png)
+![](fab0/47.png)
 
 # Assembly
 
