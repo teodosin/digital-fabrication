@@ -200,6 +200,12 @@ I made the choice to fall back on the cloth glove I had prepared earlier. The fl
 ![](fab0/45.png)
 ![](fab0/46.png)
 ![](fab0/47.png)
+![](fab0/48.png)
+![](fab0/49.png)
+![](fab0/50.png)
+![](fab0/51.png)
+
+I worked on my laptop at the lab so I could get to printing as soon as possible. At this point, every single new sketch I tried to make, to add a curved base for example and grooves to attach the case to the hand with, resulted in Ondsel processing and freezing for half a minute at a time. 
 
 # Assembly
 
