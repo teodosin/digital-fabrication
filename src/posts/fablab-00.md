@@ -203,6 +203,10 @@ I made the choice to fall back on the cloth glove I had prepared earlier. The fl
 
 # Assembly
 
+# Application
+
+
+
 ## Timeline
 
 Here's the project schedule, updated last wherever the white line is. 
