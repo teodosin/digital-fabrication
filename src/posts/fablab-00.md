@@ -205,13 +205,89 @@ I made the choice to fall back on the cloth glove I had prepared earlier. The fl
 ![](fab0/50.png)
 ![](fab0/51.png)
 
-I worked on my laptop at the lab so I could get to printing as soon as possible. At this point, every single new sketch I tried to make, to add a curved base for example and grooves to attach the case to the hand with, resulted in Ondsel processing and freezing for half a minute at a time. 
+I worked on my laptop at the lab so I could get to printing as soon as possible. At this point, every single new sketch I tried to make, to add a curved base for example and grooves to attach the case to the hand with, resulted in Ondsel processing and freezing for half a minute at a time. I opted to just print and then make the part that would be sewn onto the glove separately, and then glue them together at the end. 
+
+![](fab0/61.jpg)
+![](fab0/63.jpg)
+![](fab0/65.jpg)
+
+After making adjustments to the model, its printing failed several times.
+
+![](fab0/64.jpg)
+![](fab0/66.jpg)
+![](fab0/67.jpg)
+
+![](fab0/52.png)
+![](fab0/53.png)
+
+I went through a few iterations of the print that would be sewn onto the glove. My first idea was to have these slots under the piece. It was pointed out to me that this would be difficult to sew.
+
+![](fab0/54.png)
+
+Better. Printed fine as well. 
+
+It was time for the final assembly. 
 
 # Assembly
 
+![](fab0/62.jpg)
+
+I soldered the thinnest silicone wire available to the flex sensors and put pieces of the thinnest heatshrink on top, then soldered the other ends of the wires to the PCB. I didn't heat the heatshrinks yet before I had tested the sensors, to maintain the option to resolder if needed. 
+
+There was a detour before the final assembly. I wanted to test battery powering the board, because I noticed that the casing wouldn't be easy to take apart once assembled. It didn't work, not with battery power nor via usb from a power bank. When connected to a computer it worked fine.  Debugging and testing with another nrf52 and an rp2040, made it seem like the battery charging circuit had been fried. I got help with desoldering my nrf52 from the PCB, resoldering a new one, placing tapes underneath to make sure nothing was being shorted, and when that was all done, running the blink example, it seemed the issue went away. So I went ahead to work on the battery terminal. 
+
+![](fab0/68.jpg)
+
+The idea was to take pieces of nickel tape for both ends of the terminal and melt them into the plastic of the casing. I tested it first with a failed print, seeing how well the heated nickel piece would sink into the plastic. 
+
+![](fab0/71.jpg)
+
+First piece in, and the power switch glued into its slot. 
+
+![](fab0/60.jpg)
+
+The second nickel piece went in more easily, with a different strategy. Instead of heating the nickel away from the casing and then quickly trying to push it in while it was hot, I placed the piece directly onto the casing and used the hot air gun locally. I was hesitant to do this at first because of the risk of the surrounding casing also deforming. The air gun was set to just below 200 degrees, slightly above the melting point of the PLA plastic. Turned out well. 
+
+![](fab0/69.jpg)
+
+Soldered wires to the button.
+
+![](fab0/70.jpg)
+
+Tested the solder joints with a multimeter.
+
+![](fab0/72.jpg)
+
+The battery fit right in. I uploaded my code, and it didn't work again! Highly suspicious. I uploaded the example blinking code again, and it worked. 
+
+So the whole detour earlier was a red herring. The issue was with my code. And it turned out it was a very simple mistake. 
+
+In the Arduino setup code, I called
+
+`while (!Serial);`
+
+This was in the base code since the beginning, so I didn't think much of it. But what it does is that it stops the code and loops in place until there's a serial connection. A serial connection is only established when connected to a computer (and presumably with the Arduino IDE open, but I'm not sure). It was only logical that the blinking code wouldn't work, since those lines were after this one. Removing it was enough to make everything work again. 
+
+![](fab0/73.jpg)
+
+Everything ready. 
+
+![](fab0/74.jpg)
+
+Sewed it onto the glove. 
+
+![](fab0/76.jpeg)
+
+Inserted the flex sensors into the pockets and secured them in bit a bit of thread. Then I glued the casing on. 
+
+![](fab0/75.jpg)
+
+Finally. Finished. 
+
+
 # Application
 
-
+The final 
 
 ## Timeline
 

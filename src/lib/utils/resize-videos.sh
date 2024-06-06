@@ -49,8 +49,8 @@ target_dimension=640
 crf_value=23
 
 # Set the input and output directories
-input_directory="../../../static/fab13"
-output_directory="../../../static/fab13"
+input_directory="../../../static"
+output_directory="../../../static/fab0"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_directory"
