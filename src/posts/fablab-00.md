@@ -287,7 +287,16 @@ Finally. Finished.
 
 # Application
 
-The final 
+The final application was a simple Bevy app that loads a Gaussian Spat scan (using an existing library) and allows the user to turn the camera whenever they make a fist. 
+
+I will not go over the code of the application, but you can view the source code [here](https://www.github.com/teodosin/glove_debug). The arduino code for the glove is [here](https://www.github.com/teodosin/glove_ard).
+
+<video
+src="fab0/gausr.mp4"
+autoplay="autoplay"
+loop="loop"
+>
+</video>
 
 ## Timeline
 
