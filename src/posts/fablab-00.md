@@ -298,8 +298,13 @@ loop="loop"
 >
 </video>
 
-## Timeline
+<video
+src="presentation.mp4"
+>
+</video>
 
-Here's the project schedule, updated last wherever the white line is. 
+# Conclusion
 
-![Task timeline](fab0/sched_529.png)
+This was an in-depth and broad learning experience. I enjoyed it greatly. It was interesting to watch my expectations and conceptions of electronics change and get corrected. Inevitably the project fell short of my initial ambitions, but I'm still satisfied with the result. There's room to improve with the next iteration. And I do hope that I'll get around to producing an improved design, and for both hands. I will likely base it on the ImmersiveGloves project, if not outright follow it. 
+
+In the mean time, there's plenty to do on the software side with this glove still. The bluetooth settings could possibly be altered to improve latency. The IMU data could be processed better to lead to a more accurate, less jerky gesture recognition system. 

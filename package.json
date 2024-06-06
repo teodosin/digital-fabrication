@@ -6,7 +6,7 @@
 		"dev": "node src/lib/utils/generate-entries.js && vite dev",
 		"resize-images": "node src/lib/utils/resize-images.js",
 		"prebuild": "node src/lib/utils/generate-entries.js",
-		"build": "npm run resize-images && vite build",
+		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
